@@ -15,6 +15,19 @@
   text-align: center;
 }
 
+/* Vault Title - Commanding and Centered */
+.vault-title {
+  font-size: 3.5rem;
+  color: #c2964a;
+  font-weight: 900;
+  letter-spacing: 8px;
+  margin: 0 0 40px 0;
+  text-shadow: 0 0 20px rgba(194, 150, 74, 0.3);
+  font-family: "Cinzel", serif;
+  opacity: 0.95;
+  text-transform: uppercase;
+}
+
 /* Sigil Pulse */
 .sigil {
   font-size: 4rem;
