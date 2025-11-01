@@ -1,0 +1,77 @@
+/* Gate Darkness */
+.gate-body {
+  background: #000;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cinzel", serif;
+  overflow: hidden;
+}
+
+/* Center Container */
+.center {
+  text-align: center;
+}
+
+/* Vault Title - Commanding and Centered */
+.vault-title {
+  font-size: 3.5rem;
+  color: #c2964a;
+  font-weight: 900;
+  letter-spacing: 8px;
+  margin: 0 0 40px 0;
+  text-shadow: 0 0 20px rgba(194, 150, 74, 0.3);
+  font-family: "Cinzel", serif;
+  opacity: 0.95;
+  text-transform: uppercase;
+}
+
+/* Sigil Pulse */
+.sigil {
+  font-size: 4rem;
+  color: #c2964a;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: transform 1.4s ease, opacity 1.4s ease;
+  animation: pulse 4s infinite;
+}
+
+.sigil:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* Entry text (hidden by default) */
+.entry {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #c2964a;
+  opacity: 0;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: opacity 1s ease;
+  display: block;
+}
+
+/* Reveal text on hover */
+.sigil:hover + .entry {
+  opacity: 1;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+}
