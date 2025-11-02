@@ -1,0 +1,81 @@
+body.revelation-body {
+  background: black;
+  color: #c9a675;
+  font-family: serif;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sigil {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.text p {
+  margin: 0.4rem 0;
+  font-size: 1.0rem;
+}
+
+.continue {
+  margin-top: 2rem;
+  display: inline-block;
+  text-decoration: none;
+  color: #c9a675;
+  border: 1px solid #c9a675;
+  padding: 0.5rem 1rem;
+  transition: 0.3s;
+}
+
+.continue:hover {
+  background: #c9a675;
+  color: black;
+}
+  .hidden-truth {
+    position: fixed;
+    bottom: 8px;
+    right: 12px;
+    font-size: 0.65rem;
+    color: rgba(194, 150, 74, 0.15);
+    font-family: serif;
+    font-style: italic;
+    opacity: 0;
+    transition: opacity 2s ease;
+    pointer-events: none;
+    transform: rotate(-2deg);
+    letter-spacing: 0.5px;
+  }
+  
+  /* Only reveals on very specific hover */
+  body:hover .hidden-truth {
+    opacity: 100;
+  }
+  
+  /* Alternative: reveals only when hovering bottom corner */
+  .revelation-body::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    pointer-events: all;
+  }
+  
+  .revelation-body::after:hover ~ .center .hidden-truth {
+    opacity: 100;
+  }
+
+/* Final whisper styling */
+.final-whisper {
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+.final-whisper p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
