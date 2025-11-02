@@ -1,0 +1,53 @@
+body.hall-of-origin {
+  background: black;
+  color: #c9a675;
+  font-family: serif;
+  text-align: center;
+  margin: 0;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  /* Removed height: 100vh and flex centering to allow scrolling */
+}
+
+.center {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.sigil {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.text p {
+  margin: 0.4rem 0;
+  font-size: 1.0rem;
+  line-height: 1.4;
+}
+
+.text br {
+  display: block;
+  margin: 1rem 0;
+}
+
+.continue {
+  margin-top: 2rem;
+  display: inline-block;
+  text-decoration: none;
+  color: #c9a675;
+  border: 1px solid #c9a675;
+  padding: 0.5rem 1rem;
+  transition: 0.3s;
+}
+
+.continue:hover {
+  background: #c9a675;
+  color: black;
+}
+
+/* Ensure scrolling works */
+html, body {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
