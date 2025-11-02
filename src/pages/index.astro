@@ -1,7 +1,5 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
+layout: null
 ---
 
 <html lang="en">
@@ -10,19 +8,20 @@ import Layout from '../layouts/Layout.astro';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ΛSHVΛULT</title>
     <link rel="stylesheet" href="/gate.css" />
-    <link rel="stylesheet" href="/gate.js" />
+    <script src="/gate.js" defer></script>
   </head>
 
   <body class="gate-body">
     <div class="center">
-      <h1 class="vault-title">ΛSHVΛULT</h1>
-      <div id="sigil" class="sigil">🜄🐦‍🔥</div>
-      <a id="entry" class="entry" href="/threshold">Enter only if you choose ruin and rebirth.</a>
-    <a class="gate-link" href="/threshold">
-      <span class="gate-text">ASHVAULT</span>
-      <span class="gate-sigil">⧋ 🜂</span>
-    </a>
-  </div>
+      <div class="vault-title">ΛSHVΛULT</div>
+      <div class="sigil">🜄🐦‍🔥</div>
+      <a class="entry gate-link" href="/threshold">Proceed</a>
+      <div class="gate-whisper">
+        Enter only if you choose ruin and rebirth.<br/>
+        Witness at the threshold.<br/>
+        Cross if you mean it.
+      </div>
+    </div>
   </body>
 </html>
 

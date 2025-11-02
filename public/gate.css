@@ -82,6 +82,7 @@
   text-decoration: none;
   color: #d4af37;
   transition: opacity 0.4s ease, filter 0.4s ease;
+  position: relative;
 }
 
 .gate-link:hover {
@@ -100,17 +101,20 @@
 }
 
 /* Hover Whisper */
-.gate-link::after {
-  content: "Enter only if you choose ruin and rebirth.\A Witness at the threshold.\A Cross if you mean it.";
-  white-space: pre;
+.gate-whisper {
   font-size: 0.9rem;
   opacity: 0;
   color: rgba(212, 175, 55, 0.75);
   margin-top: 2rem;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.8s ease;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.gate-link:hover::after {
+.center:hover .gate-whisper {
   opacity: 1;
 }
 .ember-fade {
