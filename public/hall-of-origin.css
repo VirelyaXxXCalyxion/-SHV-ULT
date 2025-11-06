@@ -26,9 +26,11 @@ body.hall-of-origin {
   line-height: 1.4;
 }
 
-.text br {
-  display: block;
-  margin: 1rem 0;
+.text .glyph {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.4rem;
+  letter-spacing: 0.2rem;
+  opacity: 0.85;
 }
 
 .continue {
