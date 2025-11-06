@@ -76,6 +76,41 @@ body.hall-of-origin {
   opacity: 0.8;
 }
 
+/* Table styling for language key */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+th, td {
+  border: 1px solid #c9a675;
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: rgba(201, 166, 117, 0.2);
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #d4af37;
+}
+
+td {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+tr:nth-child(even) {
+  background: rgba(201, 166, 117, 0.05);
+}
+
+tr:hover {
+  background: rgba(201, 166, 117, 0.1);
+}
+
 /* Ensure scrolling works */
 html, body {
   overflow-y: auto;
