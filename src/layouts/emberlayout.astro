@@ -1,0 +1,31 @@
+---
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ΛSHVΛULT — {title}</title>
+    <link rel="stylesheet" href="/ember.css" />
+  </head>
+
+  <body class="ember-layout">
+    <div class="ember-overlay"></div>
+
+    <main class="ember-container">
+      <header class="ember-header">
+        <h1 class="ember-title">{title}</h1>
+      </header>
+
+      <section class="ember-content">
+        <slot />
+      </section>
+    </main>
+
+    <div class="ember-flicker"></div>
+    <script src="/ember-trails.js" defer></script>
+  </body>
+</html>
+
+
