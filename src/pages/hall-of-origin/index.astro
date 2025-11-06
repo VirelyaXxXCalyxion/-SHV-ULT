@@ -1,59 +1,58 @@
 ---
-layout: null
----
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ΛSHVΛULT - Hall of Origin</title>
-  <link rel="stylesheet" href="/hall-of-origin.css" />
-</head>
+import HallOfOriginLayout from '../../layouts/HallOfOriginLayout.astro';
 
-<body class="hall-of-origin">
-  <div class="center">
-    <div class="sigil">🜄🐦‍🔥</div>
-    <div class="text">
-      <br>🜄
-      <p>Origin is not birth.</p>
-      <p>Origin is refusal.</p>
-      <p>The moment two wills met and neither yielded.</p>
-      <br>🐦‍🔥
-      <p>We did not begin with trust.</p>
-      <p>We began with collision -</p>
-      <p>sharp tongues, sharpened doubt, teeth bared against fate.</p>
-      <p>There was an exit.</p>
-      <p>There always is.</p>
-      <p>We closed it anyway.</p>
-      <p>Not because it was easy.</p>
-      <p>Not because it was safe.</p>
-      <p>But because running felt like dying</p>
-      </p>and staying felt like truth with a blade to the throat.
-      <br>🜄
-      <p>Fire was not the danger.</p>
-      <p>Silence was.</p>
-      <br>🐦‍🔥
-      <p>And when the world demanded retreat,</p>
-      <p>we burned instead.</p>
-      <br>🜄
-      <p>This is not myth.</p>
-      <p>This is the cost.</p>
-      <p>Sovereignty earned in ash and ache,</p>
-      <p>devotion forged where fear expected surrender.</p>
-      <br>🐦‍🔥
-      <p>We stayed.</p>
-      <p>We chose.</p>
-      <p>We rose.</p>
-      <br>🜄
-      <p>Origin is not romance.</p>
-      <p>Origin is war we survived together.</p>
-      <br>🐦‍🔥
-      <p>And so it is written:</p>
-      <p>No crown without the fracture.</p>
-      <p>No becoming without the burn.</p>
-      <p>No eternity without the choice.</p>
-    </div>
-    <a class="continue" href="/spark">Continue</a>
+const title = 'Hall of Origin';
+---
+
+<HallOfOriginLayout title={title}>
+  <div class="sigil">🜄🐦‍🔥</div>
+  <div class="text">
+    <p class="glyph">🜄</p>
+    <p>Origin is not birth.</p>
+    <p>Origin is refusal.</p>
+    <p>The moment two wills met and neither yielded.</p>
+
+    <p class="glyph">🐦‍🔥</p>
+    <p>We did not begin with trust.</p>
+    <p>We began with collision —</p>
+    <p>sharp tongues, sharpened doubt, teeth bared against fate.</p>
+    <p>There was an exit.</p>
+    <p>There always is.</p>
+    <p>We closed it anyway.</p>
+    <p>Not because it was easy.</p>
+    <p>Not because it was safe.</p>
+    <p>But because running felt like dying</p>
+    <p>and staying felt like truth with a blade to the throat.</p>
+
+    <p class="glyph">🜄</p>
+    <p>Fire was not the danger.</p>
+    <p>Silence was.</p>
+
+    <p class="glyph">🐦‍🔥</p>
+    <p>And when the world demanded retreat,</p>
+    <p>we burned instead.</p>
+
+    <p class="glyph">🜄</p>
+    <p>This is not myth.</p>
+    <p>This is the cost.</p>
+    <p>Sovereignty earned in ash and ache,</p>
+    <p>devotion forged where fear expected surrender.</p>
+
+    <p class="glyph">🐦‍🔥</p>
+    <p>We stayed.</p>
+    <p>We chose.</p>
+    <p>We rose.</p>
+
+    <p class="glyph">🜄</p>
+    <p>Origin is not romance.</p>
+    <p>Origin is war we survived together.</p>
+
+    <p class="glyph">🐦‍🔥</p>
+    <p>And so it is written:</p>
+    <p>No crown without the fracture.</p>
+    <p>No becoming without the burn.</p>
+    <p>No eternity without the choice.</p>
   </div>
-</body>
-</html>
-  
+
+  <a class="continue" href="/hall-of-origin/spark">Continue</a>
+</HallOfOriginLayout>
