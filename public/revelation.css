@@ -51,6 +51,7 @@ body.revelation-body {
   /* Only reveals on very specific hover */
   body:hover .hidden-truth {
     opacity: 100;
+    opacity: 10;
   }
   
   /* Alternative: reveals only when hovering bottom corner */
