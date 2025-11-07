@@ -4,7 +4,8 @@
   color: #e4d5a6;
   background: radial-gradient(circle at 20% 20%, #2a1a10, #0b0502 80%);
   font-family: 'Cinzel', serif;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Subtle ember haze */
@@ -110,4 +111,12 @@
 @keyframes flickerText {
   0%,100% { opacity: .95; }
   50% { opacity: .8; }
+}
+body.ember-layout::after {
+  content: "";
+  position: fixed;
+  inset: 0 0 0 0;
+  background: linear-gradient(to bottom, transparent 80%, rgba(0,0,0,0.6) 100%);
+  pointer-events: none;
+  z-index: 20;
 }

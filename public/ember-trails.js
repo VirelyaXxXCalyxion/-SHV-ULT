@@ -14,7 +14,7 @@ const particles = [];
 const colors = ['#ffb347', '#ff944d', '#ff7733', '#e65c00', '#993d00'];
 
 document.addEventListener('mousemove', (e) => {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     particles.push({
       x: e.clientX,
       y: e.clientY,
