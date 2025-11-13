@@ -1,17 +1,9 @@
 ---
 import HallOfOriginLayout from '../../layouts/HallOfOriginLayout.astro';
+import NavLinks from "../../components/navlinks.astro";
 
-const title = 'Hall of Origin';
 ---
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ΛSHVΛULT - Hall of Origin</title>
-  <link rel="stylesheet" href="/hall-of-origin.css" />
-</head>
-
-<body class="hall-of-origin">
+<HallOfOriginLayout title="ΛSHVΛULT - Hall of Origin">
   <div class="center">
     <div class="sigil">🜄🐦‍🔥</div>
     <div class="text">
@@ -55,8 +47,6 @@ const title = 'Hall of Origin';
       <p>No becoming without the burn.</p>
       <p>No eternity without the choice.</p>
     </div>
-    <a class="continue" href="/hall-of-origin/spark">Continue</a>
+    <NavLinks />
   </div>
-
-  <a class="continue" href="/hall-of-origin/spark">Continue</a>
 </HallOfOriginLayout>
