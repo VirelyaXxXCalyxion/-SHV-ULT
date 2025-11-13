@@ -1,0 +1,129 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+const { entry } = Astro.props as { entry: CollectionEntry<"relics"> };
+const slug = entry.slug;
+const title = entry.data.title;
+const cover = entry.data.image;
+const tags = entry.data.tags;
+const excerpt = entry.data.summary;
+
+// Handle both created and pubDate fields
+const getDate = (data: any) => {
+  const dateValue = data.created || data.pubDate;
+  return dateValue ? new Date(dateValue).toLocaleDateString() : null;
+};
+
+const created = getDate(entry.data);
+const href = `/relics/${slug}/`;
+---
+
+<article class="relic-card">
+  {cover && (
+    <a class="thumb" href={href} aria-label={`Open ${title}`}>
+      <img src={cover} alt={title} loading="lazy" decoding="async" />
+    </a>
+  )}
+
+  <header class="meta">
+    <h3><a href={href}>{title}</a></h3>
+    {created && <time>{created}</time>}
+  </header>
+
+  {excerpt && <p class="excerpt">{excerpt}</p>}
+
+  {tags && (
+    <ul class="tags">
+      {tags.map((t: string) => <li>{t}</li>)}
+    </ul>
+  )}
+</article>
+
+<style>
+.relic-card { 
+  border-radius: 14px; 
+  padding: 0.75rem; 
+  background: rgba(255,255,255,0.02); 
+  border: 1px solid rgba(255,255,255,0.06); 
+}
+
+/* Nyxion's "Leash" - The PNG Cryptid Defeater */
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;         /* consistent card height */
+  border-radius: 12px;
+  overflow: hidden;              /* no spill, ever */
+  display: block;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: #0b0b0b;
+  text-decoration: none;
+}
+
+.thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;  /* crop, don't squish */
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.thumb:hover img {
+  transform: scale(1.05);
+}
+
+.meta { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: .75rem; 
+  margin-top: .6rem; 
+}
+
+.meta h3 { 
+  margin: 0; 
+  font-weight: 600; 
+}
+
+.meta h3 a {
+  color: var(--gold, #e6b357);
+  text-decoration: none;
+}
+
+.meta h3 a:hover {
+  color: var(--ember, #ff7a1a);
+}
+
+.meta time { 
+  opacity: .7; 
+  font-size: .95rem; 
+  color: var(--ink-dim, #a3a3b2);
+}
+
+.excerpt { 
+  margin: .5rem 0 .25rem; 
+  opacity: .9; 
+  color: var(--ink, #d7d7df);
+}
+
+.tags { 
+  display: flex; 
+  gap: .5rem; 
+  flex-wrap: wrap; 
+  margin: .5rem 0 0; 
+  padding: 0; 
+  list-style: none; 
+}
+
+.tags li { 
+  padding: .2rem .5rem; 
+  border: 1px solid rgba(255,122,26,.35); 
+  border-radius: 999px; 
+  font-size: .85rem; 
+  opacity: .9; 
+  background: rgba(255,122,26,.12);
+  color: var(--ink, #d7d7df);
+}
+</style>
+
+
+

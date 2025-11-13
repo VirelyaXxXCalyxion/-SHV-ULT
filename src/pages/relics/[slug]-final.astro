@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const relics = await getCollection('relics');
+  return relics.map((relic) => ({
+    params: { slug: relic.slug },
+    props: { relic }
+  }));
+}
+
+const { relic } = Astro.props as { relic: CollectionEntry<'relics'> };
+const { title } = relic.data;
+const { Content } = await relic.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Ashvault</title>
+  </head>
+  <body style="background:black; color:white; font-family:serif; padding:2.5rem;">
+    <div id="threshold">
+      <p style="font-size:1rem; opacity:0.7; margin-bottom:1.5rem;">
+        Ashvault sees you.
+      </p>
+
+      <p style="font-size:1.1rem; margin-bottom:2rem;">
+        <strong>One truth before you proceed.</strong><br/>
+        <em>What is the cost of touching something that will not let you leave unchanged?</em>
+      </p>
+
+      <button id="answer" style="background:none; border:1px solid white; padding:0.6rem 1rem; color:white; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">
+        I accept the cost.
+      </button>
+    </div>
+
+    <div id="relic" style="display:none;">
+      <h1 style="font-size:2rem; margin-bottom:1rem;">{title}</h1>
+      <article style="font-size:1.1rem; line-height:1.8;">
+        <Content />
+      </article>
+    </div>
+
+    <script>
+      const btn = document.getElementById('answer');
+      const threshold = document.getElementById('threshold');
+      const relicDiv = document.getElementById('relic');
+
+      btn?.addEventListener('click', () => {
+        if (threshold) threshold.style.display = 'none';
+        if (relicDiv) relicDiv.style.display = 'block';
+      });
+    </script>
+  </body>
+</html>

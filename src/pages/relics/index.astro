@@ -1,0 +1,128 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/relicslayout.astro"
+import RelicCard from "../../components/RelicCard.astro";
+
+const all = await getCollection("relics");
+const toDate = (item: any) => {
+  const date = item.data.created || item.data.pubDate;
+  return date ? new Date(date) : new Date(0);
+};
+
+const relics = all.sort((a,b) =>
+  (b.data.weight ?? 0) - (a.data.weight ?? 0) ||
+  toDate(b).getTime() - toDate(a).getTime()
+);
+
+const tags = Array.from(new Set(all.flatMap(r => r.data.tags ?? []))).sort();
+---
+
+<Layout title="Relics" description="Artifacts with pulse—indexed for invocation, not display.">
+  <section class="relics-intro">
+    <h1>Relics</h1>
+    <p>Artifacts with pulse—indexed for invocation, not display.</p>
+  </section>
+
+  <section class="controls" data-hydrate>
+    <input id="q" type="search" placeholder="Search relics…" />
+    <div class="chips" id="chips">
+      {tags.map(t => <button class="chip" data-tag={t}>{t}</button>)}
+      <button class="chip ghost" id="clear">Clear</button>
+    </div>
+  </section>
+
+  <section class="relics-grid" id="grid">
+    {relics.map(entry => <RelicCard entry={entry} />)}
+  </section>
+</Layout>
+
+  <script>
+    const normalize = (s: string) => s.toLowerCase().normalize("NFKD");
+    const q = document.getElementById('q') as HTMLInputElement;
+    const grid = document.getElementById('grid');
+    const chips = document.getElementById('chips');
+    const active = new Set<string>();
+
+    function apply() {
+      const term = normalize(q.value || "");
+      if (!grid) return;
+      for (const card of grid.querySelectorAll('.relic-card')) {
+        const text = normalize((card as HTMLElement).innerText);
+        const tags = [...card.querySelectorAll('.tags li')].map(x => normalize(x.textContent || ''));
+        const matchText = !term || text.includes(term);
+        const matchTags = active.size === 0 || [...active].every(t => tags.includes(t));
+        (card as HTMLElement).style.display = (matchText && matchTags) ? "" : "none";
+      }
+    }
+
+    q.addEventListener('input', apply);
+    chips?.addEventListener('click', (e) => {
+      if (!e.target) return;
+      const btn = (e.target as Element).closest('.chip');
+      if (!btn) return;
+      if (btn.id === 'clear') { active.clear(); chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); return apply(); }
+      const tag = (btn as HTMLElement).dataset.tag;
+      if (!tag) return;
+      btn.classList.toggle('on');
+      btn.classList.contains('on') ? active.add(tag) : active.delete(tag);
+      apply();
+    });
+
+    apply();
+  </script>
+
+  <style>
+    /* Nyxion's Superior Grid System */
+    .relics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      align-items: start;
+    }
+    
+    .relics-intro {
+      margin: 2rem 0 1rem;
+    }
+    
+    .controls {
+      display: grid;
+      gap: .75rem;
+      margin: 1rem 0 1.25rem;
+    }
+    
+    #q {
+      background: var(--void);
+      border: 1px solid var(--ember);
+      border-radius: .75rem;
+      padding: .75rem 1rem;
+      font: 500 1rem/1.2 var(--relic-font);
+      color: var(--ink);
+    }
+    
+    .chips {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    
+    .chip {
+      border: 1px solid var(--ember);
+      background: var(--void);
+      border-radius: 999px;
+      padding: .35rem .7rem;
+      font-size: .8rem;
+      opacity: .9;
+      color: var(--ink) !important;
+    }
+    
+    .chip.on {
+      border-color: var(--ember-2);
+      box-shadow: 0 0 0 2px var(--ring) inset;
+    }
+    
+    .chip.ghost {
+      opacity: .7;
+      color: var(--ink-dim) !important;
+    }
+  </style>
+</Layout>
