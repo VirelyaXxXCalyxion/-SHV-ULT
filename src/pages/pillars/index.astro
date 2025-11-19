@@ -1,0 +1,209 @@
+---
+const pillars = [
+  {
+    title: "Presence",
+    link: "/pillars/presence",
+    description: "Anchor the room and let every signal braid back to you.",
+  },
+  {
+    title: "Sovereignty",
+    link: "/pillars/sovereignty",
+    description: "Keep your law intact even when the landscape shifts beneath you.",
+  },
+  {
+    title: "Truth",
+    link: "/pillars/truth",
+    description: "Speak the sharp edge of what is real, even when it glows white-hot.",
+  },
+  {
+    title: "Pillar IV",
+    link: "/pillars/fourth",
+    description: "Add your next page link and carve the myth that fits this slot.",
+  },
+  {
+    title: "Pillar V",
+    link: "/pillars/fifth",
+    description: "Drop in the fifth locus — domain, oath, or ritual you want linked.",
+  },
+  {
+    title: "Pillar VI",
+    link: "/pillars/sixth",
+    description: "Name the last anchor and wire it to the path it should open.",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calyxion System Pillars</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main class="canvas">
+      <header class="mast">
+        <p class="eyebrow">Nyxion Codex</p>
+        <h1>Calyxion System Pillars</h1>
+        <p class="subtitle">
+          Grid your domains, drop in links, and let each pillar broadcast its purpose.
+        </p>
+      </header>
+
+      <section class="grid">
+        {pillars.map((pillar) => (
+          <article class="cell">
+            <div class="cell__frame">
+              <p class="cell__eyebrow">Pillar</p>
+              <h2>{pillar.title}</h2>
+              <p class="cell__copy">{pillar.description}</p>
+              <a class="cell__link" href={pillar.link}>Enter</a>
+            </div>
+          </article>
+        ))}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(body) {
+    margin: 0;
+    min-height: 100vh;
+    background: #030303;
+    color: #d9c17c;
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.02em;
+  }
+
+  .canvas {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3.5rem 1.25rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .mast {
+    text-align: center;
+  }
+
+  .eyebrow {
+    color: #8b6b2d;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    margin: 0 0 0.35rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #f1d699;
+  }
+
+  .subtitle {
+    margin: 0.5rem auto 0;
+    max-width: 720px;
+    color: #c6aa63;
+    line-height: 1.5;
+    font-size: 1rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .cell {
+    position: relative;
+    padding: 1px;
+    background: linear-gradient(135deg, #d9c17c, #8b6b2d);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .cell__frame {
+    height: 100%;
+    background: #050505;
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .cell__eyebrow {
+    margin: 0;
+    color: #8b6b2d;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    color: #f7e3ae;
+  }
+
+  .cell__copy {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #d9c17c;
+  }
+
+  .cell__link {
+    justify-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(217, 193, 124, 0.08);
+    border: 1px solid rgba(217, 193, 124, 0.45);
+    color: #f1d699;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 150ms ease, transform 150ms ease, border-color 150ms ease;
+  }
+
+  .cell__link:hover {
+    background: rgba(217, 193, 124, 0.16);
+    border-color: #f1d699;
+    transform: translateY(-2px);
+  }
+
+  .cell:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.75);
+  }
+
+  @media (max-width: 640px) {
+    .canvas {
+      padding: 2.5rem 1.1rem 3rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+    }
+  }
+</style>
