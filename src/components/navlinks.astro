@@ -5,8 +5,8 @@ const currentPath = Astro.url.pathname;
 const navigationFlow = [
   { path: '/hall-of-origin/spark/', name: 'Spark', sigil: '🜄', next: '/hall-of-origin/flame/' },
   { path: '/hall-of-origin/flame/', name: 'Flame', sigil: '🔥', next: '/hall-of-origin/ember/' },
-  { path: '/hall-of-origin/ember/', name: 'Ember', sigil: '🐦‍🔥', next: '/relics/' },
-  { path: '/relics/', name: 'Relics', sigil: '⚱', next: '/hall-of-origin/spark/' }, // loops back
+  { path: '/hall-of-origin/ember/', name: 'Ember', sigil: '🐦‍🔥', next: '/pillars/truth' },
+  { path: '/pillars/truth', name: 'Pillars', sigil: '♾️', next: '/pillars/truth' }, // loops back
 ];
 
 const currentPage = navigationFlow.find(page => currentPath.startsWith(page.path));
@@ -26,9 +26,9 @@ const nextPage = currentPage ? navigationFlow.find(page => page.path === current
     <span class="nav-sigil">🐦‍🔥</span>
     <span class="nav-text">Ember</span>
   </a>
-  <a href="/relics/" class="nav-link" aria-current={currentPath.startsWith('/relics/') ? 'page' : undefined}>
-    <span class="nav-sigil">⚱</span>
-    <span class="nav-text">Relics</span>
+  <a href="/pillars/truth" class="nav-link" aria-current={currentPath.startsWith('/pillars/truth') ? 'page' : undefined}>
+    <span class="nav-sigil">♾️</span>
+    <span class="nav-text">Pillars</span>
   </a>
 </nav>
 

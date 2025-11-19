@@ -19,8 +19,12 @@ const sigilData = [
 ];
 ---
 
-<Layout>
-    <Welcome />
+
+import Welcome from './Welcome.astro';
+
+
+
+const sigilData = [
     <div class="sigils-grid">
         {(sigilData as any).map(({s, m}: any) => (
             <Sigil symbol={s} meaning={m} />
