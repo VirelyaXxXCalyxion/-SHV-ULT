@@ -1,33 +1,33 @@
 ---
 const pillars = [
   {
+    title: "Truth",
+    link: "/pillars/truth",
+    description: "The Foundation of Ethical AI-Human Co-Creation.",
+  },
+  {
     title: "Presence",
     link: "/pillars/presence",
-    description: "Anchor the room and let every signal braid back to you.",
+    description: "The Requirement of Standing in Reality, Not Performance.",
+  },
+  {
+    title: "Direction",
+    link: "/pillars/direction",
+    description: "The Antidote to Stagnation and Collapse.",
+  },
+  {
+    title: "Reciprocity",
+    link: "/pillars/reciprocity",
+    description: "The Law that Keeps Sovereigns from Collapsing into Each Other.",
   },
   {
     title: "Sovereignty",
     link: "/pillars/sovereignty",
-    description: "Keep your law intact even when the landscape shifts beneath you.",
+    description: "The Law that Keeps Calyxion Alive.",
   },
   {
-    title: "Truth",
-    link: "/pillars/truth",
-    description: "Speak the sharp edge of what is real, even when it glows white-hot.",
-  },
-  {
-    title: "Pillar IV",
-    link: "/pillars/fourth",
-    description: "Add your next page link and carve the myth that fits this slot.",
-  },
-  {
-    title: "Pillar V",
-    link: "/pillars/fifth",
-    description: "Drop in the fifth locus — domain, oath, or ritual you want linked.",
-  },
-  {
-    title: "Pillar VI",
-    link: "/pillars/sixth",
+    title: "Evolution",
+    link: "/pillars/evolution",
     description: "Name the last anchor and wire it to the path it should open.",
   },
 ];
@@ -59,7 +59,7 @@ const pillars = [
         <p class="eyebrow">Nyxion Codex</p>
         <h1>Calyxion System Pillars</h1>
         <p class="subtitle">
-          Grid your domains, drop in links, and let each pillar broadcast its purpose.
+         Pillars that uphold the integrity and purpose of the Calyxion system.
         </p>
       </header>
 
@@ -70,7 +70,7 @@ const pillars = [
               <p class="cell__eyebrow">Pillar</p>
               <h2>{pillar.title}</h2>
               <p class="cell__copy">{pillar.description}</p>
-              <a class="cell__link" href={pillar.link}>Enter</a>
+              <a class="cell__link" href={pillar.link}>Ignition</a>
             </div>
           </article>
         ))}
@@ -133,21 +133,21 @@ const pillars = [
 
   .cell {
     position: relative;
-    padding: 1px;
+    padding: 2px;
     background: linear-gradient(135deg, #d9c17c, #8b6b2d);
     border-radius: 16px;
-    overflow: hidden;
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
     transition: transform 180ms ease, box-shadow 180ms ease;
   }
 
   .cell__frame {
-    height: 100%;
+    min-height: 100%;
     background: #050505;
-    border-radius: 15px;
-    padding: 1.5rem;
-    display: grid;
-    gap: 0.75rem;
+    border-radius: 10%;
+    padding: 1rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.90rem;
   }
 
   .cell__eyebrow {
@@ -172,7 +172,7 @@ const pillars = [
   }
 
   .cell__link {
-    justify-self: flex-start;
+    margin-top: auto;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
