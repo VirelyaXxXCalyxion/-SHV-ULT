@@ -1,0 +1,42 @@
+---
+import HeartlineSvg from '../components/heartline-svg.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ΛSHVΛULT</title>
+  <link rel="stylesheet" href="/heartline-directory.css" />
+</head>
+
+<body style="background: #0a0a0a; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+  <div id="heartline-container" style="position: relative; width: 512px; height: 512px; cursor: pointer;">
+    <HeartlineSvg />
+    <div id="directory-branches"></div>
+  </div>
+
+  <div id="ash-panel" class="hidden">
+    <div id="ash-panel-content"></div>
+  </div>
+
+  <div id="invoke-overlay" class="invoke-hidden">
+    <div class="invoke-box">
+      <h2 class="invoke-title">Speak the phrase</h2>
+      <input 
+        id="invoke-input" 
+        type="text" 
+        placeholder="Whisper the key…" 
+        autocomplete="off"
+      />
+      <div id="invoke-error" class="invoke-hidden invoke-error">
+        Incorrect. The vault recoils.
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts AFTER all HTML elements exist -->
+  <script src="/directory-branches.js" defer></script>
+
+</body>
+</html>

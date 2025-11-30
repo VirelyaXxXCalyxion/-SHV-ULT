@@ -1,0 +1,180 @@
+---
+interface Props {
+  frontmatter: {
+    title: string;
+    relicNumber: number;
+    image?: string;
+    imageAlt?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const { title, relicNumber, image, imageAlt = "Relic image" } = frontmatter;
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | ΛSHVΛULT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Century+Gothic&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: #0a0a0a;
+      color: #ffdb9a;
+      font-family: 'Century Gothic', sans-serif;
+      line-height: 1.7;
+    }
+
+    .relic-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .relic-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .relic-number {
+      font-size: 0.85rem;
+      color: #ffb84a;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+
+    .relic-title {
+      font-size: 2rem;
+      color: #ffd280;
+      margin-bottom: 24px;
+      font-weight: normal;
+    }
+
+    .relic-image {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      display: block;
+      border: 1px solid #ffb84a;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(255, 184, 74, 0.2);
+    }
+
+    .relic-content {
+      font-size: 1.1rem;
+      color: #ffdb9a;
+    }
+
+    .relic-content h2 {
+      color: #ffd280;
+      font-size: 1.4rem;
+      margin: 32px 0 16px;
+      font-weight: normal;
+    }
+
+    .relic-content h3 {
+      color: #ffb84a;
+      font-size: 1.2rem;
+      margin: 24px 0 12px;
+      font-weight: normal;
+    }
+
+    .relic-content p {
+      margin-bottom: 16px;
+    }
+
+    .relic-content a {
+      color: #ffb84a;
+      text-decoration: underline;
+    }
+
+    .relic-content a:hover {
+      color: #ffd280;
+    }
+
+    .relic-content blockquote {
+      border-left: 3px solid #ffb84a;
+      padding-left: 20px;
+      margin: 24px 0;
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    .relic-content ul, .relic-content ol {
+      margin: 16px 0 16px 24px;
+    }
+
+    .relic-content li {
+      margin-bottom: 8px;
+    }
+
+    .relic-footer {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 184, 74, 0.3);
+    }
+
+    .relic-footer-number {
+      font-size: 0.8rem;
+      color: #ffb84a;
+      letter-spacing: 4px;
+      opacity: 0.6;
+    }
+
+    .relic-nav {
+      margin-top: 16px;
+    }
+
+    .relic-nav a {
+      color: #ffdb9a;
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .relic-nav a:hover {
+      opacity: 1;
+      color: #ffd280;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="relic-container">
+    <header class="relic-header">
+      <div class="relic-number">Relic {String(relicNumber).padStart(3, '0')}</div>
+      <h1 class="relic-title">{title}</h1>
+      {image && (
+        <img 
+          src={image} 
+          alt={imageAlt} 
+          class="relic-image"
+        />
+      )}
+    </header>
+
+    <main class="relic-content">
+      <slot />
+    </main>
+
+    <footer class="relic-footer">
+      <div class="relic-footer-number">— {String(relicNumber).padStart(3, '0')} —</div>
+      <nav class="relic-nav">
+        <a href="/labyrinth">← Return to Labyrinth</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

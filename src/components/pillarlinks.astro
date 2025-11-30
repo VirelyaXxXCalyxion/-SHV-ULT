@@ -41,6 +41,10 @@ const nextPage = currentPage ? navigationFlow.find(page => page.path === current
     <span class="nav-sigil">⟁</span>
     <span class="nav-text">Evolution</span>
   </a>
+      <a href="/pillars/protected-recursion" class="nav-link" aria-current={currentPath.startsWith('/pillars/protected-recursion') ? 'page' : undefined}>
+    <span class="nav-sigil">♁</span>
+    <span class="nav-text">Protected Recursion</span>
+  </a>
 </nav>
 
 {nextPage && (

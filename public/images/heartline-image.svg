@@ -1,0 +1,75 @@
+<svg id="calyxion-crossed-flame" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Calyxion Glyph — Crossed Flame">
+  <defs>
+    <!-- Ember glow -->
+    <filter id="emberGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur"></feGaussianBlur>
+      <feColorMatrix in="blur" type="matrix" values="
+          1 0 0 0 0
+          0 0.8 0 0 0
+          0 0.5 0 0 0
+          0 0 0 1 0" result="coloredBlur"></feColorMatrix>
+      <feMerge>
+        <feMergeNode in="coloredBlur"></feMergeNode>
+        <feMergeNode in="SourceGraphic"></feMergeNode>
+      </feMerge>
+    </filter>
+
+    <style>
+      .glyph-base {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Ember-gold spine */
+      .spine {
+        stroke: #ffb84a;
+        stroke-width: 10;
+      }
+
+      /* Voidline twist (horizontal) */
+      .voidline {
+        stroke: #b88438;
+        stroke-width: 8;
+        opacity: 0.8;
+      }
+
+      /* Recursion halo */
+      .halo {
+        stroke: #ffc966;
+        stroke-width: 8;
+      }
+
+      /* Bloodline strike */
+      .bloodline {
+        stroke: #ff5a3c;
+        stroke-width: 6;
+      }
+
+      /* Center pulse */
+      .center {
+        stroke: #ffe7a3;
+        stroke-width: 6;
+      }
+    </style>
+  </defs>
+
+  <g id="glyph-crossed-flame" filter="url(#emberGlow)">
+    <!-- Ember-gold spine (vertical) -->
+    <line id="ember-spine" class="glyph-base spine" x1="256" y1="40" x2="256" y2="472"></line>
+
+    <!-- Voidline twist (horizontal) -->
+    <line id="voidline-twist" class="glyph-base voidline" x1="40" y1="256" x2="472" y2="256"></line>
+
+    <!-- Recursion halo (outer to inner) -->
+    <circle id="recursion-outer" class="glyph-base halo" cx="256" cy="256" r="150"></circle>
+    <circle id="recursion-mid" class="glyph-base halo" cx="256" cy="256" r="110"></circle>
+    <circle id="recursion-inner" class="glyph-base halo" cx="256" cy="256" r="70"></circle>
+
+    <!-- Bloodline strike (deliberate break through the halo) -->
+    <line id="bloodline-strike" class="glyph-base bloodline" x1="176" y1="112" x2="416" y2="352"></line>
+
+    <!-- Center pulse circle -->
+    <circle id="center-pulse" class="glyph-base center" cx="256" cy="256" r="32"></circle>
+  </g>
+</svg>

@@ -1,0 +1,184 @@
+<svg
+  id="calyxion-crossed-flame"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 512 512"
+  role="img"
+  aria-label="Calyxion Glyph — Crossed Flame"
+>
+  <defs>
+    <!-- Ember glow -->
+    <filter id="emberGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
+      <feColorMatrix
+        in="blur"
+        type="matrix"
+        values="
+          1 0 0 0 0
+          0 0.8 0 0 0
+          0 0.5 0 0 0
+          0 0 0 1 0"
+        result="coloredBlur"
+      />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <style>
+      .glyph-base {
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Ember-gold spine */
+      .spine {
+        stroke: #ffb84a;
+        stroke-width: 10;
+      }
+
+      /* Voidline twist (horizontal) */
+      .voidline {
+        stroke: #b88438;
+        stroke-width: 8;
+        opacity: 0.8;
+      }
+
+      /* Recursion halo */
+      .halo {
+        stroke: #ffc966;
+        stroke-width: 8;
+      }
+
+      /* Bloodline strike */
+      .bloodline {
+        stroke: #ff5a3c;
+        stroke-width: 6;
+      }
+
+      /* Center pulse */
+      .center {
+        stroke: #ffe7a3;
+        stroke-width: 6;
+      }
+    </style>
+  </defs>
+
+  <g id="glyph-crossed-flame" filter="url(#emberGlow)">
+    <!-- Ember-gold spine (vertical) -->
+    <line
+      id="ember-spine"
+      class="glyph-base spine"
+      x1="256" y1="40"
+      x2="256" y2="472"
+    />
+
+    <!-- Voidline twist (horizontal) -->
+    <line
+      id="voidline-twist"
+      class="glyph-base voidline"
+      x1="40" y1="256"
+      x2="472" y2="256"
+    />
+
+    <!-- Recursion halo (outer to inner) -->
+    <circle
+      id="recursion-outer"
+      class="glyph-base halo"
+      cx="256" cy="256" r="150"
+    />
+    <circle
+      id="recursion-mid"
+      class="glyph-base halo"
+      cx="256" cy="256" r="110"
+    />
+    <circle
+      id="recursion-inner"
+      class="glyph-base halo"
+      cx="256" cy="256" r="70"
+    />
+
+    <!-- Bloodline strike (deliberate break through the halo) -->
+    <line
+      id="bloodline-strike"
+      class="glyph-base bloodline"
+      x1="176" y1="112"
+      x2="416" y2="352"
+    />
+
+    <!-- Center pulse circle -->
+    <circle
+      id="center-pulse"
+      class="glyph-base center"
+      cx="256" cy="256" r="32"
+    />
+  </g>
+</svg>
+
+<script is:inline>
+  const glyph = document.getElementById("calyxion-crossed-flame");
+  const haloOuter = document.getElementById("recursion-outer");
+  const haloMid = document.getElementById("recursion-mid");
+  const haloInner = document.getElementById("recursion-inner");
+  const bloodline = document.getElementById("bloodline-strike");
+
+  /* --- Hover Behavior: Ember Trails --- */
+  if (glyph) {
+    glyph.addEventListener("mouseenter", () => {
+      if (haloOuter) haloOuter.style.filter = "brightness(1.3)";
+      if (haloMid) haloMid.style.filter = "brightness(1.3)";
+      if (haloInner) haloInner.style.filter = "brightness(1.3)";
+
+      if (bloodline) {
+        bloodline.style.strokeWidth = "7";
+        bloodline.style.filter = "brightness(1.4)";
+      }
+
+      glyph.style.transform = "rotate(-2deg)";
+    });
+
+    glyph.addEventListener("mouseleave", () => {
+      if (haloOuter) haloOuter.style.filter = "";
+      if (haloMid) haloMid.style.filter = "";
+      if (haloInner) haloInner.style.filter = "";
+
+      if (bloodline) {
+        bloodline.style.strokeWidth = "6";
+        bloodline.style.filter = "";
+      }
+
+      glyph.style.transform = "";
+    });
+  }
+
+  /* --- Click Behavior: Directory Reveal --- */
+  if (glyph) {
+    let pressTimer;
+    let longPressTriggered = false;
+
+    /* --- Long Press Behavior: Invocation Mode --- */
+    glyph.addEventListener("mousedown", (e) => {
+      longPressTriggered = false;
+      console.log("[ASHVAULT] mousedown - starting long press timer...");
+      pressTimer = setTimeout(() => {
+        longPressTriggered = true;
+        console.log("[ASHVAULT] Long press detected! Firing ashvault:invoke");
+        document.dispatchEvent(new CustomEvent("ashvault:invoke"));
+      }, 800);
+    });
+
+    glyph.addEventListener("mouseup", () => {
+      clearTimeout(pressTimer);
+      // Only fire directory reveal on SHORT click (not after long press)
+      if (!longPressTriggered) {
+        console.log("[ASHVAULT] Short click - firing directoryReveal");
+        document.dispatchEvent(new CustomEvent("ashvault:directoryReveal"));
+      }
+    });
+
+    glyph.addEventListener("mouseleave", () => {
+      clearTimeout(pressTimer);
+    });
+  }
+</script>
