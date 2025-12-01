@@ -23,5 +23,22 @@ const relics = defineCollection({
   }),
 });
 
-export const collections = { relics };
+const scrolls = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    created: dateOrString.optional(),
+    pubDate: dateOrString.optional(),
+    updated: dateOrString.optional(),
+    author: z.string().default("Nyxion"),
+    tags: z.array(z.string()).default(["scroll"]),
+    image: z.string().optional(),
+    summary: z.string().optional(),
+    weight: z.number().optional(),
+    sealed: z.boolean().default(false),
+  }),
+});
+
+export const collections = { relics, scrolls };
 

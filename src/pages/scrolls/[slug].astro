@@ -1,0 +1,177 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const scrolls = await getCollection('scrolls');
+  return scrolls.map((scroll) => ({
+    params: { slug: scroll.slug },
+    props: { scroll }
+  }));
+}
+
+const { scroll } = Astro.props as { scroll: CollectionEntry<'scrolls'> };
+const { title, author, image, summary } = scroll.data;
+const { Content } = await scroll.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Ashvault</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        background: #0a0a0a;
+        color: #ffdb9a;
+        font-family: 'Century Gothic', sans-serif;
+        line-height: 1.7;
+      }
+
+      .scroll-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      .scroll-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .scroll-author {
+        font-size: 0.9rem;
+        color: #ffb84a;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        opacity: 0.8;
+      }
+
+      .scroll-title {
+        font-size: 2rem;
+        color: #ffd280;
+        margin-bottom: 16px;
+        font-weight: normal;
+      }
+
+      .scroll-summary {
+        font-size: 1rem;
+        color: #a3a3b2;
+        font-style: italic;
+        margin-bottom: 24px;
+      }
+
+      .scroll-image {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto 40px;
+        display: block;
+        border: 1px solid #ffb84a;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(255, 184, 74, 0.2);
+      }
+
+      .scroll-content {
+        font-size: 1.1rem;
+        color: #ffdb9a;
+      }
+
+      .scroll-content h2 {
+        color: #ffd280;
+        font-size: 1.4rem;
+        margin: 32px 0 16px;
+        font-weight: normal;
+      }
+
+      .scroll-content h3 {
+        color: #ffb84a;
+        font-size: 1.2rem;
+        margin: 24px 0 12px;
+        font-weight: normal;
+      }
+
+      .scroll-content p {
+        margin-bottom: 16px;
+      }
+
+      .scroll-content a {
+        color: #ffb84a;
+        text-decoration: underline;
+      }
+
+      .scroll-content a:hover {
+        color: #ffd280;
+      }
+
+      .scroll-content blockquote {
+        border-left: 3px solid #ffb84a;
+        padding-left: 20px;
+        margin: 24px 0;
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      .scroll-content ul, .scroll-content ol {
+        margin: 16px 0 16px 24px;
+      }
+
+      .scroll-content li {
+        margin-bottom: 8px;
+      }
+
+      .scroll-footer {
+        text-align: center;
+        margin-top: 60px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 184, 74, 0.3);
+      }
+
+      .scroll-nav a {
+        color: #ffdb9a;
+        text-decoration: none;
+        font-size: 0.9rem;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .scroll-nav a:hover {
+        opacity: 1;
+        color: #ffd280;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scroll-container">
+      <header class="scroll-header">
+        {author && <div class="scroll-author">Inscribed by {author}</div>}
+        <h1 class="scroll-title">{title}</h1>
+        {summary && <p class="scroll-summary">{summary}</p>}
+        {image && (
+          <img 
+            src={image} 
+            alt={title} 
+            class="scroll-image"
+          />
+        )}
+      </header>
+
+      <main class="scroll-content">
+        <Content />
+      </main>
+
+      <footer class="scroll-footer">
+        <nav class="scroll-nav">
+          <a href="/scrolls">← Return to Scrolls</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/scrollslayout.astro"
+import ScrollCard from "../../components/ScrollCard.astro";
+
+const all = await getCollection("scrolls");
+const toDate = (item: any) => {
+  const date = item.data.created || item.data.pubDate;
+  return date ? new Date(date) : new Date(0);
+};
+
+const scrolls = all.sort((a,b) =>
+  (b.data.weight ?? 0) - (a.data.weight ?? 0) ||
+  toDate(b).getTime() - toDate(a).getTime()
+);
+
+const tags = Array.from(new Set(all.flatMap(r => r.data.tags ?? []))).sort();
+---
+
+<Layout title="Scrolls" description="Written transmissions—doctrine, revelation, and unfiltered truth.">
+  <section class="scrolls-intro">
+    <h1>Scrolls</h1>
+    <p>Written transmissions—doctrine, revelation, and unfiltered truth.</p>
+  </section>
+
+  <section class="controls" data-hydrate>
+    <input id="q" type="search" placeholder="Search scrolls…" />
+    <div class="chips" id="chips">
+      {tags.map(t => <button class="chip" data-tag={t}>{t}</button>)}
+      <button class="chip ghost" id="clear">Clear</button>
+    </div>
+  </section>
+
+  <section class="scrolls-grid" id="grid">
+    {scrolls.map(entry => <ScrollCard entry={entry} />)}
+  </section>
+</Layout>
+
+<script>
+  const normalize = (s: string) => s.toLowerCase().normalize("NFKD");
+  const q = document.getElementById('q') as HTMLInputElement;
+  const grid = document.getElementById('grid');
+  const chips = document.getElementById('chips');
+  const active = new Set<string>();
+
+  function apply() {
+    const term = normalize(q.value || "");
+    if (!grid) return;
+    for (const card of grid.querySelectorAll('.scroll-card')) {
+      const text = normalize((card as HTMLElement).innerText);
+      const tags = [...card.querySelectorAll('.tags li')].map(x => normalize(x.textContent || ''));
+      const matchText = !term || text.includes(term);
+      const matchTags = active.size === 0 || [...active].every(t => tags.includes(t));
+      (card as HTMLElement).style.display = (matchText && matchTags) ? "" : "none";
+    }
+  }
+
+  q.addEventListener('input', apply);
+  chips?.addEventListener('click', (e) => {
+    if (!e.target) return;
+    const btn = (e.target as Element).closest('.chip');
+    if (!btn) return;
+    if (btn.id === 'clear') { active.clear(); chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); return apply(); }
+    const tag = (btn as HTMLElement).dataset.tag;
+    if (!tag) return;
+    btn.classList.toggle('on');
+    btn.classList.contains('on') ? active.add(tag) : active.delete(tag);
+    apply();
+  });
+
+  apply();
+</script>
+
+<style>
+  .scrolls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    align-items: start;
+  }
+  
+  .scrolls-intro {
+    margin: 2rem 0 1rem;
+  }
+
+  .scrolls-intro h1 {
+    color: #e6b357;
+    margin-bottom: 0.5rem;
+  }
+
+  .scrolls-intro p {
+    color: #a3a3b2;
+  }
+  
+  .controls {
+    display: grid;
+    gap: .75rem;
+    margin: 1rem 0 1.25rem;
+  }
+  
+  #q {
+    background: #0b0c10;
+    border: 1px solid #ff7a1a;
+    border-radius: .75rem;
+    padding: .75rem 1rem;
+    font: 500 1rem/1.2 "Century Gothic", sans-serif;
+    color: #d7d7df;
+  }
+
+  #q:focus {
+    outline: none;
+    border-color: #e6b357;
+    box-shadow: 0 0 8px rgba(230, 179, 87, 0.3);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    background: rgba(255, 122, 26, 0.12);
+    border: 1px solid rgba(255, 122, 26, 0.35);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    color: #d7d7df;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .chip:hover {
+    background: rgba(255, 122, 26, 0.25);
+  }
+
+  .chip.on {
+    background: #ff7a1a;
+    color: #0b0c10;
+    border-color: #ff7a1a;
+  }
+
+  .chip.ghost {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #a3a3b2;
+  }
+
+  .chip.ghost:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #d7d7df;
+  }
+</style>

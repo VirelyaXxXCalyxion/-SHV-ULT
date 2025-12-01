@@ -1,0 +1,129 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Scrolls", description = "Written transmissions—doctrine, revelation, and unfiltered truth." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Ashvault</title>
+  </head>
+  <body>
+    <main class="scroll-font">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+:root {
+  --void: #0b0c10;
+  --ink: #d7d7df;
+  --ink-dim: #a3a3b2;
+  --ember: #ff7a1a;
+  --ember-2: #ffb347;
+  --gold: #e6b357;
+
+  --card: #111218;
+  --card-2: #141620;
+  --ring: rgba(255, 122, 26, 0.35);
+  --muted: #26283a;
+
+  /* Century Gothic if present, with sane fallbacks */
+  --scroll-font: "Century Gothic", "URW Gothic", "Avenir Next", "Montserrat",
+                ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html,
+body {
+  background: var(--void);
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+}
+
+.scroll-font {
+  font-family: var(--scroll-font);
+  letter-spacing: 0.02em;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+.a-ember {
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.a-ember:hover {
+  border-color: var(--ember);
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.card {
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--ink);
+  background: rgba(255, 122, 26, 0.12);
+  border: 1px solid var(--ring);
+}
+
+.badge--sealed {
+  background: rgba(230, 179, 87, 0.14);
+  border-color: rgba(230, 179, 87, 0.35);
+}
+
+.cover {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.kicker {
+  color: var(--ink-dim);
+  font-size: 0.8rem;
+}
+
+.title {
+  margin: 0.35rem 0;
+  font-size: 1.1rem;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+</style>
