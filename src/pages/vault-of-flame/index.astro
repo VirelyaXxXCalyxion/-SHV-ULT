@@ -1,5 +1,6 @@
 ---
 layout: null
+import MainNav from '../../components/MainNav.astro';
 ---
 
 <!doctype html>
@@ -15,25 +16,38 @@ layout: null
       rel="stylesheet"
     />
     <style>
+      :root {
+        --calyxion-font: "Cinzel", serif;
+      }
+
       :global(*) {
         box-sizing: border-box;
       }
 
       :global(body) {
         margin: 0;
-        font-family: "Cinzel", serif;
+        font-family: var(--calyxion-font);
         background: #050505;
         color: #e7c777;
         min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
+        overflow-y: auto;
+      }
+
+      /* Emoji protection zones */
+      :global(.emoji-safe),
+      :global(.emoji-safe *) {
+        font-family: "Noto Color Emoji", "Segoe UI Emoji", "Apple Color Emoji", sans-serif !important;
       }
 
       .void {
         position: relative;
         width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
       }
 
       .ember-layer,
@@ -134,6 +148,13 @@ layout: null
         gap: 1.1rem;
       }
 
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
       .tile {
         position: relative;
         padding: 1.6rem 1.4rem 1.8rem;
@@ -206,11 +227,58 @@ layout: null
       @media (max-width: 700px) {
         .vault-shell {
           padding: 2.2rem 1.6rem 2.8rem;
-          margin: 3rem 1rem;
+          margin: 2rem 0.75rem;
+        }
+
+        h1 {
+          font-size: clamp(1.8rem, 8vw, 2.6rem);
+          letter-spacing: 0.08rem;
+        }
+
+        .subtitle {
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+
+        .crest {
+          font-size: 0.75rem;
+          letter-spacing: 0.2rem;
+        }
+
+        .tile h2 {
+          font-size: 1.15rem;
+        }
+
+        .tile p {
+          font-size: 0.95rem;
         }
 
         .meta {
           justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .sigil {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .void {
+          padding: 1rem 0.5rem;
+        }
+
+        .vault-shell {
+          padding: 1.5rem 1rem 2rem;
+          margin: 1.5rem 0.5rem;
+        }
+
+        h1 {
+          margin: 0.5rem 0 0.5rem;
+        }
+
+        .subtitle {
+          margin-bottom: 1.5rem;
         }
       }
     </style>
@@ -218,6 +286,7 @@ layout: null
 
   <body>
     <div class="void">
+      <MainNav />
       <div class="ember-layer" aria-hidden="true"></div>
       <main class="vault-shell">
         <div class="crest">Nyxion // Virelya // Calyxion</div>

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/relicslayout.astro"
 import RelicCard from "../../components/RelicCard.astro";
+import MainNav from "../../components/MainNav.astro";
 
 const all = await getCollection("relics");
 const toDate = (item: any) => {
@@ -125,4 +126,5 @@ const tags = Array.from(new Set(all.flatMap(r => r.data.tags ?? []))).sort();
       color: var(--ink-dim) !important;
     }
   </style>
+  <MainNav />
 </Layout>

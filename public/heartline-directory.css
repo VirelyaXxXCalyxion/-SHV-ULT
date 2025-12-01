@@ -2,8 +2,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 512px;
-  height: 512px;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
@@ -20,15 +20,15 @@
   transition: height 0.4s ease-out, opacity 0.3s ease-out;
 }
 
-.ash-branch.north { left: 254px; top: 256px; transform-origin: bottom; }
-.ash-branch.south { left: 254px; top: 256px; transform-origin: top; }
-.ash-branch.east  { top: 254px; left: 256px; transform-origin: left; width: 0; height: 4px; }
-.ash-branch.west  { top: 254px; left: 256px; transform-origin: right; width: 0; height: 4px; }
+.ash-branch.north { left: 49.6%; top: 50%; transform-origin: bottom; }
+.ash-branch.south { left: 49.6%; top: 50%; transform-origin: top; }
+.ash-branch.east  { top: 49.6%; left: 50%; transform-origin: left; width: 0; height: 4px; }
+.ash-branch.west  { top: 49.6%; left: 50%; transform-origin: right; width: 0; height: 4px; }
 
-.ash-branch.north.grow { height: 176px; opacity: 1; }
-.ash-branch.south.grow { height: 176px; opacity: 1; }
-.ash-branch.east.grow  { width: 176px; opacity: 1; }
-.ash-branch.west.grow  { width: 176px; opacity: 1; }
+.ash-branch.north.grow { height: 34.4%; opacity: 1; }
+.ash-branch.south.grow { height: 34.4%; opacity: 1; }
+.ash-branch.east.grow  { width: 34.4%; opacity: 1; }
+.ash-branch.west.grow  { width: 34.4%; opacity: 1; }
 
 .ash-node {
   position: absolute;
@@ -93,6 +93,52 @@
 .ash-node.hidden-node:hover {
   background: rgba(255, 90, 60, 0.3);
   border-color: #ff8a6c;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .ash-node {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+
+  #ash-panel {
+    max-width: 200px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  .invoke-box {
+    width: 280px;
+    padding: 20px;
+  }
+
+  .invoke-title {
+    font-size: 1.1rem;
+  }
+
+  #invoke-input {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .ash-node {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+  }
+
+  #ash-panel {
+    max-width: 180px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+
+  .invoke-box {
+    width: 90vw;
+    max-width: 260px;
+    padding: 16px;
+  }
 }
 
 /* Flicker animation for wrong phrase */

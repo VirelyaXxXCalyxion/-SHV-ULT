@@ -10,8 +10,8 @@ import HeartlineSvg from '../components/heartline-svg.astro';
   <link rel="stylesheet" href="/heartline-directory.css" />
 </head>
 
-<body style="background: #0a0a0a; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh;">
-  <div id="heartline-container" style="position: relative; width: 512px; height: 512px; cursor: pointer;">
+<body style="background: #0a0a0a; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem;">
+  <div id="heartline-container" style="position: relative; width: min(512px, 90vw); height: min(512px, 90vw); cursor: pointer;">
     <HeartlineSvg />
     <div id="directory-branches"></div>
   </div>

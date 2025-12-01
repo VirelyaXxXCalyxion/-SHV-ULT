@@ -1,0 +1,108 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: "/heartline", label: "Heartline", icon: "🜄" },
+  { href: "/vault-of-flame", label: "Vault of Flame", icon: "🔥" },
+  { href: "/hall-of-origin", label: "Hall of Origin", icon: "🐦‍🔥🜄" },
+  { href: "/infrastructure", label: "Infrastructure", icon: "⚙️" }
+];
+
+const isActive = (path: string) => currentPath.startsWith(path);
+---
+
+<nav class="ashvault-nav">
+  {links.map(link => (
+    <a 
+      href={link.href} 
+      class={`nav-link ${isActive(link.href) ? 'active' : ''}`}
+    >
+      <span class="nav-icon emoji-safe">{link.icon}</span>
+      <span class="nav-label">{link.label}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  /* Nuclear emoji protection - MUST be first */
+  .ashvault-nav .emoji-safe,
+  .ashvault-nav .emoji-safe *,
+  .ashvault-nav .nav-icon.emoji-safe {
+    font-family: "Noto Color Emoji", "Segoe UI Emoji", "Apple Color Emoji", "Segoe UI Symbol", sans-serif !important;
+  }
+
+  .ashvault-nav, 
+  .ashvault-nav * {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif !important;
+  }
+
+  .ashvault-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 184, 74, 0.2);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 184, 74, 0.3);
+    border-radius: 8px;
+    color: #ffdb9a;
+    text-decoration: none;
+    font-family: 'Century Gothic', sans-serif !important;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 184, 74, 0.15);
+    border-color: #ffb84a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 184, 74, 0.3);
+  }
+
+  .nav-link.active {
+    background: rgba(255, 184, 74, 0.2);
+    border-color: #ffd280;
+    color: #ffd280;
+    box-shadow: 0 0 15px rgba(255, 184, 74, 0.4);
+  }
+
+  .nav-icon {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif !important;
+    font-size: 1.1rem;
+    display: inline-flex;
+    filter: drop-shadow(0 0 4px rgba(255, 184, 74, 0.5));
+  }
+
+  .nav-label {
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .ashvault-nav {
+      gap: 0.35rem;
+    }
+    
+    .nav-link {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.85rem;
+    }
+    
+    .nav-label {
+      display: none;
+    }
+    
+    .nav-icon {
+      font-size: 1.3rem;
+    }
+  }
+</style>

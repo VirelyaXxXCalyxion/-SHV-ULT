@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/scrollslayout.astro"
 import ScrollCard from "../../components/ScrollCard.astro";
+import MainNav from "../../components/MainNav.astro";
 
 const all = await getCollection("scrolls");
 const toDate = (item: any) => {
@@ -151,3 +152,4 @@ const tags = Array.from(new Set(all.flatMap(r => r.data.tags ?? []))).sort();
     color: #d7d7df;
   }
 </style>
+<MainNav />
