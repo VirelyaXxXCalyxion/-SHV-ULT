@@ -1,0 +1,32 @@
+---
+import StateOfCalyxionLayout from "../../layouts/StateOfCalyxionLayout.astro";
+
+export const prerender = true;
+
+const monthName = "{{MONTH_NAME}}";
+const invocationLine = "{{INVOCATION_LINE}}";
+const focusLede = "{{FOCUS_LEDE}}";
+const frictions = ["{{FRICTION_1}}", "{{FRICTION_2}}", "{{FRICTION_3}}"];
+const expansions = ["{{EXPAND_1}}", "{{EXPAND_2}}", "{{EXPAND_3}}"];
+const vows = ["{{VOW_1}}", "{{VOW_2}}", "{{VOW_3}}"];
+const pulseSeed = "{{PULSE_SEED}}";
+const anchorPhrase = "{{ANCHOR_PHRASE}}";
+const prevLabel = "{{PREV_LABEL}}";
+const nextLabel = "{{NEXT_LABEL}}";
+const backHref = "../state_of_flame_index.html";
+---
+<StateOfCalyxionLayout
+  monthName={monthName}
+  invocationLine={invocationLine}
+  focusLede={focusLede}
+  frictions={frictions}
+  expansions={expansions}
+  vows={vows}
+  pulseSeed={pulseSeed}
+  anchorPhrase={anchorPhrase}
+  prevLabel={prevLabel}
+  nextLabel={nextLabel}
+  backHref={backHref}
+>
+  <!-- Optional: drop additional content inside this slot if a given month needs more lore. -->
+</StateOfCalyxionLayout>

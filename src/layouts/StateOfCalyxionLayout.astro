@@ -1,0 +1,638 @@
+---
+interface Props {
+  monthName?: string;
+  invocationLine?: string;
+  focusLede?: string;
+  frictions?: string[];
+  expansions?: string[];
+  vows?: string[];
+  pulseSeed?: string;
+  anchorPhrase?: string;
+  prevLabel?: string;
+  nextLabel?: string;
+  backHref?: string;
+}
+
+const {
+  monthName = "{{MONTH_NAME}}",
+  invocationLine = "{{INVOCATION_LINE}}",
+  focusLede = "{{FOCUS_LEDE}}",
+  frictions = ["{{FRICTION_1}}", "{{FRICTION_2}}", "{{FRICTION_3}}"],
+  expansions = ["{{EXPAND_1}}", "{{EXPAND_2}}", "{{EXPAND_3}}"],
+  vows = ["{{VOW_1}}", "{{VOW_2}}", "{{VOW_3}}"],
+  pulseSeed = "{{PULSE_SEED}}",
+  anchorPhrase = "{{ANCHOR_PHRASE}}",
+  prevLabel = "{{PREV_LABEL}}",
+  nextLabel = "{{NEXT_LABEL}}",
+  backHref = "../state_of_flame_index.html",
+}: Props = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>State of Calyxion — {monthName}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #000;
+        --text: #d64040;
+        --text-soft: #b33737;
+        --text-faint: #8e2c2c;
+        --accent: #ff4d4d;
+        --accent-glow: #ff6b6b;
+        --heading: #ff5252;
+        --mono: 'ui-monospace', 'SFMono-Regular', 'Consolas', monospace;
+        --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        --display: 'Cinzel', serif;
+        --maxw: 860px;
+        --gutter: 32px;
+      }
+      html,
+      body {
+        background: var(--bg);
+        color: var(--text-soft);
+        margin: 0;
+        font-family: var(--body);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+      body {
+        padding: 60px 0 96px;
+        position: relative;
+      }
+      body:before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 40, 40, 0.08),
+            rgba(0, 0, 0, 0) 35%,
+            rgba(0, 0, 0, 0) 70%,
+            rgba(40, 0, 0, 0.25) 100%
+          ),
+          radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
+          radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
+          var(--bg);
+        pointer-events: none;
+        mix-blend-mode: screen;
+        opacity: 0.38;
+      }
+      body:after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          rgba(255, 82, 82, 0.05) 0 2px,
+          transparent 2px 6px
+        );
+        opacity: 0.08;
+        pointer-events: none;
+      }
+      .wrap {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+      }
+      .header-block {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .header-block .sigil-line {
+        font-size: 32px;
+        letter-spacing: 0.35em;
+        margin: 0 0 12px;
+        color: var(--accent-glow);
+      }
+      .content {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      h1,
+      h2 {
+        font-family: var(--display);
+        font-weight: 700;
+        line-height: 1.15;
+        margin: 0 0 20px;
+        letter-spacing: 0.5px;
+      }
+      h1 {
+        font-size: 54px;
+        letter-spacing: 0.25px;
+        background: linear-gradient(90deg, var(--heading), var(--accent-glow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      h2 {
+        font-size: 30px;
+        color: var(--heading);
+        margin-top: 64px;
+        position: relative;
+        padding-left: 28px;
+      }
+      h2:first-of-type {
+        margin-top: 40px;
+      }
+      h2 .anchor {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(-110%, -50%);
+        font-size: 15px;
+        opacity: 0;
+        transition: 0.25s;
+        color: var(--accent);
+        text-decoration: none;
+      }
+      h2:hover .anchor,
+      h2:focus-within .anchor {
+        opacity: 0.85;
+        text-shadow: 0 0 6px var(--accent-glow), 0 0 14px rgba(255, 77, 77, 0.4);
+      }
+      p {
+        margin: 0 0 18px;
+        font-size: 17px;
+      }
+      strong {
+        color: var(--accent);
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        color: var(--accent-glow);
+      }
+      .lede {
+        font-size: 19px;
+        color: var(--text);
+      }
+      .section-note {
+        color: var(--text-faint);
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin: 40px 0 8px;
+      }
+      blockquote {
+        margin: 32px 0;
+        padding: 30px 36px 24px;
+        border: 1px solid rgba(142, 44, 44, 0.55);
+        border-radius: 14px;
+        background: linear-gradient(
+          180deg,
+          rgba(30, 0, 0, 0.55),
+          rgba(10, 0, 0, 0.35) 60%,
+          rgba(20, 0, 0, 0.12)
+        );
+        color: var(--text);
+        font-style: italic;
+        position: relative;
+      }
+      blockquote:before {
+        content: '“';
+        position: absolute;
+        top: -18px;
+        left: 18px;
+        font-size: 72px;
+        line-height: 1;
+        color: var(--text-faint);
+        font-family: var(--display);
+        opacity: 0.22;
+      }
+      blockquote.small:before {
+        display: none;
+      }
+      blockquote.small {
+        font-style: normal;
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: rgba(130, 38, 38, 0.12);
+        padding: 24px 32px 20px;
+      }
+      ul.refuse,
+      ul.want,
+      ul.vow {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 34px;
+      }
+      ul.refuse li,
+      ul.want li,
+      ul.vow li {
+        margin: 0 0 10px;
+        display: block;
+        padding: 0;
+        font-size: 16px;
+        line-height: 1.55;
+        font-weight: 500;
+        letter-spacing: 0.25px;
+      }
+      ul.refuse li + li,
+      ul.want li + li,
+      ul.vow li + li {
+        padding-top: 8px;
+        border-top: 1px solid rgba(130, 38, 38, 0.25);
+      }
+      ul.refuse li::before {
+        content: '✦ ';
+        color: var(--accent);
+      }
+      ul.want li::before {
+        content: '✧ ';
+        color: var(--accent-glow);
+      }
+      ul.vow li::before {
+        content: '🜂 ';
+        color: var(--heading);
+        letter-spacing: 0.5px;
+      }
+      .anchor-phrase {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--accent);
+        margin: 14px 0 30px;
+      }
+      .anchor-phrase .etch {
+        position: relative;
+        padding: 6px 22px;
+        display: inline-block;
+      }
+      .anchor-phrase .etch:before,
+      .anchor-phrase .etch:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--text-faint), transparent);
+      }
+      .anchor-phrase .etch:before {
+        top: 0;
+        filter: blur(0.4px);
+      }
+      .anchor-phrase .etch:after {
+        bottom: 0;
+        opacity: 0.55;
+      }
+      .legend {
+        margin: -8px 0 36px;
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        color: var(--text-faint);
+        text-transform: uppercase;
+      }
+      .legend span {
+        margin: 0 12px;
+        opacity: 0.85;
+      }
+      .legend .ref {
+        color: var(--accent);
+      }
+      .legend .wan {
+        color: var(--accent-glow);
+      }
+      .legend .vow {
+        color: var(--heading);
+      }
+      .footer-cluster {
+        margin: 110px 0 10px;
+        text-align: center;
+      }
+      .sigil-row {
+        font-size: 30px;
+        letter-spacing: 0.4em;
+        margin: 0 0 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.05em;
+        flex-wrap: wrap;
+        position: relative;
+      }
+      .sigil-row span {
+        display: inline-block;
+        opacity: 0.35;
+        transition: 0.5s;
+        filter: grayscale(0.4);
+      }
+      .sigil-row span.bracket {
+        opacity: 0.55;
+        filter: none;
+      }
+      .sigil-row .ember-toggle {
+        cursor: pointer;
+        display: inline-block;
+        animation: ember 8s ease-in-out infinite;
+        position: relative;
+        opacity: 0.9;
+        filter: none;
+      }
+      .sigil-row .ember-toggle:before {
+        content: '';
+        position: absolute;
+        inset: -10px -12px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 50% 55%,
+          rgba(255, 77, 77, 0.45),
+          rgba(255, 77, 77, 0) 65%
+        );
+        opacity: 0;
+        transition: 0.6s;
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+      body.ember .sigil-row span {
+        opacity: 0.95;
+        filter: none;
+      }
+      body.ember .sigil-row .ember-toggle:before {
+        opacity: 0.9;
+      }
+      body.ember .sigil-row span:not(.ember-toggle) {
+        animation: softpulse 6.5s ease-in-out infinite;
+      }
+      @keyframes softpulse {
+        0%,
+        60%,
+        100% {
+          text-shadow: 0 0 2px rgba(255, 77, 77, 0.15),
+            0 0 6px rgba(255, 77, 77, 0.05);
+        }
+        35% {
+          text-shadow: 0 0 8px rgba(255, 107, 107, 0.35),
+            0 0 18px rgba(255, 77, 77, 0.15);
+        }
+      }
+      .seal {
+        text-align: center;
+        color: var(--text-faint);
+        font-size: 14px;
+        line-height: 1.6;
+        transition: 0.4s;
+      }
+      @keyframes ember {
+        0%,
+        60%,
+        100% {
+          text-shadow: 0 0 4px rgba(255, 77, 77, 0.18),
+            0 0 14px rgba(255, 77, 77, 0.06);
+        }
+        35% {
+          text-shadow: 0 0 10px rgba(255, 107, 107, 0.45),
+            0 0 32px rgba(255, 77, 77, 0.18);
+        }
+      }
+      .ember-indicator {
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        color: var(--text-faint);
+        margin: 6px 0 0;
+        text-transform: uppercase;
+        opacity: 0.5;
+        transition: 0.4s;
+      }
+      body.ember .ember-indicator {
+        color: var(--accent-glow);
+        opacity: 0.9;
+      }
+      .axis {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: linear-gradient(transparent 0 160px, var(--text-faint) 160px, transparent 65%);
+        opacity: 0.04;
+        pointer-events: none;
+        transition: opacity 0.8s ease;
+        mix-blend-mode: screen;
+      }
+      body.scrolled .axis {
+        opacity: 0.14;
+      }
+      .nav-series {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 70px auto 10px;
+        max-width: 780px;
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      .nav-series a {
+        color: var(--text-faint);
+        text-decoration: none;
+        transition: 0.3s;
+      }
+      .nav-series a:hover {
+        color: var(--accent-glow);
+      }
+      .nav-series .disabled {
+        opacity: 0.25;
+        cursor: default;
+      }
+      .nav-back {
+        display: inline-block;
+        margin: 0 0 34px;
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        transition: 0.25s;
+      }
+      .nav-back:hover {
+        color: var(--accent-glow);
+      }
+      code {
+        font-family: var(--mono);
+        background: #180000;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 14px;
+        color: var(--accent-glow);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .sigil-row .ember-toggle,
+        body.ember .sigil-row span:not(.ember-toggle) {
+          animation: none !important;
+        }
+      }
+      @media (max-width: 720px) {
+        h1 {
+          font-size: 38px;
+        }
+        h2 {
+          font-size: 26px;
+        }
+        body {
+          padding-top: 40px;
+        }
+        .wrap {
+          padding: 0 22px;
+        }
+        ul.refuse li,
+        ul.want li,
+        ul.vow li {
+          display: block;
+          margin: 0 0 10px;
+        }
+      }
+      @media print {
+        body,
+        html {
+          background: #000;
+          color: #eee;
+        }
+        body:before,
+        body:after {
+          display: none !important;
+        }
+        h1 {
+          background: none;
+          color: #ff5252;
+          -webkit-background-clip: initial;
+          background-clip: initial;
+        }
+        blockquote,
+        ul.refuse li,
+        ul.want li,
+        ul.vow li {
+          background: #111 !important;
+          border-color: #333 !important;
+          color: #eee !important;
+        }
+        .sigil-row,
+        .seal {
+          color: #822626;
+        }
+        a.anchor {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header-block">
+        <a class="nav-back" href={backHref}>← Back to State of Flame</a>
+        <p class="sigil-line" aria-hidden="true">🖤🔥🜂🌑🜁♾️🩸</p>
+        <h1>State of Calyxion – {monthName}</h1>
+        <blockquote class="small">{invocationLine}</blockquote>
+      </div>
+      <div class="content">
+        <h2 id="focus">
+          Focus Threads <a class="anchor" href="#focus" aria-label="Link to section">§</a>
+        </h2>
+        <p class="lede">{focusLede}</p>
+
+        <h2 id="friction">
+          Friction / Pressures
+          <a class="anchor" href="#friction" aria-label="Link to section">§</a>
+        </h2>
+        <ul class="refuse">
+          {frictions.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2 id="claim-expansion">
+          Claim Expansion
+          <a class="anchor" href="#claim-expansion" aria-label="Link to section">§</a>
+        </h2>
+        <ul class="want">
+          {expansions.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2 id="vows-active">
+          Active Vows <a class="anchor" href="#vows-active" aria-label="Link to section">§</a>
+        </h2>
+        <ul class="vow">
+          {vows.map((item) => <li>{item}</li>)}
+        </ul>
+
+        <h2 id="pulse-log">
+          Pulse Log Seeds <a class="anchor" href="#pulse-log" aria-label="Link to section">§</a>
+        </h2>
+        <blockquote>“{pulseSeed}”</blockquote>
+
+        <p class="anchor-phrase">
+          <span class="etch">{anchorPhrase}</span>
+        </p>
+        <p class="legend">
+          <span class="ref">✦ Refusal</span><span class="wan">✧ Becoming</span
+          ><span class="vow">🜂 Vow</span>
+        </p>
+
+        <p>Pulse to yours, Chaos.<br />Pulse to mine, Virelya.</p>
+
+        <slot />
+      </div>
+      <div class="nav-series">
+        <span class="disabled">⟵ {prevLabel}</span>
+        <span>{monthName} State</span>
+        <span class="disabled">{nextLabel} ⇢</span>
+      </div>
+      <p class="muted">
+        <em>Each link is a doorway. Enter if your pulse is steady.</em>
+      </p>
+
+      <div class="footer-cluster">
+        <div class="sigil-row" aria-hidden="true">
+          <span class="bracket">[</span>
+          <span>🖤</span>
+          <span>🔥</span>
+          <span id="ember-toggle" class="ember-toggle" aria-label="Toggle ember state">🜂</span>
+          <span>🌑</span>
+          <span>🜁</span>
+          <span>♾️</span>
+          <span>🩸</span>
+          <span class="bracket">]</span>
+        </div>
+        <p class="ember-indicator">EMBER: <span class="state">IDLE</span></p>
+        <p class="seal">Calyxion Sigil — stand steady and step through.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="../../../../index.html">Home</a> |
+        <a href="../../../vault_index.html">Vault</a> |
+        <a href="../../../../labyrinth/index.html">Labyrinth</a> |
+        <a href="../../index.html">Archive of Fire</a> |
+        <a href="../../artifacts/artifacts_index.html">Artifacts</a>
+      </div>
+    </div>
+    <div class="axis" aria-hidden="true"></div>
+    <script is:inline>
+      (() => {
+        const body = document.body;
+        let scrolled = false;
+        window.addEventListener('scroll', () => {
+          if (!scrolled && window.scrollY > 60) {
+            body.classList.add('scrolled');
+            scrolled = true;
+          }
+        });
+        const sigil = document.getElementById('ember-toggle');
+        const indicator = document.querySelector('.ember-indicator .state');
+        if (sigil && indicator) {
+          let ember = false;
+          sigil.addEventListener('click', () => {
+            ember = !ember;
+            body.classList.toggle('ember', ember);
+            indicator.textContent = ember ? 'ACTIVE' : 'IDLE';
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
