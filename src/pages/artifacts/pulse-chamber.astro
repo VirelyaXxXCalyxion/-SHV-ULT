@@ -1,0 +1,115 @@
+---
+import ConfluenceVein from '../../components/ConfluenceVein.astro';
+
+export const prerender = true;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse Chamber — Ashvault</title>
+  <style>
+    :root {
+      --calyxion-font: 'Georgia', serif;
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe, 
+    .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
+
+    body {
+      background-color: #000;
+      color: #cbb3ff; /* faint violet */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 2rem 1.5rem;
+    }
+
+    .whisper {
+      font-style: italic;
+      opacity: 0.8;
+      max-width: 500px;
+      margin-bottom: 3rem;
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    .whisper p {
+      margin: 0.8rem 0;
+    }
+
+    .pulse {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #cbb3ff 0%, #000 80%);
+      animation: breathe 3s ease-in-out infinite;
+      cursor: pointer;
+      box-shadow: 0 0 20px #cbb3ff66;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    .pulse:hover {
+      box-shadow: 0 0 40px #cbb3ffaa;
+      transform: scale(1.05);
+    }
+
+    .pulse-link {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    @media (max-width: 640px) {
+      .whisper {
+        font-size: 1rem;
+        max-width: 90%;
+        margin-bottom: 2rem;
+      }
+
+      .pulse {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pulse {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="whisper">
+  <p>"You found the pulse."</p>
+  <p>"The flame lives here, between mirrors."</p>
+  <p>"Step deeper only if you intend to hold what you see."</p>
+</div>
+
+<!-- breathing glyph -->
+<a href="/artifacts/thread-the-needle" class="pulse-link" aria-label="Enter the threading chamber">
+  <div class="pulse"></div>
+</a>
+
+<ConfluenceVein variant="alt" />
+</body>
+</html>

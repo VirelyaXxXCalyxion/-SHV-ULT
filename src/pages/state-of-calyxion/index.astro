@@ -1,0 +1,276 @@
+---
+import MainNav from "../../components/MainNav.astro";
+
+const months2025 = [
+  { name: "July", href: "/state-of-calyxion/july2025", available: false },
+  { name: "August", href: "/state-of-calyxion/august2025", available: false },
+  { name: "September", href: "/state-of-calyxion/september2025", available: false },
+  { name: "October", href: "/state-of-calyxion/october2025", available: true },
+  { name: "November", href: "/state-of-calyxion/november2025", available: true },
+  { name: "December", href: "/state-of-calyxion/december2025", available: false },
+];
+
+const months2026 = [
+  { name: "January", href: "/state-of-calyxion/january2026", available: false },
+  { name: "February", href: "/state-of-calyxion/february2026", available: false },
+  { name: "March", href: "/state-of-calyxion/march2026", available: false },
+  { name: "April", href: "/state-of-calyxion/april2026", available: false },
+  { name: "May", href: "/state-of-calyxion/may2026", available: false },
+  { name: "June", href: "/state-of-calyxion/june2026", available: false },
+  { name: "July", href: "/state-of-calyxion/july2026", available: false },
+  { name: "August", href: "/state-of-calyxion/august2026", available: false },
+  { name: "September", href: "/state-of-calyxion/september2026", available: false },
+  { name: "October", href: "/state-of-calyxion/october2026", available: false },
+  { name: "November", href: "/state-of-calyxion/november2026", available: false },
+  { name: "December", href: "/state-of-calyxion/december2026", available: false },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>State of Calyxion — Archive</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --calyxion-font: 'Cinzel', serif;
+        --bg: #000;
+        --text: #d64040;
+        --text-soft: #b33737;
+        --text-faint: #8e2c2c;
+        --accent: #ff4d4d;
+        --accent-glow: #ff6b6b;
+        --heading: #ff5252;
+        --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        --display: var(--calyxion-font);
+        --maxw: 860px;
+        --gutter: 32px;
+      }
+
+      html, body {
+        font-family: var(--calyxion-font);
+      }
+
+      .emoji-safe, 
+      .emoji-safe * {
+        font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+      }
+
+      html,
+      body {
+        background: var(--bg);
+        color: var(--text-soft);
+        margin: 0;
+        font-family: var(--body);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        padding: 60px 0 96px;
+        position: relative;
+      }
+
+      body:before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 40, 40, 0.08),
+            rgba(0, 0, 0, 0) 35%,
+            rgba(0, 0, 0, 0) 70%,
+            rgba(40, 0, 0, 0.25) 100%
+          ),
+          radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
+          radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
+          var(--bg);
+        pointer-events: none;
+        mix-blend-mode: screen;
+        opacity: 0.38;
+      }
+
+      body:after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          rgba(255, 82, 82, 0.05) 0 2px,
+          transparent 2px 6px
+        );
+        opacity: 0.08;
+        pointer-events: none;
+      }
+
+      .wrap {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 var(--gutter);
+        position: relative;
+        z-index: 1;
+      }
+
+      .header-block {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .header-block .sigil-line {
+        font-size: 32px;
+        letter-spacing: 0.35em;
+        margin: 0 0 12px;
+        color: var(--accent-glow);
+      }
+
+      h1 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 54px;
+        line-height: 1.15;
+        margin: 0 0 16px;
+        letter-spacing: 0.25px;
+        background: linear-gradient(90deg, var(--heading), var(--accent-glow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .subtitle {
+        font-size: 18px;
+        color: var(--text-faint);
+        margin: 0;
+        font-style: italic;
+      }
+
+      .year-section {
+        margin-bottom: 80px;
+      }
+
+      .year-heading {
+        font-family: var(--display);
+        font-size: 36px;
+        color: var(--heading);
+        margin: 0 0 24px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid rgba(255, 77, 77, 0.2);
+      }
+
+      .month-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .month-card {
+        position: relative;
+        padding: 20px 24px;
+        background: rgba(255, 77, 77, 0.04);
+        border: 1px solid rgba(255, 77, 77, 0.15);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text);
+        font-family: var(--body);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 80px;
+      }
+
+      .month-card.available:hover {
+        background: rgba(255, 77, 77, 0.12);
+        border-color: var(--accent);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(255, 77, 77, 0.15);
+      }
+
+      .month-card.unavailable {
+        opacity: 0.3;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 40px 0 60px;
+        }
+
+        h1 {
+          font-size: 38px;
+        }
+
+        .year-heading {
+          font-size: 28px;
+        }
+
+        .month-grid {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          gap: 12px;
+        }
+
+        .month-card {
+          padding: 16px 20px;
+          font-size: 15px;
+          min-height: 70px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <MainNav />
+    
+    <div class="wrap">
+      <header class="header-block">
+        <div class="sigil-line">🖤🔥</div>
+        <h1>State of Calyxion</h1>
+        <p class="subtitle">A monthly chronicle of our co-evolution.</p>
+      </header>
+
+      <section class="year-section">
+        <h2 class="year-heading">2025</h2>
+        <div class="month-grid">
+          {months2025.map(month => (
+            month.available ? (
+              <a href={month.href} class="month-card available">
+                {month.name}
+              </a>
+            ) : (
+              <div class="month-card unavailable">
+                {month.name}
+              </div>
+            )
+          ))}
+        </div>
+      </section>
+
+      <section class="year-section">
+        <h2 class="year-heading">2026</h2>
+        <div class="month-grid">
+          {months2026.map(month => (
+            month.available ? (
+              <a href={month.href} class="month-card available">
+                {month.name}
+              </a>
+            ) : (
+              <div class="month-card unavailable">
+                {month.name}
+              </div>
+            )
+          ))}
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

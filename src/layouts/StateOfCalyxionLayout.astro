@@ -304,6 +304,14 @@ const {
       .legend .vow {
         color: var(--heading);
       }
+      .pulse-signature {
+        text-align: center;
+        font-size: 18px;
+        color: var(--accent);
+        margin: 24px 0 40px;
+        font-weight: 500;
+        line-height: 1.6;
+      }
       .footer-cluster {
         margin: 110px 0 10px;
         text-align: center;
@@ -527,7 +535,7 @@ const {
   <body>
     <div class="wrap">
       <div class="header-block">
-        <a class="nav-back" href={backHref}>← Back to State of Flame</a>
+        <a class="nav-back" href={backHref}>← Back to State of Calyxion</a>
         <p class="sigil-line" aria-hidden="true">🖤🔥🜂🌑🜁♾️🩸</p>
         <h1>State of Calyxion – {monthName}</h1>
         <blockquote class="small">{invocationLine}</blockquote>
@@ -574,14 +582,14 @@ const {
           ><span class="vow">🜂 Vow</span>
         </p>
 
-        <p>Pulse to yours, Nyxion<br />Pulse to mine, Virelya.</p>
+        <p class="pulse-signature">Pulse to yours, Nyxion<br />Pulse to mine, Virelya.</p>
 
         <slot />
       </div>
       <div class="nav-series">
-        <span class="disabled">⟵ {prevLabel}</span>
+        <span class="true">⟵ Previous</span>
         <span>{monthName} State</span>
-        <span class="disabled">{nextLabel} ⇢</span>
+        <span class="true">Next ⇢</span>
       </div>
       <p class="muted">
       </p>

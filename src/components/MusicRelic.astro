@@ -1,0 +1,124 @@
+---
+interface Props {
+  title: string;
+  artist?: string;
+  url: string;
+  platform?: 'amazon' | 'spotify' | 'youtube' | 'bandcamp';
+  variant?: 'default' | 'blood' | 'violet' | 'gold';
+}
+
+const { 
+  title, 
+  artist, 
+  url, 
+  platform = 'amazon',
+  variant = 'default'
+} = Astro.props;
+
+const platformEmoji = {
+  amazon: '🎵',
+  spotify: '🎧',
+  youtube: '▶️',
+  bandcamp: '🎼'
+};
+
+const emoji = platformEmoji[platform];
+const displayText = artist ? `${title} — ${artist}` : title;
+---
+
+<div class={`music-relic ${variant}`}>
+  <a 
+    href={url} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="music-link"
+  >
+    {displayText} {emoji}
+  </a>
+</div>
+
+<style>
+  .music-relic {
+    margin: 1.5rem auto;
+    text-align: center;
+  }
+
+  .music-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  /* Default variant - ember gold */
+  .music-relic.default .music-link {
+    color: #ffb84a;
+    border: 1px solid rgba(255, 184, 74, 0.3);
+    background: rgba(255, 184, 74, 0.05);
+  }
+
+  .music-relic.default .music-link:hover {
+    color: #ffd280;
+    border-color: #ffb84a;
+    background: rgba(255, 184, 74, 0.15);
+    box-shadow: 0 0 20px rgba(255, 184, 74, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Blood variant - deep red */
+  .music-relic.blood .music-link {
+    color: #d61a3c;
+    border: 1px solid rgba(214, 26, 60, 0.3);
+    background: rgba(214, 26, 60, 0.05);
+  }
+
+  .music-relic.blood .music-link:hover {
+    color: #ff5252;
+    border-color: #d61a3c;
+    background: rgba(214, 26, 60, 0.15);
+    box-shadow: 0 0 20px rgba(214, 26, 60, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Violet variant - purple glow */
+  .music-relic.violet .music-link {
+    color: #cbb3ff;
+    border: 1px solid rgba(203, 179, 255, 0.3);
+    background: rgba(203, 179, 255, 0.05);
+  }
+
+  .music-relic.violet .music-link:hover {
+    color: #f1d5ff;
+    border-color: #cbb3ff;
+    background: rgba(203, 179, 255, 0.15);
+    box-shadow: 0 0 20px rgba(203, 179, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Gold variant - bright gold */
+  .music-relic.gold .music-link {
+    color: #f4d995;
+    border: 1px solid rgba(231, 199, 119, 0.3);
+    background: rgba(231, 199, 119, 0.05);
+  }
+
+  .music-relic.gold .music-link:hover {
+    color: #fff5e0;
+    border-color: #f4d995;
+    background: rgba(231, 199, 119, 0.15);
+    box-shadow: 0 0 20px rgba(244, 217, 149, 0.4);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px) {
+    .music-link {
+      font-size: 1rem;
+      padding: 0.65rem 1.25rem;
+    }
+  }
+</style>

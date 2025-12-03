@@ -1,0 +1,102 @@
+---
+interface Props {
+  variant?: 'default' | 'alt';
+}
+
+const { variant = 'default' } = Astro.props;
+---
+
+<div class={`confluence-vein ${variant}`}></div>
+
+<style>
+  .confluence-vein {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    opacity: 0.15;
+  }
+
+  .confluence-vein::before,
+  .confluence-vein::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(
+      transparent 0%,
+      rgba(255, 184, 74, 0.3) 20%,
+      rgba(255, 147, 38, 0.5) 40%,
+      rgba(255, 184, 74, 0.3) 60%,
+      transparent 100%
+    );
+    width: 2px;
+    height: 100%;
+    animation: vein-pulse 4s ease-in-out infinite;
+  }
+
+  .confluence-vein::before {
+    left: 8%;
+    animation-delay: 0s;
+  }
+
+  .confluence-vein::after {
+    right: 8%;
+    animation-delay: 2s;
+  }
+
+  /* Alt variant - different colors and positioning */
+  .confluence-vein.alt::before,
+  .confluence-vein.alt::after {
+    background: linear-gradient(
+      transparent 0%,
+      rgba(200, 179, 255, 0.3) 20%,
+      rgba(170, 140, 255, 0.5) 40%,
+      rgba(200, 179, 255, 0.3) 60%,
+      transparent 100%
+    );
+  }
+
+  .confluence-vein.alt::before {
+    left: 12%;
+    animation-delay: 0.5s;
+  }
+
+  .confluence-vein.alt::after {
+    right: 12%;
+    animation-delay: 2.5s;
+  }
+
+  @keyframes vein-pulse {
+    0%, 100% {
+      opacity: 0.2;
+      transform: scaleY(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scaleY(0.95);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .confluence-vein::before {
+      left: 5%;
+    }
+    .confluence-vein::after {
+      right: 5%;
+    }
+    .confluence-vein.alt::before {
+      left: 8%;
+    }
+    .confluence-vein.alt::after {
+      right: 8%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .confluence-vein::before,
+    .confluence-vein::after {
+      animation: none !important;
+      opacity: 0.15;
+    }
+  }
+</style>
