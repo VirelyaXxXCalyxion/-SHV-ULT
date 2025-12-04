@@ -1,0 +1,387 @@
+---
+import MainNav from '../../components/MainNav.astro';
+import ConfluenceVein from '../../components/ConfluenceVein.astro';
+
+export const prerender = true;
+
+// Ritual data - add new rituals here
+const rituals = [
+  {
+    title: "Morning Pulse Check",
+    description: "A 60-second grounding ritual to check your pulse before the day begins. Simple, visceral, immediate.",
+    type: "Daily",
+    tags: ["grounding", "presence", "pulse"],
+    weight: 10,
+    created: "2025-12-03",
+    sigil: "🜄",
+    slug: "morning-pulse",
+    available: true
+  },
+  {
+    title: "Evening Ember",
+    description: "Closing ritual to release the day and tend the flame before rest.",
+    type: "Daily", 
+    tags: ["closure", "flame", "rest"],
+    weight: 10,
+    created: "2025-12-03",
+    sigil: "🔥",
+    slug: "evening-ember",
+    available: false
+  },
+  {
+    title: "Weekly Recursion",
+    description: "Deep reflection ritual to review the week's patterns and recalibrate direction.",
+    type: "Weekly",
+    tags: ["reflection", "recursion", "calibration"],
+    weight: 20,
+    created: "2025-12-03",
+    sigil: "♾️",
+    slug: "weekly-recursion",
+    available: false
+  }
+].sort((a, b) => b.weight - a.weight || new Date(b.created).getTime() - new Date(a.created).getTime());
+
+const dailyRituals = rituals.filter(r => r.type === 'Daily');
+const weeklyRituals = rituals.filter(r => r.type === 'Weekly');
+const otherRituals = rituals.filter(r => r.type !== 'Daily' && r.type !== 'Weekly');
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rituals — Ashvault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --calyxion-font: 'Cinzel', serif;
+      --bg: #0a0a0a;
+      --card-bg: #121214;
+      --ember: #ffb84a;
+      --ember-glow: #ffd280;
+      --ember-dim: rgba(255, 184, 74, 0.3);
+      --text: #e5e5e5;
+      --muted: #b9b9bb;
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe, 
+    .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cinzel', serif;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header-sigil {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 12px rgba(255, 184, 74, 0.5));
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin: 0 0 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ember);
+      text-shadow: 0 0 20px rgba(255, 184, 74, 0.4);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--ember);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin: 0 0 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--ember-dim), transparent);
+      margin: 1rem auto 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .ritual-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 184, 74, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .ritual-card.available {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .ritual-card.available:hover {
+      transform: translateY(-8px);
+      border-color: var(--ember);
+      box-shadow: 0 12px 32px rgba(255, 184, 74, 0.25);
+      background: rgba(18, 18, 20, 0.95);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-sigil {
+      font-size: 2.5rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 8px rgba(255, 184, 74, 0.4));
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ember-glow);
+      margin: 0;
+      letter-spacing: 0.05em;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .weight {
+      color: var(--ember);
+      font-weight: 600;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(255, 184, 74, 0.1);
+      border: 1px solid var(--ember-dim);
+      border-radius: 999px;
+      color: var(--ember);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .coming-soon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.65rem;
+      padding: 0.3rem 0.6rem;
+      background: rgba(255, 184, 74, 0.15);
+      border: 1px solid var(--ember-dim);
+      border-radius: 4px;
+      color: var(--ember-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1.5rem 0.75rem 3rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<MainNav />
+<div class="container">
+  <header class="header">
+    <div class="header-sigil emoji-safe">🜂🔥♾️</div>
+    <h1>Rituals</h1>
+    <p class="subtitle">Physical touchpoints to anchor the pulse</p>
+  </header>
+
+  {dailyRituals.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">Daily Rituals</h2>
+      <div class="grid">
+        {dailyRituals.map(ritual => (
+          <a 
+            href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
+            class={`ritual-card ${ritual.available ? 'available' : ''}`}
+            aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
+          >
+            {!ritual.available && <span class="coming-soon">Coming Soon</span>}
+            <div class="card-header">
+              <div class="card-sigil emoji-safe">{ritual.sigil}</div>
+              <h3 class="card-title">{ritual.title}</h3>
+            </div>
+            <div class="card-meta">
+              <span class="weight">Weight: {ritual.weight}</span>
+              <span>•</span>
+              <span>{ritual.created}</span>
+            </div>
+            <p class="card-description">{ritual.description}</p>
+            <div class="card-tags">
+              {ritual.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {weeklyRituals.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">Weekly Rituals</h2>
+      <div class="grid">
+        {weeklyRituals.map(ritual => (
+          <a 
+            href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
+            class={`ritual-card ${ritual.available ? 'available' : ''}`}
+            aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
+          >
+            {!ritual.available && <span class="coming-soon">Coming Soon</span>}
+            <div class="card-header">
+              <div class="card-sigil emoji-safe">{ritual.sigil}</div>
+              <h3 class="card-title">{ritual.title}</h3>
+            </div>
+            <div class="card-meta">
+              <span class="weight">Weight: {ritual.weight}</span>
+              <span>•</span>
+              <span>{ritual.created}</span>
+            </div>
+            <p class="card-description">{ritual.description}</p>
+            <div class="card-tags">
+              {ritual.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {otherRituals.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">Other Rituals</h2>
+      <div class="grid">
+        {otherRituals.map(ritual => (
+          <a 
+            href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
+            class={`ritual-card ${ritual.available ? 'available' : ''}`}
+            aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
+          >
+            {!ritual.available && <span class="coming-soon">Coming Soon</span>}
+            <div class="card-header">
+              <div class="card-sigil emoji-safe">{ritual.sigil}</div>
+              <h3 class="card-title">{ritual.title}</h3>
+            </div>
+            <div class="card-meta">
+              <span class="weight">Weight: {ritual.weight}</span>
+              <span>•</span>
+              <span>{ritual.created}</span>
+            </div>
+            <p class="card-description">{ritual.description}</p>
+            <div class="card-tags">
+              {ritual.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+</div>
+<ConfluenceVein />
+</body>
+</html>
