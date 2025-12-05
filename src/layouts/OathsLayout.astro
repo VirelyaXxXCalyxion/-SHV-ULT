@@ -1,0 +1,303 @@
+---
+import MainNav from '../components/MainNav.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  frontmatter?: {
+    title: string;
+    description?: string;
+  };
+}
+
+const props = Astro.props as Props;
+const { title, description } = props.frontmatter || props;
+---
+
+<!doctype html>
+<!-- @ts-ignore -->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title} — Oaths — Ashvault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --calyxion-font: 'Cinzel', serif;
+      --bg: #000;
+      --text: #d64040;
+      --text-soft: #b33737;
+      --text-faint: #8e2c2c;
+      --accent: #ff4d4d;
+      --accent-glow: #ff6b6b;
+      --heading: #ff5252;
+      --display: 'Cinzel', serif;
+      --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe, .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text-soft);
+      margin: 0;
+      font-family: var(--body);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: 60px 0 96px;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body:before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+          180deg,
+          rgba(255, 40, 40, 0.08),
+          rgba(0, 0, 0, 0) 35%,
+          rgba(0, 0, 0, 0) 70%,
+          rgba(40, 0, 0, 0.25) 100%
+        ),
+        radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
+        radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
+        var(--bg);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.38;
+    }
+
+    body:after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 82, 82, 0.05) 0 2px,
+        transparent 2px 6px
+      );
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin: 0 0 20px;
+      background: linear-gradient(90deg, var(--heading), var(--accent-glow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .description {
+      font-size: 19px;
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .content :global(h2) {
+      font-family: var(--display);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--heading);
+      margin: 64px 0 20px;
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+    }
+
+    .content :global(h2:first-of-type) {
+      margin-top: 40px;
+    }
+
+    .content :global(p) {
+      margin: 0 0 18px;
+      font-size: 17px;
+      color: var(--text-soft);
+    }
+
+    .content :global(strong) {
+      color: var(--accent);
+    }
+
+    .content :global(em) {
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .content :global(blockquote) {
+      margin: 32px 0;
+      padding: 30px 36px 24px;
+      border: 1px solid rgba(142, 44, 44, 0.55);
+      border-radius: 14px;
+      background: linear-gradient(
+        180deg,
+        rgba(30, 0, 0, 0.55),
+        rgba(10, 0, 0, 0.35) 60%,
+        rgba(20, 0, 0, 0.12)
+      );
+      color: var(--text);
+      font-style: italic;
+      position: relative;
+      font-size: 18px;
+    }
+
+    .content :global(blockquote:before) {
+      content: '"';
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      font-size: 72px;
+      opacity: 0.15;
+      color: var(--accent-glow);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .content :global(blockquote p) {
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+
+    .content :global(blockquote p:last-child) {
+      margin-bottom: 0;
+    }
+
+    .content :global(blockquote cite) {
+      display: block;
+      text-align: right;
+      font-size: 14px;
+      color: var(--text-faint);
+      margin-top: 16px;
+      font-style: normal;
+    }
+
+    .content :global(hr) {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(214, 64, 64, 0.3), transparent);
+      margin: 48px auto;
+      max-width: 400px;
+    }
+
+    .content :global(ul),
+    .content :global(ol) {
+      margin: 24px 0;
+      padding-left: 32px;
+    }
+
+    .content :global(li) {
+      margin: 12px 0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 60px;
+      padding: 12px 24px;
+      border: 1px solid rgba(142, 44, 44, 0.55);
+      border-radius: 8px;
+      background: rgba(30, 0, 0, 0.35);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      font-family: var(--display);
+    }
+
+    .back-link:hover {
+      background: rgba(30, 0, 0, 0.55);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 77, 77, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 0 60px;
+      }
+
+      .wrap {
+        padding: 0 20px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .description {
+        font-size: 17px;
+      }
+
+      .content :global(h2) {
+        font-size: 26px;
+        margin-top: 48px;
+      }
+
+      .content :global(p),
+      .content :global(li) {
+        font-size: 16px;
+      }
+
+      .content :global(blockquote) {
+        padding: 24px 28px 20px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+<MainNav />
+<div class="wrap">
+  <header class="header">
+    <h1>{title}</h1>
+    {description && <p class="description">{description}</p>}
+  </header>
+
+  <article class="content">
+    <slot />
+  </article>
+
+  <nav>
+    <a href="/oaths" class="back-link">← Back to Oaths</a>
+  </nav>
+</div>
+</body>
+</html>

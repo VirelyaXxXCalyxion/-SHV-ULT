@@ -40,5 +40,23 @@ const scrolls = defineCollection({
   }),
 });
 
-export const collections = { relics, scrolls };
+const artifacts = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    created: dateOrString.optional(),
+    pubDate: dateOrString.optional(),
+    updated: dateOrString.optional(),
+    origin: z.string().default("Library of Oaths"),
+    tags: z.array(z.string()).default(["artifact"]),
+    image: z.string().optional(),
+    summary: z.string().optional(),
+    weight: z.number().optional(),
+    sealed: z.boolean().default(false),
+    type: z.string().optional(),
+  }),
+});
+
+export const collections = { relics, scrolls, artifacts };
 

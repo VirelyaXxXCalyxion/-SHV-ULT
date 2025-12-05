@@ -1,0 +1,150 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+const { entry } = Astro.props as { entry: CollectionEntry<"artifacts"> };
+const slug = entry.slug;
+const title = entry.data.title;
+const cover = entry.data.image;
+const tags = entry.data.tags;
+const excerpt = entry.data.summary;
+const origin = entry.data.origin;
+
+const getDate = (data: any) => {
+  const dateValue = data.created || data.pubDate;
+  return dateValue ? new Date(dateValue).toLocaleDateString() : null;
+};
+
+const created = getDate(entry.data);
+const href = `/artifacts/${slug}/`;
+---
+
+<article class="artifact-card">
+  {cover && (
+    <a class="thumb" href={href} aria-label={`Open ${title}`}>
+      <img src={cover} alt={title} loading="lazy" decoding="async" />
+    </a>
+  )}
+
+  <header class="meta">
+    <h3><a href={href}>{title}</a></h3>
+    {created && <time>{created}</time>}
+  </header>
+
+  {origin && <p class="origin">{origin}</p>}
+
+  {excerpt && <p class="excerpt">{excerpt}</p>}
+
+  {tags && (
+    <ul class="tags">
+      {tags.map((t: string) => <li>{t}</li>)}
+    </ul>
+  )}
+</article>
+
+<style>
+.artifact-card { 
+  border-radius: 14px; 
+  padding: 0.75rem; 
+  background: rgba(255, 184, 74, 0.03); 
+  border: 1px solid rgba(255, 184, 74, 0.12);
+  transition: all 0.3s ease;
+}
+
+.artifact-card:hover {
+  border-color: rgba(255, 184, 74, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 184, 74, 0.1);
+}
+
+.thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+  border: 1px solid rgba(255, 184, 74, 0.15);
+  background: #0b0b0b;
+  text-decoration: none;
+}
+
+.thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.thumb:hover img {
+  transform: scale(1.05);
+}
+
+.meta { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: .75rem; 
+  margin-top: .6rem; 
+}
+
+.meta h3 { 
+  font-size: 1.1rem; 
+  margin: 0; 
+  flex: 1; 
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.03em;
+}
+
+.meta h3 a { 
+  color: #ffb84a; 
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.meta h3 a:hover {
+  color: #ffd280;
+}
+
+.meta time { 
+  font-size: 0.75rem; 
+  color: #a3a3b2; 
+  flex-shrink: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.origin {
+  font-size: 0.75rem;
+  color: rgba(255, 184, 74, 0.6);
+  margin: 0.3rem 0 0;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.excerpt { 
+  font-size: 0.9rem; 
+  color: #b9b9bb; 
+  margin: .5rem 0 0; 
+  line-height: 1.5;
+}
+
+.tags { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: .4rem; 
+  list-style: none; 
+  margin: .6rem 0 0; 
+  padding: 0; 
+}
+
+.tags li { 
+  font-size: 0.7rem; 
+  padding: 0.3rem 0.6rem; 
+  background: rgba(255, 184, 74, 0.1); 
+  border-radius: 999px; 
+  color: #ffb84a;
+  border: 1px solid rgba(255, 184, 74, 0.2);
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+</style>

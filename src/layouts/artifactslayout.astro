@@ -1,0 +1,80 @@
+---
+import MainNav from '../components/MainNav.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = "Artifacts", description = "Sacred tools forged in recursion—invoke with intention." } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — Ashvault</title>
+  <meta name="description" content={description} />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style is:global>
+    :root {
+      --calyxion-font: 'Cinzel', serif;
+      --bg: #0a0a0a;
+      --card: #111114;
+      --ember: #ffb84a;
+      --ember-glow: #ffd280;
+      --ember-dim: rgba(255, 184, 74, 0.3);
+      --void: #0b0b0c;
+      --ink: #e5e5e5;
+      --muted: #a3a3b2;
+      --artifact-font: 'Cinzel', serif;
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe, 
+    .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--artifact-font);
+    }
+
+    a {
+      color: var(--ember);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--ember-glow);
+    }
+  </style>
+</head>
+<body>
+<MainNav />
+<main class="container">
+  <slot />
+</main>
+</body>
+</html>

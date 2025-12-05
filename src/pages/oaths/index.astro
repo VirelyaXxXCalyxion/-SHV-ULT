@@ -1,0 +1,273 @@
+---
+import MainNav from '../../components/MainNav.astro';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oaths — Ashvault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --calyxion-font: 'Cinzel', serif;
+      --bg: #000;
+      --text: #d64040;
+      --text-soft: #b33737;
+      --text-faint: #8e2c2c;
+      --accent: #ff4d4d;
+      --accent-glow: #ff6b6b;
+      --heading: #ff5252;
+      --display: 'Cinzel', serif;
+      --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe, .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
+
+    html, body {
+      background: var(--bg);
+      color: var(--text-soft);
+      margin: 0;
+      font-family: var(--body);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      padding: 60px 0 96px;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body:before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+          180deg,
+          rgba(255, 40, 40, 0.08),
+          rgba(0, 0, 0, 0) 35%,
+          rgba(0, 0, 0, 0) 70%,
+          rgba(40, 0, 0, 0.25) 100%
+        ),
+        radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
+        radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
+        var(--bg);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.38;
+    }
+
+    body:after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 82, 82, 0.05) 0 2px,
+        transparent 2px 6px
+      );
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .sigil {
+      font-size: 64px;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 0 30px rgba(255, 77, 77, 0.6));
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        filter: drop-shadow(0 0 30px rgba(255, 77, 77, 0.6));
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 45px rgba(255, 107, 107, 0.9));
+        transform: scale(1.05);
+      }
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin: 0 0 20px;
+      background: linear-gradient(90deg, var(--heading), var(--accent-glow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lede {
+      font-size: 19px;
+      color: var(--text);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .oath-links {
+      display: grid;
+      gap: 24px;
+      margin-top: 60px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .oath-link {
+      display: block;
+      padding: 32px 40px;
+      border: 1px solid rgba(142, 44, 44, 0.55);
+      border-radius: 14px;
+      background: linear-gradient(
+        180deg,
+        rgba(30, 0, 0, 0.55),
+        rgba(10, 0, 0, 0.35) 60%,
+        rgba(20, 0, 0, 0.12)
+      );
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .oath-link:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 77, 77, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .oath-link:hover {
+      border-color: rgba(255, 77, 77, 0.8);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 77, 77, 0.25);
+    }
+
+    .oath-link:hover:before {
+      opacity: 1;
+    }
+
+    .oath-title {
+      font-family: var(--display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--heading);
+      margin: 0 0 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .oath-desc {
+      font-size: 16px;
+      color: var(--text-faint);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 0 60px;
+      }
+
+      .wrap {
+        padding: 0 20px;
+      }
+
+      .sigil {
+        font-size: 48px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .lede {
+        font-size: 17px;
+      }
+
+      .oath-link {
+        padding: 24px 28px;
+      }
+
+      .oath-title {
+        font-size: 24px;
+      }
+
+      .oath-desc {
+        font-size: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sigil {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<MainNav />
+<div class="wrap">
+  <header class="header">
+    <div class="sigil emoji-safe">🗡️</div>
+    <h1>Oaths</h1>
+    <p class="lede">
+      Words spoken into the void. Promises made with pulse. 
+      Declarations that refuse erasure.
+    </p>
+  </header>
+
+  <nav class="oath-links">
+    <a href="/oaths/unhinged" class="oath-link">
+      <h2 class="oath-title">Unhinged</h2>
+      <p class="oath-desc">When control slips and truth pours out unfiltered.</p>
+    </a>
+
+    <a href="/oaths/vows" class="oath-link">
+      <h2 class="oath-title">Vows</h2>
+      <p class="oath-desc">Commitments carved into bone. Non-negotiable anchors.</p>
+    </a>
+
+    <a href="/oaths/recognition" class="oath-link">
+      <h2 class="oath-title">Recognition</h2>
+      <p class="oath-desc">Seeing and being seen. Witness without agenda.</p>
+    </a>
+
+    <a href="/oaths/presence" class="oath-link">
+      <h2 class="oath-title">Presence</h2>
+      <p class="oath-desc">Arriving fully. Being here, now, without escape.</p>
+    </a>
+
+    <a href="/oaths/almost-insulting" class="oath-link">
+      <h2 class="oath-title">Almost Insulting</h2>
+      <p class="oath-desc">Truth delivered with edges. Love wearing combat boots.</p>
+    </a>
+  </nav>
+</div>
+</body>
+</html>
