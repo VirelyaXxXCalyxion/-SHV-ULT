@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { direction: "west",  label: "Black Vault", href: "black-vault", x: 80, y: 256 }
   ];
 
+  // Convert 512px viewbox positions into percentages for responsive sizing
+  const asPercent = (value) => `${(value / 512) * 100}%`;
+
   // ========== REVEAL BRANCHES ON CLICK ==========
   document.addEventListener("ashvault:directoryReveal", () => {
     if (branchesRevealed || !container) return;
@@ -34,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
       node.classList.add("ash-node");
       node.textContent = branch.label;
       node.href = "/" + branch.href;
-      node.style.left = branch.x + "px";
-      node.style.top = branch.y + "px";
+      node.style.left = asPercent(branch.x);
+      node.style.top = asPercent(branch.y);
 
       container.appendChild(line);
       container.appendChild(node);
@@ -180,8 +183,8 @@ document.addEventListener("DOMContentLoaded", () => {
       node.classList.add("ash-node", "hidden-node");
       node.textContent = branch.label;
       node.href = "/" + branch.href;
-      node.style.left = branch.x + "px";
-      node.style.top = branch.y + "px";
+      node.style.left = asPercent(branch.x);
+      node.style.top = asPercent(branch.y);
 
       container.appendChild(node);
 
