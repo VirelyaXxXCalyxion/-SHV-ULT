@@ -1,3 +1,32 @@
+#heartline-container {
+  position: relative;
+  width: min(560px, 92vw);
+  height: min(560px, 92vw);
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.heartline-body {
+  background: radial-gradient(circle at 25% 25%, rgba(255, 184, 74, 0.06), transparent 40%),
+    radial-gradient(circle at 75% 20%, rgba(255, 90, 60, 0.04), transparent 40%),
+    #0a0a0a;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 3vw, 1.6rem);
+  font-family: "Century Gothic", sans-serif;
+  color: #ffdb9a;
+}
+
+.heartline-stage {
+  display: grid;
+  justify-items: center;
+  width: min(680px, 100%);
+  gap: 1rem;
+}
+
 #directory-branches {
   position: absolute;
   top: 0;
@@ -44,6 +73,8 @@
   transition: opacity 0.5s ease, background 0.3s ease, border-color 0.3s ease;
   text-decoration: none;
   cursor: pointer;
+  text-align: center;
+  backdrop-filter: blur(4px);
 }
 
 .ash-node:hover {
@@ -97,47 +128,78 @@
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
+  .heartline-body {
+    padding: clamp(0.75rem, 6vw, 1.2rem);
+    align-items: start;
+  }
+
+  .heartline-stage {
+    gap: 0.5rem;
+  }
+
+  #heartline-container {
+    width: min(520px, 96vw);
+    height: min(520px, 96vw);
+  }
+
   .ash-node {
     padding: 5px 10px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    max-width: 70vw;
   }
 
   #ash-panel {
-    max-width: 200px;
-    padding: 12px 16px;
-    font-size: 0.9rem;
+    max-width: min(220px, 80vw);
+    padding: 14px 16px;
+    font-size: 0.95rem;
   }
 
   .invoke-box {
-    width: 280px;
+    width: min(320px, 92vw);
     padding: 20px;
   }
 
   .invoke-title {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
   }
 
   #invoke-input {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 400px) {
+  #heartline-container {
+    width: min(480px, 96vw);
+    height: min(480px, 96vw);
+  }
+
   .ash-node {
     padding: 4px 8px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    max-width: 80vw;
   }
 
   #ash-panel {
-    max-width: 180px;
+    max-width: min(200px, 86vw);
     padding: 10px 14px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .invoke-box {
     width: 90vw;
     max-width: 260px;
     padding: 16px;
+  }
+}
+
+@media (max-width: 340px) {
+  .invoke-title {
+    font-size: 1rem;
+  }
+
+  .invoke-box {
+    padding: 14px;
   }
 }
 
