@@ -2,26 +2,33 @@
 .gate-body {
   background: #000;
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Cinzel", serif;
   overflow: hidden;
+  padding: 2rem 1.25rem;
 }
 
 /* Center Container */
 .center {
   text-align: center;
+  max-width: 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
 }
 
 /* Vault Title - Commanding and Centered */
 .vault-title {
-  font-size: 3.5rem;
+  font-size: clamp(2.4rem, 7vw, 3.5rem);
   color: #c2964a;
   font-weight: 900;
   letter-spacing: 8px;
-  margin: 0 0 40px 0;
+  margin: 0 0 32px 0;
   text-shadow: 0 0 20px rgba(194, 150, 74, 0.3);
   font-family: "Cinzel", serif;
   opacity: 0.95;
@@ -30,7 +37,7 @@
 
 /* Sigil Pulse */
 .sigil {
-  font-size: 4rem;
+  font-size: clamp(3rem, 9vw, 4rem);
   color: #c2964a;
   opacity: 0.9;
   cursor: pointer;
@@ -45,8 +52,8 @@
 
 /* Entry text (hidden by default) */
 .entry {
-  margin-top: 20px;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  font-size: 1rem;
   color: #c2964a;
   opacity: 0;
   text-decoration: none;
@@ -116,6 +123,37 @@
 
 .center:hover .gate-whisper {
   opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .gate-body {
+    padding: 2.5rem 1.5rem 2.25rem;
+  }
+
+  .vault-title {
+    letter-spacing: 4px;
+    margin-bottom: 24px;
+  }
+
+  .sigil {
+    margin-bottom: 4px;
+  }
+
+  .gate-whisper {
+    margin-top: 1.25rem;
+    line-height: 1.5;
+    max-width: 360px;
+  }
+}
+
+@media (hover: none) {
+  .entry {
+    opacity: 1;
+  }
+
+  .gate-whisper {
+    opacity: 0.9;
+  }
 }
 .ember-fade {
   position: fixed;
