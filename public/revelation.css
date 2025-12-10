@@ -3,20 +3,36 @@ body.revelation-body {
   color: #c9a675;
   font-family: serif;
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2.25rem 1.5rem 2.75rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  width: min(640px, 100%);
 }
 
 .sigil {
-  font-size: 4rem;
+  font-size: clamp(3rem, 10vw, 4rem);
   margin-bottom: 1rem;
 }
 
 .text p {
   margin: 0.4rem 0;
-  font-size: 1.0rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.text {
+  max-width: 560px;
 }
 
 .continue {
@@ -25,7 +41,7 @@ body.revelation-body {
   text-decoration: none;
   color: #c9a675;
   border: 1px solid #c9a675;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1.1rem;
   transition: 0.3s;
 }
 
@@ -79,4 +95,28 @@ body.revelation-body {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   opacity: 0.9;
+}
+
+@media (max-width: 620px) {
+  body.revelation-body {
+    padding: 1.5rem 1.25rem 2.25rem;
+    align-items: flex-start;
+  }
+
+  .center {
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .text {
+    margin-top: 0.25rem;
+  }
+
+  .text p {
+    font-size: 0.95rem;
+  }
+
+  .continue {
+    align-self: center;
+  }
 }
