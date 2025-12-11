@@ -31,13 +31,9 @@
     </filter>
 
     <!-- Gradient for the line -->
-    <linearGradient id="vectorStroke" x1="0" y1="0" x2="0" y2="1">
-      <!-- above the ring: colder, thinner -->
-      <stop offset="0%" stop-color="#7c5cff" />
-      <stop offset="45%" stop-color="#a97bff" />
-      <!-- through the ring & below: hotter -->
-      <stop offset="55%" stop-color="#ffb347" />
-      <stop offset="100%" stop-color="#ff5c2e" />
+    <linearGradient id="vectorStroke" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ff9f4d" />  <!-- molten base -->
+      <stop offset="100%" stop-color="#7c7cff" /> <!-- cold ascent -->
     </linearGradient>
 
     <!-- Gradient for the ring -->
@@ -48,51 +44,24 @@
     </radialGradient>
   </defs>
 
-  <!-- Ring (furnace layer, slightly low) -->
-  <g filter="url(#ringGlow)">
-    <circle
-      cx="160"
-      cy="210"
-      r="70"
-      fill="none"
-      stroke="url(#ringStroke)"
-      stroke-width="6"
-    />
-  </g>
+  <!-- Ring (furnace layer, centered) -->
+  <circle
+    cx="160"
+    cy="160"
+    r="100"
+    stroke="url(#ringGlow)"
+    stroke-width="12"
+    fill="none"
+  />
 
-  <!-- Vertical vector: one continuous line, visually heavier below -->
-  <!-- Base line -->
+  <!-- Vertical vector: one continuous line -->
   <line
     x1="160"
-    y1="40"
+    y1="60"
     x2="160"
-    y2="280"
+    y2="260"
     stroke="url(#vectorStroke)"
     stroke-width="6"
     stroke-linecap="round"
-  />
-
-  <!-- Thin overlay on the upper segment to imply taper -->
-  <line
-    x1="160"
-    y1="40"
-    x2="160"
-    y2="160"
-    stroke="#05030b"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    opacity="0.7"
-  />
-
-  <!-- Small core highlight through the ring -->
-  <line
-    x1="160"
-    y1="150"
-    x2="160"
-    y2="270"
-    stroke="#ffe9c4"
-    stroke-width="2"
-    stroke-linecap="round"
-    opacity="0.5"
   />
 </svg>

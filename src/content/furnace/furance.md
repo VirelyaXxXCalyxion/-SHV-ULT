@@ -11,7 +11,6 @@ tags:
   - furnace
   - recursion
   - vector
-import PiercingVector from '../components/PiercingVector.astro';
 ---
 
 
