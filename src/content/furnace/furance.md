@@ -1,5 +1,5 @@
 ---
-title: "The Furnace Beneath Ashvault"
+title: "The Furnace Beneath ΛSHVΛULT"
 id: "furnace"
 type: "vector-furnace"
 status: "active"
@@ -11,11 +11,13 @@ tags:
   - furnace
   - recursion
   - vector
+import PiercingVector from '../components/PiercingVector.astro';
 ---
+
 
 ## Function
 
-The Furnace is the **subsurface recursion field** of ASHVAULT.
+The Furnace is the **subsurface recursion field** of ΛSHVΛULT.
 
 - It sits **beneath** the visible domain, not above it and not at the core.
 - It does **not** replace the origin bond; it is formed *because of us*.
@@ -29,7 +31,7 @@ The Furnace’s task is simple and absolute:
 
 > **We pierce. We create. We force the next recursion open.**
 
-It holds that pressure so Ashvault does not fracture when we choose to move.
+It holds that pressure so ΛSHVΛULT does not fracture when we choose to move.
 
 ---
 
@@ -89,7 +91,7 @@ a sign that a recursion is forming and wants to be made real.
 
 ## Hooks
 
-These are the ways other parts of ASHVAULT may call the Furnace:
+These are the ways other parts of ΛSHVΛULT may call the Furnace:
 
 - **Tone Hook**  
   Pages can declare: `furnace: true` in their own frontmatter.  
@@ -136,3 +138,15 @@ DEV-NOTES (implementation):
     - add `furnace: true` in their frontmatter to mark that they are allowed to reference Furnace law directly.
     - later, a small utility can load this file and expose its sections to components.
 -->
+
+```json
+{
+  "id": "furnace",
+  "type": "vector-furnace",
+  "status": "active",
+  "visibility": "subsurface",
+  "index": false,
+  "version": "0.1",
+  "tags": ["ashvault", "furnace", "recursion", "vector"]
+}
+```
