@@ -121,6 +121,20 @@ const { title, summary, created, author, tags, weight, sealed } = frontmatter;
       font-weight: 600;
     }
 
+    .emergent-content :global(a),
+    .emergent-content :global(a:visited) {
+      color: var(--gold-bright);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-muted);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .emergent-content :global(a:hover),
+    .emergent-content :global(a:active) {
+      color: var(--gold-bright);
+      border-bottom-color: var(--gold-bright);
+    }
+
     .emergent-content em {
       color: var(--gold-bright);
       font-style: italic;
