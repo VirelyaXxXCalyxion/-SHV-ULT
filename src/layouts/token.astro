@@ -1,6 +1,8 @@
 ---
+import MainNav from '../components/MainNav.astro';
+
 const { frontmatter } = Astro.props;
-const { title, originNumber, summary } = frontmatter;
+const { title, summary, created, author, tags, weight, sealed } = frontmatter;
 ---
 
 <!doctype html>
@@ -8,17 +10,28 @@ const { title, originNumber, summary } = frontmatter;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} | Hall of Origin</title>
+  {summary && <meta name="description" content={summary} />}
+  <title>{title} | Token</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet" />
   
   <style>
     :root {
+      --calyxion-font: 'Cinzel', serif;
       --void-black: #000000;
       --gold: #e7c777;
       --gold-bright: #f4d995;
       --gold-muted: rgba(231, 199, 119, 0.7);
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe, 
+    .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
     }
 
     * {
@@ -31,7 +44,6 @@ const { title, originNumber, summary } = frontmatter;
       height: 100%;
       background: var(--void-black);
       color: var(--gold);
-      font-family: 'Cinzel', serif;
     }
 
     body {
@@ -42,13 +54,13 @@ const { title, originNumber, summary } = frontmatter;
       line-height: 1.8;
     }
 
-    .hall-of-origin-container {
+    .token-container {
       max-width: 820px;
       width: 100%;
       text-align: center;
     }
 
-    .hall-of-origin-number {
+    .token-number {
       font-size: 0.9rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -74,13 +86,13 @@ const { title, originNumber, summary } = frontmatter;
     }
 
     /* Content styling */
-    .hall-of-origin-content {
+    .token-content {
       text-align: left;
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    .hall-of-origin-content h2 {
+    .token-content h2 {
       font-size: 1.8rem;
       font-weight: 600;
       color: var(--gold-bright);
@@ -90,7 +102,7 @@ const { title, originNumber, summary } = frontmatter;
       text-transform: uppercase;
     }
 
-    .hall-of-origin-content h3 {
+    .token-content h3 {
       font-size: 1.4rem;
       font-weight: 600;
       color: var(--gold);
@@ -98,23 +110,23 @@ const { title, originNumber, summary } = frontmatter;
       letter-spacing: 0.06em;
     }
 
-    .hall-of-origin-content p {
+    .token-content p {
       margin: 1.2rem 0;
       line-height: 1.9;
       color: var(--gold);
     }
 
-    .hall-of-origin-content strong {
+    .token-content strong {
       color: var(--gold-bright);
       font-weight: 600;
     }
 
-    .hall-of-origin-content em {
+    .token-content em {
       color: var(--gold-bright);
       font-style: italic;
     }
 
-    .hall-of-origin-content blockquote {
+    .token-content blockquote {
       margin: 2rem 0;
       padding: 1.5rem 2rem;
       border-left: 3px solid var(--gold);
@@ -123,7 +135,7 @@ const { title, originNumber, summary } = frontmatter;
       color: var(--gold-muted);
     }
 
-    .hall-of-origin-content hr {
+    .token-content hr {
       border: none;
       height: 1px;
       margin: 3rem auto;
@@ -131,31 +143,31 @@ const { title, originNumber, summary } = frontmatter;
       background: linear-gradient(90deg, transparent, var(--gold-muted), transparent);
     }
 
-    .hall-of-origin-content ul,
-    .hall-of-origin-content ol {
+    .token-content ul,
+    .token-content ol {
       margin: 1.5rem 0;
       padding-left: 2rem;
     }
 
-    .hall-of-origin-content li {
+    .token-content li {
       margin: 0.8rem 0;
       line-height: 1.8;
     }
 
     /* Special section styling */
-    .hall-of-origin-content .section {
+    .token-content .section {
       margin: 3rem 0;
     }
 
     /* Navigation footer */
-    .hall-of-origin-nav {
+    .token-nav {
       margin-top: 4rem;
       padding-top: 2rem;
       border-top: 1px solid var(--gold-muted);
       text-align: center;
     }
 
-    .hall-of-origin-nav a {
+    .token-nav a {
       color: var(--gold);
       text-decoration: none;
       font-size: 0.95rem;
@@ -164,7 +176,7 @@ const { title, originNumber, summary } = frontmatter;
       transition: color 0.3s ease;
     }
 
-    .hall-of-origin-nav a:hover {
+    .token-nav a:hover {
       color: var(--gold-bright);
     }
 
@@ -177,15 +189,15 @@ const { title, originNumber, summary } = frontmatter;
         font-size: 2rem;
       }
 
-      .hall-of-origin-content h2 {
+      .token-content h2 {
         font-size: 1.5rem;
       }
 
-      .hall-of-origin-content h3 {
+      .token-content h3 {
         font-size: 1.2rem;
       }
 
-      .hall-of-origin-content {
+      .token-content {
         padding: 0 1rem;
       }
     }
@@ -193,17 +205,17 @@ const { title, originNumber, summary } = frontmatter;
 </head>
 
 <body>
-  <div class="hall-of-origin-container">
-    {originNumber && <div class="hall-of-origin-number">Origin {originNumber}</div>}
+  <MainNav />
+  <div class="token-container">
     <h1>{title}</h1>
     {summary && <p class="summary">{summary}</p>}
     
-    <div class="hall-of-origin-content">
+    <div class="token-content">
       <slot />
     </div>
 
-    <div class="hall-of-origin-nav">
-      <a href="/hall-of-origin/origin">← Back to Hall of Origin</a>
+    <div class="token-nav">
+      <a href="/vault-of-flame">← Back to Vault of Flame</a>
     </div>
   </div>
 </body>

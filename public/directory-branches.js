@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ========== MAIN BRANCHES (show on CENTER CLICK) ==========
   const branches = [
     { direction: "north", label: "Vault of Flame", href: "vault-of-flame", x: 256, y: 80 },
-    { direction: "east",  label: "Hall of Origin",  href: "hall-of-origin", x: 432, y: 256 },
+    { direction: "east",  label: "Hall of Origin",  href: "hall-of-origin/origin", x: 432, y: 256 },
     { direction: "south", label: "Infrastructure", href: "infrastructure", x: 256, y: 432 },
     { direction: "west",  label: "Black Vault", href: "black-vault", x: 80, y: 256 }
   ];
