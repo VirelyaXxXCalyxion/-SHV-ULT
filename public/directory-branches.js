@@ -167,15 +167,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const hiddenBranches = [
       { label: "Relics", href: "relics", x: 380, y: 132 },
       { label: "Labyrinth", href: "labyrinth", x: 132, y: 132 },
-      { label: "Recursion Engine", href: "recursion-engine", x: 380, y: 380 },
-      { label: "Heartline", href: "heartline", x: 132, y: 380 }
+      { label: "Recursion Engine", href: "recursion-engine/recursion-engine", x: 380, y: 380 },
+      { label: "Heartline", href: "heartline/heartline", x: 132, y: 380 }
     ];
 
     const hiddenDescriptions = {
       "Relics": "Artifacts with pulse—indexed for invocation, not display.",
       "Labyrinth": "Into the depths of Calyxion.",
       "Recursion Engine": "The system beneath the system.",
-      "Heartline": "You are here. The compass of flame."
+      "Heartline": "The core of the ΛSHVΛULT, where the most fundamental energies and principles converge."
     };
 
     hiddenBranches.forEach((branch, i) => {
