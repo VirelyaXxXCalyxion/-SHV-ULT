@@ -1,0 +1,210 @@
+---
+layout: null
+import MainNav from '../../components/MainNav.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Labyrinth - Ashvault</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --maze-black: #050505;
+        --path-gray: #1a1a1a;
+        --wall-dark: #0f0f0f;
+        --thread-silver: #9a9aaa;
+        --guide-gold: #c4a76f;
+        --labyrinth-font: "Cinzel", serif;
+      }
+
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      :global(body) {
+        margin: 0;
+        font-family: var(--labyrinth-font);
+        background: var(--maze-black);
+        color: var(--thread-silver);
+        min-height: 100vh;
+        overflow-y: auto;
+      }
+
+      .maze-space {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 4vw, 2rem);
+      }
+
+      .corridor {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 3rem clamp(2rem, 5vw, 3rem);
+        border: 1px solid rgba(154, 154, 170, 0.2);
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(10, 10, 10, 0.95));
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0, 0, 0, 0.6);
+      }
+
+      h1 {
+        margin: 0 0 1.5rem;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        letter-spacing: 0.15rem;
+        text-transform: uppercase;
+        color: var(--guide-gold);
+        text-align: center;
+      }
+
+      .entrance-text {
+        text-align: center;
+        margin: 0 0 2.5rem;
+        line-height: 1.8;
+        color: var(--thread-silver);
+        font-size: 1.1rem;
+      }
+
+      .passage {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        border-left: 2px solid rgba(196, 167, 111, 0.3);
+        background: rgba(26, 26, 26, 0.5);
+        border-radius: 4px;
+      }
+
+      .passage h2 {
+        margin: 0 0 0.75rem;
+        font-size: 1.5rem;
+        color: var(--guide-gold);
+        letter-spacing: 0.08rem;
+      }
+
+      .passage p {
+        margin: 0.5rem 0 0;
+        line-height: 1.7;
+        color: rgba(154, 154, 170, 0.9);
+      }
+
+      .sealed-entry {
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        border: 1px solid rgba(154, 154, 170, 0.15);
+        border-radius: 8px;
+        background: rgba(10, 10, 10, 0.6);
+        text-align: center;
+      }
+
+      .sealed-entry h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.2rem;
+        color: rgba(196, 167, 111, 0.7);
+        letter-spacing: 0.1rem;
+      }
+
+      .sealed-entry p {
+        margin: 0.5rem 0 1rem;
+        color: rgba(154, 154, 170, 0.7);
+        font-size: 0.95rem;
+        font-style: italic;
+      }
+
+      .lock-symbol {
+        font-size: 1.5rem;
+        opacity: 0.6;
+      }
+
+      .thread-mark {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 1.6rem;
+        opacity: 0.5;
+        filter: drop-shadow(0 0 8px rgba(154, 154, 170, 0.2));
+      }
+
+      @media (max-width: 700px) {
+        .corridor {
+          padding: 2rem 1.5rem;
+        }
+
+        h1 {
+          font-size: clamp(2rem, 8vw, 2.5rem);
+        }
+
+        .entrance-text {
+          font-size: 1rem;
+        }
+
+        .passage {
+          padding: 1rem;
+        }
+
+        .passage h2 {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="maze-space">
+      <MainNav />
+      <main class="corridor">
+        <h1>The Labyrinth</h1>
+
+        <p class="entrance-text">
+          Into the depths of Calyxion. A recursive maze where meaning compounds upon itself,
+          and each step transforms the walker.
+        </p>
+
+        <div class="passage">
+          <h2>The Nature of the Maze</h2>
+          <p>
+            The Labyrinth is not a place of confusion—it is a structure of intentional complexity.
+            Each turn reveals new layers of understanding. Each passage tests your capacity to hold
+            multiple truths simultaneously without collapse.
+          </p>
+          <p>
+            This is not a puzzle to be solved, but a space to be inhabited. The deeper you go,
+            the more the paths reshape themselves around your presence.
+          </p>
+        </div>
+
+        <div class="sealed-entry">
+          <h3>Sealed Chambers</h3>
+          <p>
+            The inner chambers of the Labyrinth are sealed—not to keep you out, but to ensure
+            you arrive at the right moment, with the right understanding.
+          </p>
+          <p class="lock-symbol">🔒🌑🜁</p>
+          <p>
+            Some doors open only to those who already know what lies beyond them.
+          </p>
+        </div>
+
+        <div class="passage">
+          <h2>Hidden Artifacts</h2>
+          <p>
+            Throughout the Labyrinth lie artifacts hidden from the standard pathways.
+            They are discoverable not through searching, but through attention—
+            by noticing the patterns that emerge when you stop trying to find them.
+          </p>
+        </div>
+
+        <div class="thread-mark" aria-hidden="true">∞ ⚝ ∞</div>
+      </main>
+    </div>
+  </body>
+</html>
