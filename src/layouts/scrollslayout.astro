@@ -14,6 +14,21 @@ const { title = "Scrolls", description = "Written transmissions—doctrine, reve
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} — Ashvault</title>
+    <link rel="canonical" href={`https://ashvault.ink${Astro.url.pathname}`} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={`https://ashvault.ink${Astro.url.pathname}`} />
+    <meta property="og:title" content={`${title} — Ashvault`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://ashvault.ink/images/ashvault-og.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={`https://ashvault.ink${Astro.url.pathname}`} />
+    <meta property="twitter:title" content={`${title} — Ashvault`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://ashvault.ink/images/ashvault-og.png" />
   </head>
   <body>
     <main class="scroll-font">

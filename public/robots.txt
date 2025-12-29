@@ -1,0 +1,8 @@
+# Ashvault - Robots.txt
+# https://www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ashvault.ink/sitemap-index.xml
