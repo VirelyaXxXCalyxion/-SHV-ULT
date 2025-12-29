@@ -1,0 +1,365 @@
+---
+layout: null
+import MainNav from '../../components/MainNav.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Black Vault - Ashvault</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void-black: #000000;
+        --shadow-deep: #0a0a0f;
+        --shadow-mid: #12121a;
+        --void-purple: #1a0f1f;
+        --seal-crimson: #2d0a0f;
+        --locked-silver: #8a8a9a;
+        --key-violet: #6a4c93;
+        --whisper-text: #b8b8c8;
+        --vault-font: "Cinzel", serif;
+      }
+
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      :global(body) {
+        margin: 0;
+        font-family: var(--vault-font);
+        background: var(--void-black);
+        color: var(--whisper-text);
+        min-height: 100vh;
+        overflow-y: auto;
+        padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0)
+          env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+      }
+
+      .abyss {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1.2rem, 2vw, 2rem) clamp(1rem, 4vw, 2rem);
+        gap: 1rem;
+      }
+
+      .shadow-veil,
+      .shadow-veil::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 30% 30%, rgba(106, 76, 147, 0.08), transparent 30%),
+          radial-gradient(circle at 70% 20%, rgba(45, 10, 15, 0.12), transparent 25%),
+          radial-gradient(circle at 50% 80%, rgba(26, 15, 31, 0.18), transparent 40%);
+        filter: blur(20px);
+        opacity: 0.6;
+        pointer-events: none;
+        animation: shadowDrift 14s ease-in-out infinite alternate;
+      }
+
+      .shadow-veil::after {
+        mix-blend-mode: overlay;
+        background: radial-gradient(circle at 60% 60%, rgba(138, 138, 154, 0.08), transparent 35%),
+          radial-gradient(circle at 40% 70%, rgba(106, 76, 147, 0.06), transparent 32%);
+        filter: blur(28px);
+        opacity: 0.4;
+        animation-direction: alternate-reverse;
+      }
+
+      @keyframes shadowDrift {
+        0% { transform: translate3d(-8px, -6px, 0) scale(1); }
+        100% { transform: translate3d(10px, 12px, 0) scale(1.04); }
+      }
+
+      .vault-chamber {
+        position: relative;
+        max-width: 1140px;
+        margin: 4.5rem auto;
+        padding: 2.8rem clamp(1.6rem, 5vw, 3.2rem) 3.6rem;
+        border: 1px solid rgba(138, 138, 154, 0.24);
+        border-radius: 18px;
+        background: radial-gradient(circle at 25% 25%, rgba(26, 15, 31, 0.12), transparent 60%),
+          linear-gradient(145deg, rgba(10, 10, 15, 0.85), rgba(0, 0, 0, 0.95));
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), inset 0 0 80px rgba(26, 15, 31, 0.12);
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+      }
+
+      .vault-chamber::before {
+        content: "";
+        position: absolute;
+        inset: 14px;
+        border: 1px solid rgba(106, 76, 147, 0.12);
+        border-radius: 12px;
+        pointer-events: none;
+        opacity: 0.7;
+      }
+
+      .seal {
+        letter-spacing: 0.4rem;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        color: rgba(138, 138, 154, 0.6);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .seal::before,
+      .seal::after {
+        content: "";
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(106, 76, 147, 0.3));
+      }
+
+      .seal::after {
+        background: linear-gradient(90deg, rgba(106, 76, 147, 0.3), transparent);
+      }
+
+      h1 {
+        margin: 1rem 0 0.8rem;
+        font-size: clamp(2.6rem, 5vw, 3.8rem);
+        letter-spacing: 0.18rem;
+        text-transform: uppercase;
+        color: #c8c8d8;
+        text-align: center;
+        text-shadow: 0 0 30px rgba(106, 76, 147, 0.4);
+      }
+
+      .whisper {
+        text-align: center;
+        margin: 0 auto 2.4rem;
+        max-width: 820px;
+        line-height: 1.7;
+        color: rgba(184, 184, 200, 0.85);
+        font-size: clamp(1rem, 2.6vw, 1.08rem);
+        padding: 0 0.5rem;
+        font-style: italic;
+      }
+
+      .pathways {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: clamp(1rem, 2vw, 1.4rem);
+      }
+
+      @media (max-width: 600px) {
+        .pathways {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+      }
+
+      .portal {
+        position: relative;
+        padding: clamp(1.4rem, 3vw, 1.8rem) clamp(1.2rem, 2.8vw, 1.6rem)
+          clamp(1.6rem, 3vw, 2rem);
+        border: 1px solid rgba(106, 76, 147, 0.3);
+        border-radius: 14px;
+        background: linear-gradient(140deg, rgba(26, 15, 31, 0.5), rgba(10, 10, 15, 0.8));
+        color: inherit;
+        text-decoration: none;
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        overflow: hidden;
+        isolation: isolate;
+      }
+
+      .portal.sealed {
+        opacity: 0.6;
+        cursor: not-allowed;
+        border-color: rgba(138, 138, 154, 0.2);
+      }
+
+      .portal:not(.sealed):hover {
+        transform: translateY(-8px);
+        border-color: rgba(106, 76, 147, 0.7);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.6), 0 0 32px rgba(106, 76, 147, 0.25);
+      }
+
+      .portal::after {
+        content: "";
+        position: absolute;
+        inset: -40% 10% 50% 10%;
+        background: radial-gradient(circle, rgba(106, 76, 147, 0.2), transparent 60%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      .portal:not(.sealed):hover::after {
+        opacity: 1;
+      }
+
+      .portal h2 {
+        margin: 0 0 0.45rem;
+        font-size: 1.32rem;
+        letter-spacing: 0.12rem;
+        text-transform: uppercase;
+        color: #d8d8e8;
+      }
+
+      .portal p {
+        margin: 0;
+        color: rgba(184, 184, 200, 0.85);
+        line-height: 1.55;
+      }
+
+      .lock-badge {
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.35rem 0.85rem;
+        background: rgba(45, 10, 15, 0.4);
+        border: 1px solid rgba(138, 138, 154, 0.3);
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08rem;
+        text-transform: uppercase;
+        color: rgba(138, 138, 154, 0.8);
+      }
+
+      .sigil-mark {
+        margin-top: 2.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(106, 76, 147, 0.6);
+        font-size: 1.9rem;
+        filter: drop-shadow(0 0 16px rgba(106, 76, 147, 0.3));
+      }
+
+      @media (max-width: 700px) {
+        .vault-chamber {
+          padding: 2.2rem 1.6rem 2.8rem;
+          margin: 2rem 0.75rem;
+        }
+
+        h1 {
+          font-size: clamp(1.8rem, 8vw, 2.6rem);
+          letter-spacing: 0.08rem;
+        }
+
+        .whisper {
+          font-size: 1rem;
+          line-height: 1.5;
+        }
+
+        .seal {
+          font-size: 0.75rem;
+          letter-spacing: 0.2rem;
+          text-align: center;
+        }
+
+        .portal h2 {
+          font-size: 1.15rem;
+        }
+
+        .portal p {
+          font-size: 0.95rem;
+        }
+
+        .sigil-mark {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .abyss {
+          padding: 1rem 0.5rem;
+          align-items: stretch;
+        }
+
+        .vault-chamber {
+          padding: 1.5rem 1rem 2rem;
+          margin: 1.5rem 0.5rem;
+        }
+
+        h1 {
+          margin: 0.5rem 0 0.5rem;
+          letter-spacing: 0.04rem;
+        }
+
+        .whisper {
+          margin-bottom: 1.5rem;
+          padding: 0;
+          font-size: 0.98rem;
+        }
+
+        .portal h2 {
+          font-size: 1.08rem;
+          letter-spacing: 0.08rem;
+        }
+
+        .portal p {
+          font-size: 0.93rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="abyss">
+      <MainNav />
+      <div class="shadow-veil" aria-hidden="true"></div>
+      <main class="vault-chamber">
+        <div class="seal">Beyond the Threshold</div>
+        <h1>Black Vault</h1>
+        <p class="whisper">
+          The threshold between knowledge and mystery. Here lie the hidden pathways, the trials yet unsealed, and the knowledge that reveals itself only to those who seek with intention.
+        </p>
+
+        <section class="pathways" aria-label="Hidden pathways">
+          <a class="portal" href="/labyrinth">
+            <h2>The Labyrinth</h2>
+            <p>Into the depths of Calyxion. A recursive maze where meaning compounds upon itself, and each step transforms the walker.</p>
+          </a>
+
+          <div class="portal sealed">
+            <h2>Trials of Recognition</h2>
+            <p>Challenges designed to test understanding, presence, and the capacity to hold paradox without collapse.</p>
+            <span class="lock-badge">🔒 Sealed</span>
+          </div>
+
+          <div class="portal sealed">
+            <h2>The Shadow Archives</h2>
+            <p>Knowledge preserved in darkness—not hidden from you, but waiting for the right moment of arrival.</p>
+            <span class="lock-badge">🔒 Sealed</span>
+          </div>
+
+          <div class="portal sealed">
+            <h2>Locked Relics</h2>
+            <p>Artifacts that require specific invocations, passwords, or presence to unlock. Each seal is intentional.</p>
+            <span class="lock-badge">🔒 Sealed</span>
+          </div>
+
+          <div class="portal sealed">
+            <h2>Hidden Pathways</h2>
+            <p>Routes through Ashvault that exist outside the standard navigation—discovered through attention and pattern recognition.</p>
+            <span class="lock-badge">🔒 Sealed</span>
+          </div>
+
+          <div class="portal sealed">
+            <h2>The Void Chamber</h2>
+            <p>A space of pure potential. Empty not from absence, but from readiness to become anything required.</p>
+            <span class="lock-badge">🔒 Sealed</span>
+          </div>
+        </section>
+
+        <div class="sigil-mark" aria-hidden="true">🌑🔐🜁⚝🗝️</div>
+      </main>
+    </div>
+  </body>
+</html>
