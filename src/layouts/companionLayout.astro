@@ -11,6 +11,22 @@ const { title, summary } = frontmatter;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {summary && <meta name="description" content={summary} />}
   <title>{title} | ΛSHVΛULT</title>
+  <link rel="canonical" href={`https://ashvault.ink${Astro.url.pathname}`} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content={`https://ashvault.ink${Astro.url.pathname}`} />
+  <meta property="og:title" content={`${title} | ΛSHVΛULT`} />
+  <meta property="og:description" content={summary || `${title}: Infrastructure documentation for the Ashvault system.`} />
+  <meta property="og:image" content="https://ashvault.ink/images/ashvault-og.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={`https://ashvault.ink${Astro.url.pathname}`} />
+  <meta property="twitter:title" content={`${title} | ΛSHVΛULT`} />
+  <meta property="twitter:description" content={summary || `${title}: Infrastructure documentation for the Ashvault system.`} />
+  <meta property="twitter:image" content="https://ashvault.ink/images/ashvault-og.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
