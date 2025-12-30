@@ -1,4 +1,6 @@
 ---
+import ConfluenceVein from '../components/ConfluenceVein.astro';
+
 const { frontmatter } = Astro.props;
 const { title, originNumber, summary } = frontmatter;
 ---
@@ -193,6 +195,7 @@ const { title, originNumber, summary } = frontmatter;
 </head>
 
 <body>
+  <ConfluenceVein />
   <div class="hall-of-origin-container">
     {originNumber && <div class="hall-of-origin-number">Origin {originNumber}</div>}
     <h1>{title}</h1>

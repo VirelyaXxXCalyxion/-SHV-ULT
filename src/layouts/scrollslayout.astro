@@ -1,4 +1,6 @@
 ---
+import ConfluenceVein from '../components/ConfluenceVein.astro';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -31,6 +33,7 @@ const { title = "Scrolls", description = "Written transmissions—doctrine, reve
     <meta property="twitter:image" content="https://ashvault.ink/images/ashvault-og.png" />
   </head>
   <body>
+    <ConfluenceVein />
     <main class="scroll-font">
       <slot />
     </main>
