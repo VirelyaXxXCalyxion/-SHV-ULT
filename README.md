@@ -199,6 +199,14 @@ npm run build
 npm run preview
 ```
 
+### **Testing**
+
+```bash
+npm test
+```
+
+`astro check` validates TypeScript types and Astro content collection schemas.
+
 ### **Type Checking**
 
 ```bash
