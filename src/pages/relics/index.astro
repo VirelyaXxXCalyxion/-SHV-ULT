@@ -35,7 +35,6 @@ const tags = Array.from(new Set(all.flatMap(r => r.data.tags ?? []))).sort();
   <section class="relics-grid" id="grid">
     {relics.map(entry => <RelicCard entry={entry} />)}
   </section>
-</Layout>
 
   <script>
     const normalize = (s: string) => s.toLowerCase().normalize("NFKD");
