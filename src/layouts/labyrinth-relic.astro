@@ -1,4 +1,6 @@
 ---
+import ConfluenceVein from '../components/ConfluenceVein.astro';
+
 interface Props {
   frontmatter: {
     title: string;
@@ -152,6 +154,7 @@ const { title, relicNumber, image, imageAlt = "Relic image" } = frontmatter;
 </head>
 
 <body>
+  <ConfluenceVein />
   <div class="relic-container">
     <header class="relic-header">
       <div class="relic-number">Relic {String(relicNumber).padStart(3, '0')}</div>

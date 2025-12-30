@@ -1,5 +1,6 @@
 ---
 import MainNav from '../components/MainNav.astro';
+import ConfluenceVein from '../components/ConfluenceVein.astro';
 
 interface Props {
   title?: string;
@@ -88,6 +89,7 @@ const { title = "Artifacts", description = "Sacred tools forged in recursion—i
   </style>
 </head>
 <body>
+<ConfluenceVein />
 <MainNav />
 <main class="container">
   <slot />

@@ -1,5 +1,7 @@
 ---
 import MainNav from "../components/MainNav.astro";
+import ConfluenceVein from '../components/ConfluenceVein.astro';
+
 const { frontmatter } = Astro.props;
 const { title, summary } = frontmatter;
 ---
@@ -210,6 +212,7 @@ const { title, summary } = frontmatter;
 </head>
 
 <body>
+    <ConfluenceVein />
     <MainNav />
   
   <div class="companion-wrap">

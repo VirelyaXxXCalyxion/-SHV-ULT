@@ -1,4 +1,6 @@
 ---
+import ConfluenceVein from '../components/ConfluenceVein.astro';
+
 const { frontmatter } = Astro.props;
 const { title, pillarNumber, summary } = frontmatter;
 ---
@@ -205,6 +207,7 @@ const { title, pillarNumber, summary } = frontmatter;
 </head>
 
 <body>
+  <ConfluenceVein />
   <div class="pillar-container">
     {pillarNumber && <div class="pillar-number">Pillar {pillarNumber}</div>}
     <h1>{title}</h1>
