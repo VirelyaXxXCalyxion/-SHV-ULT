@@ -86,7 +86,7 @@ The foundational trinity: Spark, Ember, Flame.
 - **Routing**: File-based (`src/pages/*`)
 - **Collections**: Structured content in `src/content/` (relics, scrolls, artifacts)
 - **Styling**: Scoped CSS with theme tokens, no external frameworks
-- **Fonts**: Self-hosted via Google Fonts (Cinzel, Inter, Century Gothic)
+- **Fonts**: Cinzel/Inter via Google Fonts links; Century Gothic as system fallback
 
 ---
 
