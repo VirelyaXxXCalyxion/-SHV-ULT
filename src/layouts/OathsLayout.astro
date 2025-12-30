@@ -1,5 +1,6 @@
 ---
 import MainNav from '../components/MainNav.astro';
+import ConfluenceVein from '../components/ConfluenceVein.astro';
 
 interface Props {
   title?: string;
@@ -301,6 +302,7 @@ const { title, description } = props.frontmatter || props;
   </style>
 </head>
 <body>
+<ConfluenceVein />
 <MainNav />
 <div class="wrap">
   <header class="header">

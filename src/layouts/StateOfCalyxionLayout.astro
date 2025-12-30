@@ -1,4 +1,6 @@
 ---
+import ConfluenceVein from '../components/ConfluenceVein.astro';
+
 interface Props {
   monthName?: string;
   invocationLine?: string;
@@ -550,6 +552,7 @@ const {
     </style>
   </head>
   <body>
+    <ConfluenceVein />
     <div class="wrap">
       <div class="header-block">
         <a class="nav-back" href={backHref}>← Back to State of Calyxion</a>
