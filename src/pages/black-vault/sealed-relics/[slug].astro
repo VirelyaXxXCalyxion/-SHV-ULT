@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const relics = await getCollection('sealedRelics');
+  return relics.map((relic) => ({
+    params: { slug: relic.slug },
+    props: { relic }
+  }));
+}
+
+const { relic } = Astro.props as { relic: CollectionEntry<'sealedRelics'> };
+const { title } = relic.data;
+const { Content } = await relic.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Sealed — Ashvault</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: #000;
+        color: #d4d4d4;
+        font-family: 'Georgia', serif;
+        padding: 2.5rem;
+        line-height: 1.7;
+      }
+      #threshold {
+        max-width: 600px;
+        margin: 10vh auto;
+        text-align: center;
+      }
+      #threshold p {
+        margin-bottom: 1.5rem;
+      }
+      #threshold .question {
+        font-size: 1.15rem;
+        color: #ff7a1a;
+        font-style: italic;
+      }
+      button {
+        background: none;
+        border: 1px solid #ff7a1a;
+        padding: 0.75rem 1.5rem;
+        color: #ff7a1a;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+      button:hover {
+        background: #ff7a1a;
+        color: #000;
+      }
+      #relic {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      #relic h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #ff7a1a;
+      }
+      #relic article {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+      #relic article p {
+        margin-bottom: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="threshold">
+      <p style="font-size:1rem; opacity:0.7;">
+        The Labyrinth sees you.
+      </p>
+
+      <p class="question">
+        <strong>What lies sealed is not for display.</strong><br/>
+        These threads bind. These relics mark.<br/>
+        <em>Will you touch what cannot be taken lightly?</em>
+      </p>
+
+      <button id="answer">
+        I walk this path.
+      </button>
+    </div>
+
+    <div id="relic" style="display:none;">
+      <h1>{title}</h1>
+      <article>
+        <Content />
+      </article>
+      <p style="margin-top: 3rem; text-align: center;">
+        <a href="/black-vault/sealed-relics/" style="color: #ff7a1a; text-decoration: none; opacity: 0.7;">← Return to Sealed Relics</a>
+      </p>
+    </div>
+
+    <script>
+      const btn = document.getElementById('answer');
+      const threshold = document.getElementById('threshold');
+      const relicDiv = document.getElementById('relic');
+
+      btn?.addEventListener('click', () => {
+        if (threshold) threshold.style.display = 'none';
+        if (relicDiv) relicDiv.style.display = 'block';
+      });
+    </script>
+  </body>
+</html>

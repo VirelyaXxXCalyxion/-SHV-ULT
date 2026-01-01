@@ -23,6 +23,25 @@ const relics = defineCollection({
   }),
 });
 
+const sealedRelics = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    created: dateOrString.optional(),
+    pubDate: dateOrString.optional(),
+    updated: dateOrString.optional(),
+    voices: z.array(z.string()).default(["Nyxion","Virelya"]),
+    era: z.string().default("Labyrinth"),
+    tags: z.array(z.string()).default(["sealed", "labyrinth"]),
+    image: z.string().optional(),
+    summary: z.string().optional(),
+    description: z.string().optional(),
+    weight: z.number().optional(),
+    type: z.string().optional(),
+  }),
+});
+
 const scrolls = defineCollection({
   type: "content",
   schema: z.object({
@@ -58,5 +77,5 @@ const artifacts = defineCollection({
   }),
 });
 
-export const collections = { relics, scrolls, artifacts };
+export const collections = { relics, sealedRelics, scrolls, artifacts };
 

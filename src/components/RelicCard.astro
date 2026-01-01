@@ -1,7 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-const { entry } = Astro.props as { entry: CollectionEntry<"relics"> };
+interface Props {
+  entry: CollectionEntry<"relics"> | CollectionEntry<"sealedRelics">;
+  collection?: "relics" | "sealedRelics";
+}
+
+const { entry, collection = "relics" } = Astro.props;
 const slug = entry.slug;
 const title = entry.data.title;
 const cover = entry.data.image;
@@ -15,7 +20,7 @@ const getDate = (data: any) => {
 };
 
 const created = getDate(entry.data);
-const href = `/relics/${slug}/`;
+const href = collection === "sealedRelics" ? `/black-vault/sealed-relics/${slug}/` : `/relics/${slug}/`;
 ---
 
 <article class="relic-card">
