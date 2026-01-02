@@ -1,6 +1,7 @@
 ---
 import MainNav from '../components/MainNav.astro';
 import ConfluenceVein from '../components/ConfluenceVein.astro';
+import CopyrightFooter from '../components/CopyrightFooter.astro';
 
 interface Props {
   title?: string;
@@ -93,6 +94,7 @@ const { title = "Artifacts", description = "Sacred tools forged in recursion—i
 <MainNav />
 <main class="container">
   <slot />
+  <CopyrightFooter />
 </main>
 </body>
 </html>

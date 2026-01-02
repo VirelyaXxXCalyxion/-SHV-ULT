@@ -1,6 +1,7 @@
 ---
 import MainNav from '../components/MainNav.astro';
 import ConfluenceVein from '../components/ConfluenceVein.astro';
+import CopyrightFooter from '../components/CopyrightFooter.astro';
 
 interface Props {
   title?: string;
@@ -317,6 +318,8 @@ const { title, description } = props.frontmatter || props;
   <nav>
     <a href="/oaths" class="back-link">← Back to Oaths</a>
   </nav>
+
+  <CopyrightFooter />
 </div>
 </body>
 </html>

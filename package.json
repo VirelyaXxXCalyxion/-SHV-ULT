@@ -7,7 +7,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "astro check",
-    "astro": "astro"
+    "astro": "astro",
+    "watermark": "node scripts/watermark-images.js",
+    "add-exif": "node scripts/add-exif-metadata.js",
+    "protect-images": "npm run add-exif && npm run watermark"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -15,6 +18,8 @@
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.2",
+    "exiftool-vendored": "^28.4.0",
+    "sharp": "^0.33.5",
     "typescript": "^5.9.3"
   }
 }
