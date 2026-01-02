@@ -1,5 +1,6 @@
 ---
 import ConfluenceVein from '../components/ConfluenceVein.astro';
+import CopyrightFooter from '../components/CopyrightFooter.astro';
 
 export interface Props {
   title?: string;
@@ -36,6 +37,7 @@ const { title = "Relics", description = "Artifacts with pulse—indexed for invo
     <ConfluenceVein />
     <main class="relic-font">
       <slot />
+      <CopyrightFooter />
     </main>
   </body>
 </html>

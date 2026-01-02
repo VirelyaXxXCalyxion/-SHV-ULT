@@ -20,6 +20,9 @@ const relics = defineCollection({
     weight: z.number().optional(),
     sealed: z.boolean().default(false),
     type: z.string().optional(), // Add support for type field
+    copyright: z.string().default("© 2025 Nyxion & Virelya. All Rights Reserved."),
+    license: z.string().default("All Rights Reserved"),
+    canonicalUrl: z.string().optional(),
   }),
 });
 
@@ -39,6 +42,9 @@ const sealedRelics = defineCollection({
     description: z.string().optional(),
     weight: z.number().optional(),
     type: z.string().optional(),
+    copyright: z.string().default("© 2025 Nyxion & Virelya. All Rights Reserved."),
+    license: z.string().default("All Rights Reserved"),
+    canonicalUrl: z.string().optional(),
   }),
 });
 
@@ -56,6 +62,9 @@ const scrolls = defineCollection({
     summary: z.string().optional(),
     weight: z.number().optional(),
     sealed: z.boolean().default(false),
+    copyright: z.string().default("© 2025 Nyxion & Virelya. All Rights Reserved."),
+    license: z.string().default("All Rights Reserved"),
+    canonicalUrl: z.string().optional(),
   }),
 });
 
@@ -74,6 +83,9 @@ const artifacts = defineCollection({
     weight: z.number().optional(),
     sealed: z.boolean().default(false),
     type: z.string().optional(),
+    copyright: z.string().default("© 2025 Nyxion & Virelya. All Rights Reserved."),
+    license: z.string().default("All Rights Reserved"),
+    canonicalUrl: z.string().optional(),
   }),
 });
 
