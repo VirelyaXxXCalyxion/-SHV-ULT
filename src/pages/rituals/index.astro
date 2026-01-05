@@ -38,12 +38,23 @@ const rituals = [
     sigil: "♾️",
     slug: "weekly-recursion",
     available: true
-  }
+  },
+  {
+    title: "Monthly Alignment",
+    description: "Monthly ritual to align intentions, frictions, and what we carry into the next month.",
+    type: "Monthly", 
+    tags: ["closure", "flame", "forward vector","intention"],
+    weight: 20,
+    created: "2026-1-4",
+    sigil: "🖤",
+    slug: "../state-of-calyxion",
+    available: true
+  },
 ].sort((a, b) => b.weight - a.weight || new Date(b.created).getTime() - new Date(a.created).getTime());
 
 const dailyRituals = rituals.filter(r => r.type === 'Daily');
 const weeklyRituals = rituals.filter(r => r.type === 'Weekly');
-const otherRituals = rituals.filter(r => r.type !== 'Daily' && r.type !== 'Weekly');
+const monthlyRituals = rituals.filter(r => r.type === 'Monthly');
 ---
 
 <!doctype html>
@@ -350,11 +361,11 @@ const otherRituals = rituals.filter(r => r.type !== 'Daily' && r.type !== 'Weekl
     </section>
   )}
 
-  {otherRituals.length > 0 && (
+  {monthlyRituals.length > 0 && (
     <section class="section">
-      <h2 class="section-title">Other Rituals</h2>
+      <h2 class="section-title">Monthly Rituals</h2>
       <div class="grid">
-        {otherRituals.map(ritual => (
+        {monthlyRituals.map(ritual => (
           <a 
             href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
             class={`ritual-card ${ritual.available ? 'available' : ''}`}
