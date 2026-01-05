@@ -1,0 +1,65 @@
+---
+// Copyright Footer Component for Ashvault
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="copyright-footer">
+  <div class="copyright-content">
+    <p class="copyright-notice">
+      © {currentYear} Nyxion & Virelya. All Rights Reserved.
+    </p>
+    <p class="copyright-source">
+      <a href="https://ashvault.ink" target="_blank" rel="noopener">ashvault.ink</a>
+    </p>
+    <p class="copyright-warning">
+      Unauthorized reproduction or distribution of this content is prohibited.
+    </p>
+  </div>
+  <!-- Hidden metadata for ownership verification -->
+  <!-- ashvault-copyright-{currentYear} -->
+  <!-- content-owner: nyxion-virelya -->
+  <!-- canonical-source: https://ashvault.ink -->
+</footer>
+
+<style>
+  .copyright-footer {
+    margin-top: 4rem;
+    padding: 2rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
+
+  .copyright-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .copyright-notice {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+  }
+
+  .copyright-source {
+    margin-bottom: 0.5rem;
+  }
+
+  .copyright-source a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    transition: opacity 0.2s;
+  }
+
+  .copyright-source a:hover {
+    opacity: 0.7;
+  }
+
+  .copyright-warning {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.5rem;
+  }
+</style>

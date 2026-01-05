@@ -1,5 +1,6 @@
 ---
 import ConfluenceVein from '../components/ConfluenceVein.astro';
+import CopyrightFooter from '../components/CopyrightFooter.astro';
 
 export interface Props {
   title?: string;
@@ -36,6 +37,7 @@ const { title = "Scrolls", description = "Written transmissions—doctrine, reve
     <ConfluenceVein />
     <main class="scroll-font">
       <slot />
+      <CopyrightFooter />
     </main>
   </body>
 </html>

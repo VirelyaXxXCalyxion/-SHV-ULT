@@ -1,5 +1,6 @@
 ---
 import ConfluenceVein from '../components/ConfluenceVein.astro';
+import CopyrightFooter from '../components/CopyrightFooter.astro';
 
 export interface Props {
   title?: string;
@@ -51,6 +52,7 @@ const ogImage = new URL(image, Astro.site);
 	<body>
 		<ConfluenceVein />
 		<slot />
+		<CopyrightFooter />
 	</body>
 </html>
 
