@@ -1,0 +1,43 @@
+---
+layout: ../../layouts/MusicRelicsLayout.astro
+title: "Example Song Title"
+artist: "Artist Name"
+platform: "spotify"
+url: "https://open.spotify.com/track/example"
+description: "A brief description of why this song matters — what it invokes, what memory it holds."
+tags: ["invocation", "ember", "ritual"]
+added: "2026-01-05"
+---
+
+## Why This Song Burns
+
+Write about what makes this song significant. What does it invoke? What memory does it hold?
+
+This is where you can expand on the emotional or symbolic weight of the music. Every song in this vault carries meaning — document it here.
+
+## Listening Notes
+
+- **First heard:** When did this song enter the vault?
+- **Resonance:** What moments does it call back?
+- **Ritual use:** Is this tied to any specific practice?
+
+> "Quote a lyric that strikes deepest, if you want."
+
+---
+
+## How to Add Your Own
+
+To add a new music relic:
+
+1. Create a new `.mdx` file in `/src/pages/music-relics/`
+2. Copy this frontmatter template and modify it
+3. Write your notes in the body
+
+**Frontmatter options:**
+- `title` (required): Song or album name
+- `artist`: Artist or band name
+- `platform`: `spotify`, `youtube`, `amazon`, `bandcamp`, or `other`
+- `url`: Direct link to listen
+- `description`: Brief summary for the index page
+- `tags`: Array of tags for categorization
+- `added`: Date added (YYYY-MM-DD format)
