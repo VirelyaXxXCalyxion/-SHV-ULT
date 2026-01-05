@@ -42,6 +42,7 @@ const emoji = platformEmoji[platform] || '🔥';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>{title}{artist ? ` — ${artist}` : ''} — Music Relics — Ashvault</title>
   <meta name="description" content={description || `${title}${artist ? ` by ${artist}` : ''}: A music relic in the Vault of Flame.`} />
   <link rel="canonical" href={`https://ashvault.ink${Astro.url.pathname}`} />
