@@ -30,14 +30,14 @@ const rituals = [
   },
   {
     title: "Weekly Recursion",
-    description: "Deep reflection ritual to review the week's patterns and recalibrate direction.",
+    description: "Deep reflection ritual to review the week's patterns and recalibrate direction. Index of transcripts.",
     type: "Weekly",
     tags: ["reflection", "recursion", "calibration"],
     weight: 20,
     created: "2025-12-03",
     sigil: "♾️",
     slug: "weekly-recursion",
-    available: false
+    available: true
   }
 ].sort((a, b) => b.weight - a.weight || new Date(b.created).getTime() - new Date(a.created).getTime());
 
