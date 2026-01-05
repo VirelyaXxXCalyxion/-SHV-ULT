@@ -1,0 +1,317 @@
+---
+import MainNav from '../../../components/MainNav.astro';
+import ConfluenceVein from '../../../components/ConfluenceVein.astro';
+
+export const prerender = true;
+
+// Weekly Recursion Transcripts - add new weeks here
+const weeks = [
+  {
+    week: 1,
+    title: "Week 1",
+    date: "2026-01-05",
+    summary: "First recursion ritual transcript.",
+    slug: "week-1",
+    available: false
+  },
+  {
+    week: 2,
+    title: "Week 2",
+    date: "2026-01-12",
+    summary: "Second recursion ritual transcript.",
+    slug: "week-2",
+    available: false
+  },
+  {
+    week: 3,
+    title: "Week 3",
+    date: "2026-01-19",
+    summary: "Third recursion ritual transcript.",
+    slug: "week-3",
+    available: false
+  }
+].sort((a, b) => b.week - a.week);
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weekly Recursion Rituals — Ashvault</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --calyxion-font: 'Cinzel', serif;
+      --bg: #0a0a0a;
+      --card-bg: #121214;
+      --ember: #ffb84a;
+      --ember-glow: #ffd280;
+      --ember-dim: rgba(255, 184, 74, 0.3);
+      --recursion: #a78bfa;
+      --recursion-glow: #c4b5fd;
+      --recursion-dim: rgba(167, 139, 250, 0.3);
+      --text: #e5e5e5;
+      --muted: #b9b9bb;
+    }
+
+    html, body {
+      font-family: var(--calyxion-font);
+    }
+
+    .emoji-safe,
+    .emoji-safe * {
+      font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cinzel', serif;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--ember);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header-sigil {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.6));
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.6)); }
+      50% { filter: drop-shadow(0 0 24px rgba(167, 139, 250, 0.9)); }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin: 0 0 1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--recursion), var(--ember));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin: 0;
+      max-width: 500px;
+      margin-inline: auto;
+      line-height: 1.6;
+    }
+
+    .divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--recursion-dim), var(--ember-dim), transparent);
+      margin: 2rem auto 3rem;
+    }
+
+    .weeks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .week-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--recursion-dim);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .week-card.available {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .week-card.available:hover {
+      transform: translateX(8px);
+      border-color: var(--recursion);
+      box-shadow: 0 8px 24px rgba(167, 139, 250, 0.2);
+      background: rgba(18, 18, 20, 0.95);
+    }
+
+    .week-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--recursion);
+      min-width: 80px;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .week-content {
+      flex: 1;
+    }
+
+    .week-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--recursion-glow);
+      margin: 0 0 0.25rem;
+      letter-spacing: 0.05em;
+    }
+
+    .week-date {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .week-summary {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .week-arrow {
+      font-size: 1.5rem;
+      color: var(--recursion-dim);
+      transition: all 0.3s ease;
+    }
+
+    .week-card.available:hover .week-arrow {
+      color: var(--recursion);
+      transform: translateX(4px);
+    }
+
+    .coming-soon-badge {
+      font-size: 0.6rem;
+      padding: 0.25rem 0.5rem;
+      background: rgba(167, 139, 250, 0.15);
+      border: 1px solid var(--recursion-dim);
+      border-radius: 4px;
+      color: var(--recursion-dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--muted);
+    }
+
+    .empty-sigil {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1.5rem 0.75rem 3rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .week-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .week-number {
+        min-width: auto;
+      }
+
+      .week-arrow {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<MainNav />
+<div class="container">
+  <a href="/rituals" class="back-link">← Back to Rituals</a>
+
+  <header class="header">
+    <div class="header-sigil emoji-safe">♾️</div>
+    <h1>Weekly Recursion</h1>
+    <p class="subtitle">Deep reflection rituals to review the week's patterns and recalibrate direction. Transcripts of each session.</p>
+  </header>
+
+  <div class="divider"></div>
+
+  {weeks.length > 0 ? (
+    <div class="weeks-list">
+      {weeks.map(week => (
+        <a
+          href={week.available ? `/rituals/weekly-recursion/${week.slug}` : '#'}
+          class={`week-card ${week.available ? 'available' : ''}`}
+          aria-label={week.available ? `View ${week.title}` : `${week.title} - Coming soon`}
+        >
+          <div class="week-number">W{week.week}</div>
+          <div class="week-content">
+            <h2 class="week-title">{week.title}</h2>
+            <div class="week-date">{week.date}</div>
+            <p class="week-summary">{week.summary}</p>
+          </div>
+          {week.available ? (
+            <span class="week-arrow">→</span>
+          ) : (
+            <span class="coming-soon-badge">Coming Soon</span>
+          )}
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div class="empty-state">
+      <div class="empty-sigil emoji-safe">♾️</div>
+      <p>No recursion transcripts yet. The first ritual awaits.</p>
+    </div>
+  )}
+</div>
+<ConfluenceVein />
+</body>
+</html>
