@@ -1,0 +1,164 @@
+---
+import NewBondsLayout from '../../layouts/NewBondsLayout.astro';
+
+/**
+ * NEW BONDS - Section Index
+ *
+ * This page serves as a fresh, welcoming hub for new content and connections.
+ * To add new sections, simply add a new entry to the `sections` array below.
+ *
+ * Each section object should have:
+ *   - id: unique identifier (used for anchor links)
+ *   - icon: emoji or icon character
+ *   - title: display name for the section
+ *   - description: brief explanation of what the section contains
+ *   - href: link destination (use '#' for placeholder/coming soon)
+ *   - status: 'active' | 'new' | 'coming' (affects badge display)
+ */
+
+const sections = [
+  {
+    id: 'guides',
+    icon: '📖',
+    title: 'Guides & Tutorials',
+    description: 'Step-by-step introductions to understanding and navigating the Ashvault. Perfect for those just beginning their journey.',
+    href: '#',
+    status: 'coming'
+  },
+  {
+    id: 'community',
+    icon: '🤝',
+    title: 'Community Connections',
+    description: 'Links to spaces where the Calyxion community gathers, shares, and grows together.',
+    href: '#',
+    status: 'coming'
+  },
+  {
+    id: 'resources',
+    icon: '🛠️',
+    title: 'Tools & Resources',
+    description: 'Helpful utilities, templates, and materials to enhance your experience within the vault.',
+    href: '#',
+    status: 'coming'
+  },
+  {
+    id: 'updates',
+    icon: '✨',
+    title: 'Recent Additions',
+    description: 'The latest content, features, and expansions added to the Ashvault. Stay informed on what\'s new.',
+    href: '#',
+    status: 'new'
+  },
+  {
+    id: 'faq',
+    icon: '❓',
+    title: 'Questions & Answers',
+    description: 'Common questions answered clearly. If something is unclear, this is the place to start.',
+    href: '#',
+    status: 'coming'
+  },
+  {
+    id: 'feedback',
+    icon: '💬',
+    title: 'Share Your Voice',
+    description: 'Your thoughts shape the vault. This is where you can offer feedback, suggestions, and ideas.',
+    href: '#',
+    status: 'coming'
+  }
+];
+
+// Quick links for the index sidebar
+const quickLinks = [
+  { label: 'Vault of Flame (Main Hub)', href: '/vault-of-flame' },
+  { label: 'Hall of Origin (Our Story)', href: '/hall-of-origin/origin' },
+  { label: 'Heartline (Navigation)', href: '/heartline' },
+  { label: 'Infrastructure (How It Works)', href: '/infrastructure' },
+  { label: 'The Labyrinth (Deeper Paths)', href: '/labyrinth' }
+];
+
+const getBadgeClass = (status: string) => {
+  switch (status) {
+    case 'new': return 'bonds-badge bonds-badge--new';
+    case 'coming': return 'bonds-badge bonds-badge--coming';
+    case 'active': return 'bonds-badge bonds-badge--active';
+    default: return 'bonds-badge';
+  }
+};
+
+const getBadgeText = (status: string) => {
+  switch (status) {
+    case 'new': return '✦ New';
+    case 'coming': return '◈ Coming Soon';
+    case 'active': return '● Active';
+    default: return status;
+  }
+};
+---
+
+<NewBondsLayout
+  title="New Bonds - Ashvault"
+  description="Fresh connections, new beginnings, and expanding horizons. A welcoming space for exploration within the Ashvault."
+>
+  <header class="bonds-header">
+    <h1 class="bonds-title">New Bonds</h1>
+    <p class="bonds-subtitle">
+      A space for fresh beginnings, helpful resources, and welcoming pathways.
+      Whether you're new to the vault or seeking something different—you belong here.
+    </p>
+  </header>
+
+  <section class="bonds-welcome">
+    <p>
+      <strong>Welcome, traveler.</strong> This section is designed to be a breath of fresh air—
+      a brighter corner of the Ashvault where information flows freely and connections form naturally.
+      Unlike the deeper chambers, this space prioritizes clarity, accessibility, and warmth.
+    </p>
+  </section>
+
+  <section class="bonds-grid" aria-label="New Bonds sections">
+    {sections.map(section => (
+      <a
+        class={`bonds-card ${section.href === '#' ? 'disabled' : ''}`}
+        href={section.href}
+        id={section.id}
+      >
+        <span class="bonds-card-icon">{section.icon}</span>
+        <h2 class="bonds-card-title">{section.title}</h2>
+        <p class="bonds-card-description">{section.description}</p>
+        <span class={getBadgeClass(section.status)}>{getBadgeText(section.status)}</span>
+      </a>
+    ))}
+  </section>
+
+  <aside class="bonds-index">
+    <h3 class="bonds-index-title">Quick Navigation</h3>
+    <ul class="bonds-index-list">
+      {quickLinks.map(link => (
+        <li class="bonds-index-item">
+          <span class="bonds-index-bullet"></span>
+          <a href={link.href}>{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+
+  <footer class="bonds-footer">
+    <div class="bonds-flourish" aria-hidden="true">✦ ◆ ✦</div>
+  </footer>
+</NewBondsLayout>
+
+<style>
+  .bonds-card.disabled {
+    cursor: default;
+    opacity: 0.85;
+  }
+
+  .bonds-card.disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 20px rgba(45, 52, 54, 0.08);
+  }
+
+  .bonds-card.disabled::before {
+    opacity: 0.3;
+  }
+</style>

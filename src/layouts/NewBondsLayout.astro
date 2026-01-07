@@ -1,0 +1,99 @@
+---
+import MainNav from '../components/MainNav.astro';
+import CopyrightFooter from '../components/CopyrightFooter.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "New Bonds - Ashvault",
+  description = "Fresh connections, new beginnings, and expanding horizons within the Ashvault.",
+  image = "/images/ashvault-og.png"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Ashvault RSS Feed" href="/rss.xml" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <!-- Analytics -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="42e2cfc7-2685-4f78-974f-480714f80f93"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- New Bonds Theme -->
+    <link rel="stylesheet" href="/new-bonds.css" />
+  </head>
+
+  <body class="new-bonds-page">
+    <div class="aurora-bg" aria-hidden="true"></div>
+    <MainNav />
+    <main class="bonds-container">
+      <slot />
+    </main>
+    <CopyrightFooter />
+  </body>
+</html>
+
+<style is:global>
+  html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  body.new-bonds-page {
+    font-family: 'Inter', 'Century Gothic', sans-serif;
+  }
+
+  /* Override footer for light theme */
+  body.new-bonds-page footer {
+    background: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid rgba(78, 205, 196, 0.2);
+  }
+
+  body.new-bonds-page footer,
+  body.new-bonds-page footer a {
+    color: #636e72;
+  }
+
+  body.new-bonds-page footer a:hover {
+    color: #4ecdc4;
+  }
+</style>
