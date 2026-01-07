@@ -194,6 +194,20 @@ import MainNav from '../../components/MainNav.astro';
         opacity: 1;
       }
 
+      .tile.labyrinth-tile {
+        border-color: rgba(154, 154, 170, 0.35);
+        background: linear-gradient(140deg, rgba(26, 15, 31, 0.5), rgba(10, 8, 4, 0.72));
+      }
+
+      .tile.labyrinth-tile:hover {
+        border-color: rgba(196, 167, 111, 0.6);
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5), 0 0 22px rgba(154, 154, 170, 0.15);
+      }
+
+      .tile.labyrinth-tile h2 {
+        color: #c4a76f;
+      }
+
       .tile h2 {
         margin: 0 0 0.45rem;
         font-size: 1.32rem;
@@ -360,6 +374,10 @@ import MainNav from '../../components/MainNav.astro';
             <a class="tile" href="/vault-of-flame/ember-drops">
             <h2>Ember Drops</h2>
             <p>A ledger of thresholds: what crossed into the world, and what stayed sealed. Social Media Ledger.</p>
+          </a>
+          <a class="tile labyrinth-tile" href="/labyrinth">
+            <h2>The Labyrinth</h2>
+            <p>Into the depths. A recursive maze where meaning compounds, and hidden chambers await those who seek.</p>
           </a>
         </section>
 

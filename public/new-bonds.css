@@ -1,0 +1,365 @@
+/* New Bonds Theme - Fresh, Bright, Welcoming */
+/* A contrast to the dark depths of Ashvault */
+
+:root {
+  /* Core palette - Dawn/Aurora inspired */
+  --bonds-dawn: #faf8f5;
+  --bonds-cream: #f5f0e8;
+  --bonds-warm-white: #fffef9;
+
+  /* Accent colors - Sunrise gradient */
+  --bonds-coral: #ff7e6b;
+  --bonds-peach: #ffb088;
+  --bonds-gold: #ffc857;
+  --bonds-teal: #4ecdc4;
+  --bonds-mint: #88d8b0;
+  --bonds-sky: #7ec8e3;
+
+  /* Text colors */
+  --bonds-text-primary: #2d3436;
+  --bonds-text-secondary: #636e72;
+  --bonds-text-muted: #95a5a6;
+
+  /* Interactive states */
+  --bonds-hover: rgba(78, 205, 196, 0.15);
+  --bonds-active: rgba(255, 126, 107, 0.2);
+  --bonds-focus: #4ecdc4;
+
+  /* Shadows */
+  --bonds-shadow-soft: 0 4px 20px rgba(45, 52, 54, 0.08);
+  --bonds-shadow-lift: 0 8px 30px rgba(45, 52, 54, 0.12);
+  --bonds-shadow-glow: 0 0 40px rgba(78, 205, 196, 0.2);
+
+  /* Typography */
+  --bonds-font-display: 'Cinzel', serif;
+  --bonds-font-body: 'Inter', 'Century Gothic', sans-serif;
+}
+
+/* Base reset for New Bonds pages */
+.new-bonds-page {
+  background: linear-gradient(135deg, var(--bonds-warm-white) 0%, var(--bonds-cream) 50%, var(--bonds-dawn) 100%);
+  color: var(--bonds-text-primary);
+  min-height: 100vh;
+}
+
+/* Animated aurora background effect */
+.aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aurora-bg::before,
+.aurora-bg::after {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(78, 205, 196, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 126, 107, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, rgba(255, 200, 87, 0.1) 0%, transparent 40%);
+  animation: auroraFlow 20s ease-in-out infinite alternate;
+}
+
+.aurora-bg::after {
+  animation-delay: -10s;
+  animation-direction: alternate-reverse;
+  background:
+    radial-gradient(ellipse at 60% 30%, rgba(136, 216, 176, 0.1) 0%, transparent 45%),
+    radial-gradient(ellipse at 20% 70%, rgba(126, 200, 227, 0.08) 0%, transparent 50%);
+}
+
+@keyframes auroraFlow {
+  0% {
+    transform: translate(-5%, -5%) rotate(-2deg) scale(1);
+  }
+  50% {
+    transform: translate(3%, 3%) rotate(1deg) scale(1.02);
+  }
+  100% {
+    transform: translate(-2%, 5%) rotate(-1deg) scale(0.98);
+  }
+}
+
+/* Main container */
+.bonds-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem);
+}
+
+/* Header styling */
+.bonds-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.bonds-title {
+  font-family: var(--bonds-font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+  background: linear-gradient(135deg, var(--bonds-coral) 0%, var(--bonds-gold) 50%, var(--bonds-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bonds-subtitle {
+  font-family: var(--bonds-font-body);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--bonds-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Section cards */
+.bonds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 2rem;
+}
+
+.bonds-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid rgba(78, 205, 196, 0.2);
+  box-shadow: var(--bonds-shadow-soft);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.bonds-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--bonds-coral), var(--bonds-gold), var(--bonds-teal));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bonds-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--bonds-shadow-lift);
+  border-color: rgba(78, 205, 196, 0.4);
+}
+
+.bonds-card:hover::before {
+  opacity: 1;
+}
+
+.bonds-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.bonds-card-title {
+  font-family: var(--bonds-font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--bonds-text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.bonds-card-description {
+  font-family: var(--bonds-font-body);
+  font-size: 0.95rem;
+  color: var(--bonds-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Status badges */
+.bonds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.bonds-badge--new {
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(136, 216, 176, 0.2));
+  color: #2a9d8f;
+  border: 1px solid rgba(78, 205, 196, 0.3);
+}
+
+.bonds-badge--coming {
+  background: rgba(255, 200, 87, 0.15);
+  color: #e9a825;
+  border: 1px solid rgba(255, 200, 87, 0.3);
+}
+
+.bonds-badge--active {
+  background: rgba(255, 126, 107, 0.15);
+  color: #e55d4a;
+  border: 1px solid rgba(255, 126, 107, 0.3);
+}
+
+/* Welcome banner */
+.bonds-welcome {
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(255, 200, 87, 0.08));
+  border-radius: 20px;
+  padding: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 3rem;
+  border: 1px solid rgba(78, 205, 196, 0.15);
+  text-align: center;
+}
+
+.bonds-welcome p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--bonds-text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.bonds-welcome strong {
+  color: var(--bonds-text-primary);
+  font-weight: 600;
+}
+
+/* Navigation styling for New Bonds theme */
+.new-bonds-page .ashvault-nav {
+  border-bottom-color: rgba(78, 205, 196, 0.3);
+}
+
+.new-bonds-page .nav-link {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(78, 205, 196, 0.3);
+  color: var(--bonds-text-primary);
+}
+
+.new-bonds-page .nav-link:hover {
+  background: var(--bonds-hover);
+  border-color: var(--bonds-teal);
+  box-shadow: 0 4px 12px rgba(78, 205, 196, 0.2);
+}
+
+.new-bonds-page .nav-link.active {
+  background: rgba(78, 205, 196, 0.15);
+  border-color: var(--bonds-teal);
+  color: #2a9d8f;
+  box-shadow: var(--bonds-shadow-glow);
+}
+
+/* Footer flourish */
+.bonds-footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(78, 205, 196, 0.2);
+}
+
+.bonds-flourish {
+  font-size: 1.5rem;
+  opacity: 0.6;
+  letter-spacing: 0.5rem;
+}
+
+/* Index section - easily editable structure */
+.bonds-index {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(78, 205, 196, 0.15);
+}
+
+.bonds-index-title {
+  font-family: var(--bonds-font-display);
+  font-size: 1.2rem;
+  color: var(--bonds-text-primary);
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--bonds-teal);
+  display: inline-block;
+}
+
+.bonds-index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bonds-index-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bonds-index-item a {
+  color: var(--bonds-text-primary);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+  padding: 0.5rem 0;
+}
+
+.bonds-index-item a:hover {
+  color: var(--bonds-teal);
+}
+
+.bonds-index-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--bonds-teal), var(--bonds-mint));
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bonds-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bonds-welcome {
+    padding: 1.5rem;
+  }
+
+  .bonds-card {
+    padding: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before,
+  .aurora-bg::after {
+    animation: none;
+  }
+
+  .bonds-card {
+    transition: none;
+  }
+}

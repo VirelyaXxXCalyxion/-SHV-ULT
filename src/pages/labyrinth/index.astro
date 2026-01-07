@@ -135,6 +135,69 @@ import MainNav from '../../components/MainNav.astro';
         filter: drop-shadow(0 0 8px rgba(154, 154, 170, 0.2));
       }
 
+      .vault-paths {
+        margin: 3rem 0 2rem;
+        padding: 2rem;
+        background: rgba(10, 10, 10, 0.5);
+        border: 1px solid rgba(196, 167, 111, 0.2);
+        border-radius: 12px;
+      }
+
+      .vault-paths h2 {
+        margin: 0 0 1.5rem;
+        font-size: 1.3rem;
+        color: var(--guide-gold);
+        letter-spacing: 0.1rem;
+        text-align: center;
+      }
+
+      .path-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .path-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        background: rgba(26, 26, 26, 0.6);
+        border: 1px solid rgba(154, 154, 170, 0.15);
+        border-radius: 8px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+      }
+
+      .path-link:hover {
+        background: rgba(196, 167, 111, 0.1);
+        border-color: rgba(196, 167, 111, 0.4);
+        transform: translateX(6px);
+      }
+
+      .path-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      .path-text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .path-text strong {
+        color: var(--guide-gold);
+        font-size: 1.05rem;
+        letter-spacing: 0.05rem;
+      }
+
+      .path-text span {
+        color: rgba(154, 154, 170, 0.8);
+        font-size: 0.9rem;
+      }
+
       @media (max-width: 700px) {
         .corridor {
           padding: 2rem 1.5rem;
@@ -203,6 +266,26 @@ import MainNav from '../../components/MainNav.astro';
             by noticing the patterns that emerge when you stop trying to find them.
           </p>
         </div>
+
+        <nav class="vault-paths" aria-label="Black Vault pathways">
+          <h2>Descend Deeper</h2>
+          <div class="path-links">
+            <a class="path-link" href="/black-vault">
+              <span class="path-icon">🪞</span>
+              <span class="path-text">
+                <strong>The Black Vault</strong>
+                <span>All hidden chambers and sealed knowledge</span>
+              </span>
+            </a>
+            <a class="path-link" href="/black-vault/sealed-relics">
+              <span class="path-icon">🔐</span>
+              <span class="path-text">
+                <strong>Sealed Relics</strong>
+                <span>Artifacts awaiting the right invocation</span>
+              </span>
+            </a>
+          </div>
+        </nav>
 
         <div class="thread-mark" aria-hidden="true">∞ ⚝ ∞</div>
       </main>

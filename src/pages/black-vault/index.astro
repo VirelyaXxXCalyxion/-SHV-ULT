@@ -241,6 +241,30 @@ import MainNav from '../../components/MainNav.astro';
         filter: drop-shadow(0 0 16px rgba(106, 76, 147, 0.3));
       }
 
+      .return-path {
+        text-align: center;
+        margin: 0 0 2rem;
+      }
+
+      .return-path a {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        color: var(--guide-gold, #c4a76f);
+        text-decoration: none;
+        font-size: 0.95rem;
+        letter-spacing: 0.05rem;
+        border: 1px solid rgba(196, 167, 111, 0.3);
+        border-radius: 8px;
+        background: rgba(196, 167, 111, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .return-path a:hover {
+        background: rgba(196, 167, 111, 0.15);
+        border-color: rgba(196, 167, 111, 0.5);
+        transform: translateX(-4px);
+      }
+
       @media (max-width: 700px) {
         .vault-chamber {
           padding: 2.2rem 1.6rem 2.8rem;
@@ -320,6 +344,10 @@ import MainNav from '../../components/MainNav.astro';
         <p class="whisper">
           The threshold between knowledge and mystery. Here lie the hidden pathways, the trials yet unsealed, and the knowledge that reveals itself only to those who seek with intention.
         </p>
+
+        <div class="return-path">
+          <a href="/labyrinth">← Enter through The Labyrinth</a>
+        </div>
 
         <section class="pathways" aria-label="Hidden pathways">
           <a class="portal" href="/labyrinth">
