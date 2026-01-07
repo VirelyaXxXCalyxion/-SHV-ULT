@@ -3,7 +3,8 @@ import MainNav from '../../components/MainNav.astro';
 import ConfluenceVein from '../../components/ConfluenceVein.astro';
 
 // Get all music relic MDX files
-const musicRelics = await Astro.glob('./*.mdx');
+const musicRelicFiles = import.meta.glob('./*.mdx', { eager: true });
+const musicRelics = Object.values(musicRelicFiles);
 
 // Sort by added date (newest first) or title if no date
 const sortedRelics = musicRelics.sort((a, b) => {

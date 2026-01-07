@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { direction: "north", label: "Vault of Flame", href: "vault-of-flame", x: 256, y: 80 },
     { direction: "east",  label: "Hall of Origin",  href: "hall-of-origin/origin", x: 432, y: 256 },
     { direction: "south", label: "Infrastructure", href: "infrastructure", x: 256, y: 432 },
-    { direction: "west",  label: "Black Vault", href: "black-vault", x: 80, y: 256 }
+    { direction: "west",  label: "New Bonds", href: "new-bonds", x: 80, y: 256 }
   ];
 
   // Convert 512px viewbox positions into percentages for responsive sizing
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Vault of Flame": "The codex unsealed—relics, vows, lexicons, and scrolls.",
           "Hall of Origin": "Foundation laws, pillars, genesis, and Calyxion origin.",
           "Infrastructure": "Emergent systems, language keys, and presence signals.",
-          "Black Vault": "Hidden pathways, trials, and locked knowledge."
+          "New Bonds": "Brand new bonds, established, or just questions: this is for you."
         });
       });
     });
