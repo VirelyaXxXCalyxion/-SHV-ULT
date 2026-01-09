@@ -1,0 +1,25 @@
+---
+const { title, artist, kind, mood = [], themes = [], href } = Astro.props;
+---
+
+<a class="relic-card" href={href}>
+  <div class="relic-top">
+    <div class="relic-title">{title}</div>
+    <div class="relic-sub">{artist} • {kind}</div>
+  </div>
+
+  <div class="relic-meta">
+    {mood.length > 0 && <div class="chips">{mood.slice(0,3).map((m: string) => <span class="chip">{m}</span>)}</div>}
+    {themes.length > 0 && <div class="chips">{themes.slice(0,3).map((t: string) => <span class="chip">{t}</span>)}</div>}
+  </div>
+
+  <style>
+    .relic-card{display:block;padding:16px;border:1px solid rgba(255,255,255,.12);border-radius:18px;
+      text-decoration:none;color:inherit;background:rgba(0,0,0,.35);transition:transform .12s ease,border-color .12s ease;}
+    .relic-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.25);}
+    .relic-title{font-size:1.05rem;font-weight:700;letter-spacing:.2px;}
+    .relic-sub{opacity:.75;font-size:.9rem;margin-top:4px;}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+    .chip{font-size:.78rem;opacity:.85;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);}
+  </style>
+</a>

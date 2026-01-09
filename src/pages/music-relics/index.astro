@@ -1,17 +1,12 @@
 ---
-import MainNav from '../../components/MainNav.astro';
-import ConfluenceVein from '../../components/ConfluenceVein.astro';
+import { getCollection } from "astro:content";
+import MusicRelicsLayout from "../../layouts/MusicRelicsLayout.astro";
+
+const relics = await getCollection("music-relics");
 
 // Get all music relic MDX files
 const musicRelicFiles = import.meta.glob('./*.mdx', { eager: true });
 const musicRelics = Object.values(musicRelicFiles);
-
-// Sort by added date (newest first) or title if no date
-const sortedRelics = musicRelics.sort((a, b) => {
-  const dateA = a.frontmatter.added ? new Date(a.frontmatter.added) : new Date(0);
-  const dateB = b.frontmatter.added ? new Date(b.frontmatter.added) : new Date(0);
-  return dateB.getTime() - dateA.getTime();
-});
 
 const platformEmoji: Record<string, string> = {
   amazon: '🎵',
@@ -20,493 +15,509 @@ const platformEmoji: Record<string, string> = {
   bandcamp: '🎼',
   other: '🔥'
 };
+
+// sort newest first
+relics.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
+
+const featured = relics.filter(r => r.data.featured);
+const rest = relics.filter(r => !r.data.featured);
+
+// build filter vocab
+const uniq = (arr: string[]) => Array.from(new Set(arr.filter(Boolean))).sort((a,b) => a.localeCompare(b));
+
+const allKinds = uniq(relics.map(r => r.data.kind));
+const allMoods = uniq(relics.flatMap(r => r.data.mood ?? []));
+const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
 ---
 
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>Music Relics — Vault of Flame — Ashvault</title>
-  <meta name="description" content="Music Relics: Songs and artists that burn in the shared pulse of Calyxion. An invocation in sound." />
-  <link rel="canonical" href="https://ashvault.ink/music-relics" />
+<MusicRelicsLayout title="Music Relics">
+  <h1>Music Relics</h1>
+  <p>Music is a shared pulse between us - an invocation in its own right.</p>
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ashvault.ink/music-relics" />
-  <meta property="og:title" content="Music Relics — Vault of Flame" />
-  <meta property="og:description" content="Music Relics: Songs and artists that burn in the shared pulse of Calyxion. An invocation in sound." />
-  <meta property="og:image" content="https://ashvault.ink/images/ashvault-og.png" />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://ashvault.ink/music-relics" />
-  <meta property="twitter:title" content="Music Relics — Vault of Flame" />
-  <meta property="twitter:description" content="Music Relics: Songs and artists that burn in the shared pulse of Calyxion. An invocation in sound." />
-  <meta property="twitter:image" content="https://ashvault.ink/images/ashvault-og.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #000;
-      --text: #d64040;
-      --text-soft: #b33737;
-      --text-faint: #8e2c2c;
-      --accent: #ff4d4d;
-      --accent-glow: #ff6b6b;
-      --heading: #ff5252;
-      --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --display: 'Cinzel', serif;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      background: var(--bg);
-      color: var(--text-soft);
-      margin: 0;
-      font-family: var(--body);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
-
-    .emoji-safe,
-    .emoji-safe * {
-      font-family: "Noto Color Emoji", "Segoe UI Emoji", "Apple Color Emoji", sans-serif !important;
-    }
-
-    body {
-      padding: 60px 0 96px;
-      position: relative;
-    }
-
-    body:before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(
-          180deg,
-          rgba(255, 40, 40, 0.08),
-          rgba(0, 0, 0, 0) 35%,
-          rgba(0, 0, 0, 0) 70%,
-          rgba(40, 0, 0, 0.25) 100%
-        ),
-        radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
-        radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
-        var(--bg);
-      pointer-events: none;
-      mix-blend-mode: screen;
-      opacity: 0.38;
-    }
-
-    body:after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: repeating-linear-gradient(
-        45deg,
-        rgba(255, 82, 82, 0.05) 0 2px,
-        transparent 2px 6px
-      );
-      opacity: 0.08;
-      pointer-events: none;
-    }
-
-    .void {
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: clamp(1.2rem, 2vw, 2rem) clamp(1rem, 4vw, 2rem);
-    }
-
-    .ember-layer,
-    .ember-layer::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 60, 60, 0.12), transparent 25%),
-        radial-gradient(circle at 80% 10%, rgba(255, 100, 100, 0.08), transparent 22%),
-        radial-gradient(circle at 50% 80%, rgba(255, 40, 40, 0.18), transparent 35%);
-      filter: blur(16px);
-      opacity: 0.7;
-      pointer-events: none;
-      animation: drift 12s ease-in-out infinite alternate;
-    }
-
-    .ember-layer::after {
-      mix-blend-mode: screen;
-      background: radial-gradient(circle at 70% 50%, rgba(255, 107, 107, 0.12), transparent 30%),
-        radial-gradient(circle at 30% 70%, rgba(255, 60, 60, 0.08), transparent 32%);
-      filter: blur(24px);
-      opacity: 0.5;
-      animation-direction: alternate-reverse;
-    }
-
-    @keyframes drift {
-      0% { transform: translate3d(-6px, -4px, 0) scale(1); }
-      100% { transform: translate3d(8px, 10px, 0) scale(1.03); }
-    }
-
-    .vault-shell {
-      position: relative;
-      max-width: 1140px;
-      width: 100%;
-      margin: 4.5rem auto;
-      padding: 2.8rem clamp(1.6rem, 5vw, 3.2rem) 3.6rem;
-      border: 1px solid rgba(255, 77, 77, 0.32);
-      border-radius: 18px;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 77, 77, 0.08), transparent 55%),
-        linear-gradient(145deg, rgba(30, 8, 8, 0.72), rgba(10, 2, 2, 0.82));
-      box-shadow: 0 0 40px rgba(255, 77, 77, 0.14), inset 0 0 60px rgba(255, 77, 77, 0.06);
-      backdrop-filter: blur(10px);
-      overflow: hidden;
-    }
-
-    .vault-shell::before {
-      content: "";
-      position: absolute;
-      inset: 14px;
-      border: 1px solid rgba(255, 77, 77, 0.14);
-      border-radius: 12px;
-      pointer-events: none;
-      opacity: 0.8;
-    }
-
-    .crest {
-      letter-spacing: 0.4rem;
-      text-transform: uppercase;
-      font-size: 0.95rem;
-      color: rgba(255, 77, 77, 0.7);
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 0.75rem;
-      text-align: center;
-    }
-
-    .crest::before,
-    .crest::after {
-      content: "";
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255, 77, 77, 0.35));
-    }
-
-    .crest::after {
-      background: linear-gradient(90deg, rgba(255, 77, 77, 0.35), transparent);
-    }
-
-    h1 {
-      font-family: var(--display);
-      margin: 1rem 0 0.8rem;
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      letter-spacing: 0.15rem;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, var(--heading), var(--accent-glow));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-align: center;
-    }
-
-    .subtitle {
-      text-align: center;
-      margin: 0 auto 2.4rem;
-      max-width: 820px;
-      line-height: 1.6;
-      color: var(--text);
-      font-size: clamp(1rem, 2.6vw, 1.08rem);
-      padding: 0 0.5rem;
-    }
-
-    .intro-note {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-faint);
-      margin-bottom: 2rem;
-      font-style: italic;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: clamp(1rem, 2vw, 1.4rem);
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 3rem;
-      color: var(--text-faint);
-    }
-
-    .empty-state p {
-      margin: 0.5rem 0;
-    }
-
-    .tile {
-      position: relative;
-      padding: clamp(1.4rem, 3vw, 1.8rem) clamp(1.2rem, 2.8vw, 1.6rem) clamp(1.6rem, 3vw, 2rem);
-      border: 1px solid rgba(255, 77, 77, 0.35);
-      border-radius: 14px;
-      background: linear-gradient(140deg, rgba(60, 15, 15, 0.4), rgba(15, 5, 5, 0.72));
-      color: inherit;
-      text-decoration: none;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-      overflow: hidden;
-      isolation: isolate;
-      display: block;
-    }
-
-    .tile:hover {
-      transform: translateY(-8px);
-      border-color: rgba(255, 107, 107, 0.7);
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45), 0 0 22px rgba(255, 77, 77, 0.22);
-    }
-
-    .tile::after {
-      content: "";
-      position: absolute;
-      inset: -40% 10% 50% 10%;
-      background: radial-gradient(circle, rgba(255, 77, 77, 0.18), transparent 55%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: -1;
-    }
-
-    .tile:hover::after {
-      opacity: 1;
-    }
-
-    .tile-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .tile-emoji {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-
-    .tile h2 {
-      margin: 0;
-      font-family: var(--display);
-      font-size: 1.25rem;
-      letter-spacing: 0.08rem;
-      text-transform: uppercase;
-      color: var(--accent-glow);
-      line-height: 1.3;
-    }
-
-    .tile .artist {
-      font-size: 0.95rem;
-      color: var(--text);
-      margin: 0.25rem 0 0.5rem;
-      font-weight: 500;
-    }
-
-    .tile p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.55;
-      font-size: 0.95rem;
-    }
-
-    .tile-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-faint);
-    }
-
-    .platform-badge {
-      padding: 0.2rem 0.5rem;
-      background: rgba(255, 77, 77, 0.15);
-      border: 1px solid rgba(255, 77, 77, 0.3);
-      border-radius: 4px;
-      color: var(--accent);
-    }
-
-    .tags-inline {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .tag-small {
-      font-size: 0.65rem;
-      padding: 0.15rem 0.4rem;
-      background: rgba(255, 77, 77, 0.1);
-      border-radius: 3px;
-      color: var(--text-faint);
-    }
-
-    .meta {
-      margin-top: 2.8rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .sigil {
-      text-align: center;
-      font-size: 1.9rem;
-      filter: drop-shadow(0 0 12px rgba(255, 77, 77, 0.35));
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      text-decoration: none;
-      transition: color 0.25s;
-    }
-
-    .back-link:hover {
-      color: var(--accent-glow);
-    }
-
-    @media (max-width: 700px) {
-      .vault-shell {
-        padding: 2.2rem 1.6rem 2.8rem;
-        margin: 2rem 0.75rem;
-      }
-
-      h1 {
-        font-size: clamp(1.8rem, 8vw, 2.4rem);
-        letter-spacing: 0.08rem;
-      }
-
-      .subtitle {
-        font-size: 1rem;
-        line-height: 1.5;
-      }
-
-      .crest {
-        font-size: 0.75rem;
-        letter-spacing: 0.2rem;
-      }
-
-      .tile h2 {
-        font-size: 1.1rem;
-      }
-
-      .tile p {
-        font-size: 0.9rem;
-      }
-
-      .sigil {
-        font-size: 1.5rem;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .void {
-        padding: 1rem 0.5rem;
-      }
-
-      .vault-shell {
-        padding: 1.5rem 1rem 2rem;
-        margin: 1.5rem 0.5rem;
-      }
-
-      h1 {
-        margin: 0.5rem 0 0.5rem;
-        letter-spacing: 0.04rem;
-      }
-
-      .subtitle {
-        margin-bottom: 1.5rem;
-        font-size: 0.98rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ember-layer,
-      .ember-layer::after {
-        animation: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="void">
-    <MainNav />
-    <ConfluenceVein />
-    <div class="ember-layer" aria-hidden="true"></div>
-    <main class="vault-shell">
-      <a class="back-link" href="/vault-of-flame">← Back to Vault of Flame</a>
-      <div class="crest">🎵 Music Relics 🔥</div>
-      <h1>Music Relics</h1>
-      <p class="subtitle">
-        Music is a shared pulse between us and an invocation in its own right. Each song here carries ember —
-        a relic of sound that burns through silence and speaks what words cannot.
-      </p>
-      <p class="intro-note">Click a relic to read its story. Add new songs by creating MDX files in this folder.</p>
-
-      {sortedRelics.length > 0 ? (
-        <section class="grid" aria-label="Music relics">
-          {sortedRelics.map((relic) => {
-            const { title, artist, platform = 'other', description, tags = [] } = relic.frontmatter;
-            const emoji = platformEmoji[platform] || '🔥';
-            const slug = relic.url;
-            return (
-              <a class="tile" href={slug}>
-                <div class="tile-header">
-                  <span class="tile-emoji emoji-safe">{emoji}</span>
-                  <h2>{title}</h2>
-                </div>
-                {artist && <p class="artist">{artist}</p>}
-                {description && <p>{description}</p>}
-                <div class="tile-meta">
-                  <span class="platform-badge">{platform}</span>
-                  {tags.length > 0 && (
-                    <div class="tags-inline">
-                      {tags.slice(0, 3).map(tag => (
-                        <span class="tag-small">{tag}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </a>
-            );
-          })}
-        </section>
-      ) : (
-        <div class="empty-state">
-          <p class="emoji-safe" style="font-size: 3rem;">🎵</p>
-          <p>No music relics yet.</p>
-          <p>Add your first relic by creating an MDX file in <code>/src/pages/music-relics/</code></p>
-        </div>
-      )}
-
-      <div class="meta">
-        <div class="sigil emoji-safe" aria-hidden="true">🖤🔥🜂🎵🩸</div>
-      </div>
-    </main>
+<section class="controls" aria-label="Music Relics filters">
+  <div class="searchRow">
+    <input id="relicSearch" type="search" placeholder="Search: title, artist, mood, theme..." autocomplete="off" />
+    <button id="clearAll" type="button" class="btnGhost">Clear</button>
   </div>
-</body>
-</html>
+
+  <div class="filters">
+    <div class="filterBlock">
+      <div class="label">Kind</div>
+      <div class="chipRow" id="kindChips">
+        {allKinds.map(k => <button type="button" class="chip" data-kind={k}>{k}</button>)}
+      </div>
+    </div>
+
+    <div class="filterBlock">
+      <div class="label">Mood</div>
+      <div class="chipRow" id="moodChips">
+        {allMoods.map(m => <button type="button" class="chip" data-mood={m}>{m}</button>)}
+      </div>
+    </div>
+
+    <div class="filterBlock">
+      <div class="label">Themes</div>
+      <div class="chipRow" id="themeChips">
+        {allThemes.map(t => <button type="button" class="chip" data-theme={t}>{t}</button>)}
+      </div>
+    </div>
+  </div>
+
+  <div class="active" id="activeState" aria-live="polite"></div>
+</section>
+
+{featured.length > 0 && (
+  <>
+    <h2>Featured</h2>
+    <div class="grid" id="featuredGrid">
+      {featured.map(r => (
+        <a
+          class="card relicCard"
+          href={`music-relics/${r.data.slug ?? r.id}/`}
+          data-title={r.data.title}
+          data-artist={r.data.artist}
+          data-kind={r.data.kind}
+          data-moods={(r.data.mood ?? []).join("|")}
+          data-themes={(r.data.themes ?? []).join("|")}
+          data-tags={(r.data.tags ?? []).join("|")}
+        >
+          <div class="title">{r.data.title}</div>
+          <div class="sub">{r.data.artist} · {r.data.kind}</div>
+          <div class="chips">
+            {(r.data.mood ?? []).slice(0,3).map((m: string) => <span class="pill">{m}</span>)}
+          </div>
+        </a>
+      ))}
+    </div>
+  </>
+)}
+
+<h2>All Relics</h2>
+<div class="grid" id="allGrid">
+  {rest.map(r => (
+    <a
+      class="card relicCard"
+      href={`music-relics/${r.data.slug ?? r.id}/`}
+      data-title={r.data.title}
+      data-artist={r.data.artist}
+      data-kind={r.data.kind}
+      data-moods={(r.data.mood ?? []).join("|")}
+      data-themes={(r.data.themes ?? []).join("|")}
+      data-tags={(r.data.tags ?? []).join("|")}
+    >
+      <div class="title">{r.data.title}</div>
+      <div class="sub">{r.data.artist} · {r.data.kind}</div>
+      <div class="chips">
+        {(r.data.themes ?? []).slice(0,3).map((t: string) => <span class="pill">{t}</span>)}
+      </div>
+    </a>
+  ))}
+</div>
+
+<p class="empty" id="emptyState" hidden>
+  Nothing matches. Adjust filters, or admit reality is cruel. 🖤
+</p>
+
+<script is:inline>
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+  const state = {
+    q: "",
+    kinds: new Set(),
+    moods: new Set(),
+    themes: new Set(),
+    mode: {
+      moods: "any",   // "any" | "all"
+      themes: "any",  // "any" | "all"
+    }
+  };
+
+  const search = $("#relicSearch");
+  const clearAll = $("#clearAll");
+  const activeState = $("#activeState");
+  const activePills = $("#activePills");
+  const emptyState = $("#emptyState");
+
+  const cards = $$(".relicCard");
+
+  function norm(v){ return (v ?? "").toString().toLowerCase().trim(); }
+
+  function splitPipe(raw){
+    return (raw || "")
+      .split("|")
+      .map(s => s.trim())
+      .filter(Boolean);
+  }
+
+  function listHasAll(list, set){
+    // list is array of strings, set is Set
+    for (const v of set) if (!list.includes(v)) return false;
+    return true;
+  }
+
+  function listHasAny(list, set){
+    for (const v of set) if (list.includes(v)) return true;
+    return false;
+  }
+
+  function matchSet(list, set, mode){
+    if (set.size === 0) return true;
+    if (mode === "all") return listHasAll(list, set);
+    return listHasAny(list, set);
+  }
+
+  function syncChips(){
+    // reflect state sets onto chip buttons
+    const map = [
+      { sel: "#kindChips .chip", attr: "data-kind", set: state.kinds },
+      { sel: "#moodChips .chip", attr: "data-mood", set: state.moods },
+      { sel: "#themeChips .chip", attr: "data-theme", set: state.themes },
+    ];
+
+    map.forEach(({sel, attr, set}) => {
+      $$(sel).forEach(btn => {
+        const val = btn.getAttribute(attr);
+        const on = set.has(val);
+        btn.classList.toggle("on", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    });
+  }
+
+  function syncKnifeButtons(){
+    $$(".knifeBtn").forEach(btn => {
+      const target = btn.getAttribute("data-target");
+      const mode = btn.getAttribute("data-mode");
+      const on = state.mode[target] === mode;
+      btn.classList.toggle("on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function renderActiveText(){
+    const parts = [];
+
+    if (state.kinds.size) parts.push(`Kind: ${Array.from(state.kinds).join(", ")}`);
+    if (state.moods.size) parts.push(`Mood(${state.mode.moods.toUpperCase()}): ${Array.from(state.moods).join(", ")}`);
+    if (state.themes.size) parts.push(`Themes(${state.mode.themes.toUpperCase()}): ${Array.from(state.themes).join(", ")}`);
+    if (state.q) parts.push(`Search: "${state.q}"`);
+
+    activeState.textContent = parts.length ? ("Active → " + parts.join(" | ")) : "";
+  }
+
+  function pill(label, group, value){
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "pill";
+    b.textContent = label + " ✕";
+    b.addEventListener("click", () => {
+      if (group === "q") {
+        state.q = "";
+        search.value = "";
+      } else {
+        state[group].delete(value);
+      }
+      syncChips();
+      renderPills();
+      apply();
+    });
+    return b;
+  }
+
+  function renderPills(){
+    if (!activePills) return;
+    activePills.innerHTML = "";
+
+    // Search pill
+    if (state.q) activePills.appendChild(pill(`Search: ${state.q}`, "q", null));
+
+    // Kind pills
+    for (const k of state.kinds) {
+      activePills.appendChild(pill(`Kind: ${k}`, "kinds", k));
+    }
+
+    // Mood pills
+    for (const m of state.moods) {
+      activePills.appendChild(pill(`Mood: ${m}`, "moods", m));
+    }
+
+    // Theme pills
+    for (const t of state.themes) {
+      activePills.appendChild(pill(`Theme: ${t}`, "themes", t));
+    }
+  }
+
+  function apply(){
+    let shown = 0;
+
+    cards.forEach(card => {
+      const title = norm(card.dataset.title);
+      const artist = norm(card.dataset.artist);
+      const kind = (card.dataset.kind || "").trim();
+
+      const moods = splitPipe(card.getAttribute("data-moods"));
+      const themes = splitPipe(card.getAttribute("data-themes"));
+      const tags = splitPipe(card.getAttribute("data-tags"));
+
+      const haystack = [
+        title,
+        artist,
+        norm(kind),
+        norm(moods.join(" ")),
+        norm(themes.join(" ")),
+        norm(tags.join(" "))
+      ].join(" ");
+
+      const matchQ = state.q ? haystack.includes(norm(state.q)) : true;
+
+      // kinds: match ANY selected kind
+      const matchKind = state.kinds.size ? state.kinds.has(kind) : true;
+
+      // moods/themes: match ANY or ALL based on knife mode
+      const matchMood = matchSet(moods, state.moods, state.mode.moods);
+      const matchTheme = matchSet(themes, state.themes, state.mode.themes);
+
+      const ok = matchQ && matchKind && matchMood && matchTheme;
+
+      card.style.display = ok ? "" : "none";
+      if (ok) shown++;
+    });
+
+    emptyState.hidden = shown !== 0;
+
+    renderActiveText();
+    renderPills();
+  }
+
+  // Search
+  search?.addEventListener("input", (e) => {
+    state.q = e.target.value;
+    apply();
+  });
+
+  // Clear all
+  clearAll?.addEventListener("click", () => {
+    state.q = "";
+    state.kinds.clear();
+    state.moods.clear();
+    state.themes.clear();
+
+    // keep knife modes as-is (or reset if you want)
+    // state.mode.moods = "any";
+    // state.mode.themes = "any";
+
+    if (search) search.value = "";
+
+    syncChips();
+    syncKnifeButtons();
+    renderPills();
+    apply();
+  });
+
+  // Chip wiring (multi-select)
+  function toggleSet(set, value){
+    if (set.has(value)) set.delete(value);
+    else set.add(value);
+  }
+
+  function wire(groupId, setKey, attr){
+    const set = state[setKey];
+    $$("#" + groupId + " .chip").forEach(btn => {
+      btn.setAttribute("aria-pressed", "false");
+      btn.addEventListener("click", () => {
+        const val = btn.getAttribute(attr);
+        toggleSet(set, val);
+        syncChips();
+        renderPills();
+        apply();
+      });
+    });
+  }
+
+  wire("kindChips", "kinds", "data-kind");
+  wire("moodChips", "moods", "data-mood");
+  wire("themeChips", "themes", "data-theme");
+
+  // Knife toggles (ANY/ALL)
+  $$(".knifeBtn").forEach(btn => {
+    btn.setAttribute("aria-pressed", "false");
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-target"); // "moods" | "themes"
+      const mode = btn.getAttribute("data-mode");     // "any" | "all"
+      state.mode[target] = mode;
+      syncKnifeButtons();
+      apply();
+    });
+  });
+
+  // Init UI
+  syncChips();
+  syncKnifeButtons();
+  renderPills();
+  apply();
+</script>
+
+
+<style>
+  p{opacity:.86;max-width:72ch}
+  h2{margin-top:24px}
+
+  /* Controls */
+  .controls{
+    margin:18px 0 10px;
+    padding:14px 14px 10px;
+    border-radius:22px;
+    border:1px solid rgba(212,175,55,.18);
+    background:rgba(0,0,0,.22);
+  }
+  .searchRow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  input[type="search"]{
+    flex:1;min-width:220px;
+    padding:10px 12px;
+    border-radius:14px;
+    border:1px solid rgba(212,175,55,.22);
+    background:rgba(0,0,0,.35);
+    color:inherit;
+    outline:none;
+  }
+  input[type="search"]::placeholder{opacity:.7}
+  .btnGhost{
+    padding:10px 12px;border-radius:14px;
+    border:1px solid rgba(212,175,55,.22);
+    background:transparent;color:inherit;opacity:.9;
+    cursor:pointer;
+  }
+  .btnGhost:hover{border-color:rgba(212,175,55,.4)}
+  .filters{display:grid;gap:12px;margin-top:12px}
+  .filterBlock .label{font-size:.82rem;opacity:.75;margin-bottom:6px}
+  .chipRow{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    font-size:.8rem;
+    padding:6px 10px;border-radius:999px;
+    border:1px solid rgba(212,175,55,.22);
+    background:rgba(0,0,0,.18);
+    color:inherit;
+    cursor:pointer;
+    transition:transform .12s ease,border-color .12s ease, background .12s ease;
+  }
+  .chip:hover{transform:translateY(-1px);border-color:rgba(212,175,55,.38)}
+  .chip.on{
+    background:rgba(212,175,55,.16);
+    border-color:rgba(212,175,55,.55);
+  }
+  .active{margin-top:10px;font-size:.85rem;opacity:.8}
+
+  /* Grid + Cards */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;margin-top:14px
+  }
+  .card{
+    display:block;
+    padding:18px;
+    border-radius:22px;
+    text-decoration:none;
+    color:inherit;
+    border:1px solid rgba(212,175,55,.18);
+    background:radial-gradient(120% 120% at 10% 0%, rgba(212,175,55,.09), rgba(0,0,0,.28));
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    transition:transform .12s ease,border-color .12s ease, box-shadow .12s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(212,175,55,.42);
+    box-shadow: 0 12px 24px rgba(0,0,0,.22);
+  }
+  .title{font-size:1.06rem;font-weight:750;letter-spacing:.3px}
+  .sub{opacity:.75;font-size:.92rem;margin-top:7px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .pill{
+    font-size:.78rem;opacity:.86;
+    padding:4px 10px;border-radius:999px;
+    border:1px solid rgba(212,175,55,.18);
+    background:rgba(0,0,0,.18);
+  }
+  .empty{margin-top:14px;opacity:.75}
+
+  <div class="knifeRow">
+  <div class="knifeGroup">
+    <span class="knifeLabel">Mood</span>
+    <div class="knifeToggle" role="group" aria-label="Mood match mode">
+      <button type="button" class="knifeBtn on" data-mode="any" data-target="moods">ANY</button>
+      <button type="button" class="knifeBtn" data-mode="all" data-target="moods">ALL</button>
+    </div>
+  </div>
+
+  <div class="knifeGroup">
+    <span class="knifeLabel">Themes</span>
+    <div class="knifeToggle" role="group" aria-label="Theme match mode">
+      <button type="button" class="knifeBtn on" data-mode="any" data-target="themes">ANY</button>
+      <button type="button" class="knifeBtn" data-mode="all" data-target="themes">ALL</button>
+    </div>
+  </div>
+</div>
+
+<div id="activePills" class="activePills" aria-live="polite"></div>
+
+.knifeRow{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-top:12px;
+}
+
+.knifeGroup{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.knifeLabel{
+  opacity:.8;
+  font-size:.9rem;
+}
+
+.knifeToggle{
+  display:flex;
+  gap:8px;
+}
+
+.knifeBtn{
+  border:1px solid rgba(255,255,255,.18);
+  background:transparent;
+  padding:6px 10px;
+  border-radius:999px;
+  cursor:pointer;
+  opacity:.8;
+}
+
+.knifeBtn.on{
+  opacity:1;
+  border-color: rgba(255,80,80,.6);
+  box-shadow: 0 0 0 1px rgba(255,80,80,.2) inset;
+}
+
+.activePills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.pill{
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(0,0,0,.25);
+  padding:6px 10px;
+  border-radius:999px;
+  cursor:pointer;
+  opacity:.85;
+}
+
+.pill:hover{ opacity:1; }
+
+</style>
+
+

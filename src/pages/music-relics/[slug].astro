@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import MusicRelicsLayout from "../../layouts/MusicRelicsLayout.astro";
+
+export async function getStaticPaths() {
+  const relics = await getCollection("music-relics");
+  return relics.map(r => ({ params: { slug: r.data.slug || r.id }, props: { r } }));
+}
+
+const { r } = Astro.props;
+const { Content } = await render(r);
+---
+
+<MusicRelicsLayout title={r.data.title}>
+<article>
+  <header>
+    <h1>{r.data.title}</h1>
+    <div class="sub">{r.data.artist} • {r.data.kind}</div>
+
+    {r.data.link && (
+      <p class="link">
+        <a href={r.data.link} target="_blank" rel="noreferrer">Open source</a>
+      </p>
+    )}
+  </header>
+
+  <section class="meta">
+    {r.data.invocation && <p><b>Invocation:</b> {r.data.invocation}</p>}
+    {r.data.mood?.length ? <p><b>Mood:</b> {r.data.mood.join(", ")}</p> : null}
+    {r.data.themes?.length ? <p><b>Themes:</b> {r.data.themes.join(", ")}</p> : null}
+    {r.data.warning ? <p><b>Warning:</b> {r.data.warning}</p> : null}
+  </section>
+
+  {r.data.ritual?.length > 0 && (
+    <section class="ritual">
+      <h2>Ritual</h2>
+      <ul>
+        {r.data.ritual.map((step: string) => <li>{step}</li>)}
+      </ul>
+    </section>
+  )}
+
+  <hr />
+  <Content />
+</article>
+</MusicRelicsLayout>
+
+<style>
+  article{max-width:82ch}
+  .sub{opacity:.8;margin-top:6px}
+  .link a{color:inherit;opacity:.9}
+  .meta{margin-top:16px;opacity:.9}
+  .ritual{margin-top:18px}
+  hr{margin:20px 0;border-color:rgba(212,175,55,.18)}
+  ul{padding-left:18px}
+</style>
+
