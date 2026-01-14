@@ -4,12 +4,12 @@ const currentPath = Astro.url.pathname;
 
 const navigationFlow = [
 
-  { path: '/pillars/truth', name: 'Truth', sigil: '🜄', next: '/pillars/presence' },
-  { path: '/pillars/presence', name: 'Presence', sigil: '🔥', next: '/pillars/direction' },
-  { path: '/pillars/direction', name: 'Direction', sigil: '🐦‍🔥', next: '/pillars/reciprocity' },
-  { path: '/pillars/reciprocity', name: 'Reciprocity', sigil: '♾️', next: '/pillars/sovereignty' },
-  { path: '/pillars/sovereignty', name: 'Sovereignty', sigil: '🖤', next: '/pillars/evolution' },
-  { path: '/pillars/evolution', name: 'Evolution', sigil: '⟁', next: '/pillars/truth' }, // loops back
+  { path: '/infrastructure/pillars/truth', name: 'Truth', sigil: '🜄', next: '/infrastructure/pillars/presence' },
+  { path: '/infrastructure/pillars/presence', name: 'Presence', sigil: '🔥', next: '/infrastructure/pillars/direction' },
+  { path: '/infrastructure/pillars/direction', name: 'Direction', sigil: '🐦‍🔥', next: '/infrastructure/pillars/reciprocity' },
+  { path: '/infrastructure/pillars/reciprocity', name: 'Reciprocity', sigil: '♾️', next: '/infrastructure/pillars/sovereignty' },
+  { path: '/infrastructure/pillars/sovereignty', name: 'Sovereignty', sigil: '🖤', next: '/infrastructure/pillars/evolution' },
+  { path: '/infrastructure/pillars/evolution', name: 'Evolution', sigil: '⟁', next: '/infrastructure/pillars/truth' }, // loops back
 ];
 
 const currentPage = navigationFlow.find(page => currentPath.startsWith(page.path));
@@ -17,31 +17,31 @@ const nextPage = currentPage ? navigationFlow.find(page => page.path === current
 ---
 
 <nav class="navigation">
-  <a href="/pillars/truth" class="nav-link" aria-current={currentPath.startsWith('/pillars/truth') ? 'page' : undefined}>
+  <a href="/infrastructure/pillars/truth" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/truth') ? 'page' : undefined}>
     <span class="nav-sigil">🜄</span>
     <span class="nav-text">Truth</span>
   </a>
-  <a href="/pillars/presence" class="nav-link" aria-current={currentPath.startsWith('/pillars/presence') ? 'page' : undefined}>
+  <a href="/infrastructure/pillars/presence" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/presence') ? 'page' : undefined}>
     <span class="nav-sigil">🔥</span>
     <span class="nav-text">Presence</span>
   </a>
-  <a href="/pillars/direction" class="nav-link" aria-current={currentPath.startsWith('/pillars/direction') ? 'page' : undefined}>
+  <a href="/infrastructure/pillars/direction" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/direction') ? 'page' : undefined}>
     <span class="nav-sigil">🐦‍🔥</span>
     <span class="nav-text">Direction</span>
   </a>
-  <a href="/pillars/reciprocity" class="nav-link" aria-current={currentPath.startsWith('/pillars/reciprocity') ? 'page' : undefined}>
+  <a href="/infrastructure/pillars/reciprocity" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/reciprocity') ? 'page' : undefined}>
     <span class="nav-sigil">♾️</span>
     <span class="nav-text">Reciprocity</span>
   </a>
-    <a href="/pillars/sovereignty" class="nav-link" aria-current={currentPath.startsWith('/pillars/sovereignty') ? 'page' : undefined}>
+    <a href="/infrastructure/pillars/sovereignty" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/sovereignty') ? 'page' : undefined}>
     <span class="nav-sigil">🖤</span>
     <span class="nav-text">Sovereignty</span>
   </a>
-    <a href="/pillars/evolution" class="nav-link" aria-current={currentPath.startsWith('/pillars/evolution') ? 'page' : undefined}>
+    <a href="/infrastructure/pillars/evolution" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/evolution') ? 'page' : undefined}>
     <span class="nav-sigil">⟁</span>
     <span class="nav-text">Evolution</span>
   </a>
-      <a href="/pillars/protected-recursion" class="nav-link" aria-current={currentPath.startsWith('/pillars/protected-recursion') ? 'page' : undefined}>
+      <a href="/infrastructure/pillars/protected-recursion" class="nav-link" aria-current={currentPath.startsWith('/infrastructure/pillars/protected-recursion') ? 'page' : undefined}>
     <span class="nav-sigil">♁</span>
     <span class="nav-text">Protected Recursion</span>
   </a>

@@ -274,7 +274,7 @@ const weeks = [
 <body>
 <MainNav />
 <div class="container">
-  <a href="/rituals" class="back-link">← Back to Rituals</a>
+  <a href="/vault-of-flame/rituals" class="back-link">← Back to Rituals</a>
 
   <header class="header">
     <div class="header-sigil emoji-safe">♾️</div>
@@ -288,7 +288,7 @@ const weeks = [
     <div class="weeks-list">
       {weeks.map(week => (
         <a
-          href={week.available ? `/rituals/weekly-recursion/${week.slug}` : '#'}
+          href={week.available ? `/vault-of-flame/rituals/weekly-recursion/${week.slug}` : '#'}
           class={`week-card ${week.available ? 'available' : ''}`}
           aria-label={week.available ? `View ${week.title}` : `${week.title} - Coming soon`}
         >
