@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/scrollslayout.astro"
-import ScrollCard from "../../components/ScrollCard.astro";
-import MainNav from "../../components/MainNav.astro";
+import Layout from "../../../layouts/scrollslayout.astro"
+import ScrollCard from "../../../components/ScrollCard.astro";
+import MainNav from "../../../components/MainNav.astro";
 
 const all = await getCollection("scrolls");
 const toDate = (item: any) => {

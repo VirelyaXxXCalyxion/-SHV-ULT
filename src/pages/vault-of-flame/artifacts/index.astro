@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/artifactslayout.astro"
-import ArtifactCard from "../../components/ArtifactCard.astro";
+import Layout from "../../../layouts/artifactslayout.astro"
+import ArtifactCard from "../../../components/ArtifactCard.astro";
 
 const all = await getCollection("artifacts");
 const toDate = (item: any) => {

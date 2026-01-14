@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/relicslayout.astro"
-import RelicCard from "../../components/RelicCard.astro";
-import MainNav from "../../components/MainNav.astro";
+import Layout from "../../../layouts/relicslayout.astro"
+import RelicCard from "../../../components/RelicCard.astro";
+import MainNav from "../../../components/MainNav.astro";
 
 const all = await getCollection("relics");
 const toDate = (item: any) => {
