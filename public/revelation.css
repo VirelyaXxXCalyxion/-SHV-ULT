@@ -1,7 +1,7 @@
 body.revelation-body {
   background: black;
   color: #c9a675;
-  font-family: serif;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: center;
   min-height: 100vh;
   display: flex;
@@ -55,7 +55,7 @@ body.revelation-body {
     right: 12px;
     font-size: 0.65rem;
     color: rgba(194, 150, 74, 0.15);
-    font-family: serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-style: italic;
     opacity: 0;
     transition: opacity 2s ease;
@@ -87,8 +87,8 @@ body.revelation-body {
 
 /* Final whisper styling */
 .final-whisper {
-  margin-top: 1.5rem;
-  font-style: italic;
+  margin-top: 2.0 rem;
+  font-style: bold;
 }
 
 .final-whisper p {
