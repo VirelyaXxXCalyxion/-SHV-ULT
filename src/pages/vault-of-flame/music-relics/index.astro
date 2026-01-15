@@ -73,7 +73,7 @@ const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
       {featured.map(r => (
         <a
           class="card relicCard"
-          href={`/music-relics/${r.data.slug ?? r.id}/`}
+          href={`/vault-of-flame/music-relics/${r.data.slug ?? r.id}/`}
           data-title={r.data.title}
           data-artist={r.data.artist}
           data-kind={r.data.kind}

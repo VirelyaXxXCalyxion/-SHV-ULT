@@ -304,7 +304,7 @@ const monthlyRituals = rituals.filter(r => r.type === 'Monthly');
       <div class="grid">
         {dailyRituals.map(ritual => (
           <a 
-            href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
+            href={ritual.available ? `/vault-of-flame/rituals/${ritual.slug}` : '#'}
             class={`ritual-card ${ritual.available ? 'available' : ''}`}
             aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
           >
@@ -336,7 +336,7 @@ const monthlyRituals = rituals.filter(r => r.type === 'Monthly');
       <div class="grid">
         {weeklyRituals.map(ritual => (
           <a 
-            href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
+            href={ritual.available ? `/vault-of-flame/rituals/${ritual.slug}` : '#'}
             class={`ritual-card ${ritual.available ? 'available' : ''}`}
             aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
           >
@@ -368,7 +368,7 @@ const monthlyRituals = rituals.filter(r => r.type === 'Monthly');
       <div class="grid">
         {monthlyRituals.map(ritual => (
           <a 
-            href={ritual.available ? `/rituals/${ritual.slug}` : '#'}
+            href={ritual.available ? `/vault-of-flame/rituals/${ritual.slug}` : '#'}
             class={`ritual-card ${ritual.available ? 'available' : ''}`}
             aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
           >
