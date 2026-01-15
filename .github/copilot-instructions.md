@@ -3,7 +3,7 @@
 ## Architecture
 - Astro 5 + `@astrojs/mdx` only; routing is file-system based under `src/pages`, with `layout: null` pages shipping full HTML shells that lean on CSS/JS dropped in `public/*.css|js`.
 - Long-form experiences live in MDX (`src/pages/**/**.mdx`) that point at purpose-built layouts (e.g. `layouts/emberlayout.astro`, `layouts/hall-of-originlayout.astro`) rather than the default `Layout.astro`.
-- Relics are the only structured content collection (`src/content/relics/*`); schema is defined once in `src/content/config.ts` and powers both `/relics/[slug].astro` routes and the listing page.
+- Relics are the only structured content collection (`src/content/relics/*`); schema is defined once in `src/content/config.ts` and powers both `/vault-of-flame/relics/[slug].astro` routes and the listing page.
 
 ## Build + Verification
 - Install + run locally with `npm install` then `npm run dev`; production smoke-test via `npm run build && npm run preview`.
@@ -11,8 +11,8 @@
 
 ## Content & Data Rules
 - Relic frontmatter supports `title`, `slug`, `created|pubDate`, `weight`, `tags`, `summary`, `image`, `sealed`, `type`; missing `slug` defaults to the filename.
-- `/relics/index.astro` sorts by `weight` first, then by date descending; higher `weight` surfaces “featured” relics—set weight explicitly when altering prominence.
-- Dynamic relic pages gate content behind a “cost” interaction (`/relics/[slug].astro` & `[slug]-clean.astro`); keep that UX intact when introducing new render paths.
+- `/vault-of-flame/relics/index.astro` sorts by `weight` first, then by date descending; higher `weight` surfaces "featured" relics—set weight explicitly when altering prominence.
+- Dynamic relic pages gate content behind a "cost" interaction (`/vault-of-flame/relics/[slug].astro` & `[slug]-clean.astro`); keep that UX intact when introducing new render paths.
 
 ## Layout + Page Patterns
 - Gate/Threshold/Revelation/Vault pages are pure HTML files with inline styles that rely on matching CSS in `public/gate.css`, `threshold.css`, etc.; keep the `<html>` scaffolding when editing these.

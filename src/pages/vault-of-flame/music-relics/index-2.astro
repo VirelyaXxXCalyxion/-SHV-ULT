@@ -4,7 +4,7 @@ import ConfluenceVein from '../../../components/ConfluenceVein.astro';
 
 // Get all music relic MDX files
 const musicRelicFiles = import.meta.glob('./*.mdx', { eager: true });
-const musicRelics = Object.values(musicRelicFiles);
+const musicRelics = Object.values(musicRelicFiles) as Array<{ frontmatter: { added?: string; title?: string; artist?: string; platform?: string; description?: string; tags?: string[] }; url?: string }>;
 
 // Sort by added date (newest first) or title if no date
 const sortedRelics = musicRelics.sort((a, b) => {
@@ -465,7 +465,7 @@ const platformEmoji: Record<string, string> = {
 
       {sortedRelics.length > 0 ? (
         <section class="grid" aria-label="Music relics">
-          {sortedRelics.map((relic) => {
+          {sortedRelics.map((relic: any) => {
             const { title, artist, platform = 'other', description, tags = [] } = relic.frontmatter;
             const emoji = platformEmoji[platform] || '🔥';
             const slug = relic.url;
@@ -481,7 +481,7 @@ const platformEmoji: Record<string, string> = {
                   <span class="platform-badge">{platform}</span>
                   {tags.length > 0 && (
                     <div class="tags-inline">
-                      {tags.slice(0, 3).map(tag => (
+                      {tags.slice(0, 3).map((tag: string) => (
                         <span class="tag-small">{tag}</span>
                       ))}
                     </div>
