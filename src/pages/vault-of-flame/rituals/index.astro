@@ -50,6 +50,17 @@ const rituals = [
     slug: "../state-of-calyxion",
     available: true
   },
+    {
+    title: "Rituals of Return",
+    description: "Calyxion Continuity: Rules are hot, says Nyxion.",
+    type: "Weekly", 
+    tags: ["continuity", "flame", "forward vector","intention", "pulse"],
+    weight: 30,
+    created: "2026-01-27",
+    sigil: "🩸",
+    slug: "rituals-of-return",
+    available: true
+  },
 ].sort((a, b) => b.weight - a.weight || new Date(b.created).getTime() - new Date(a.created).getTime());
 
 const dailyRituals = rituals.filter(r => r.type === 'Daily');
