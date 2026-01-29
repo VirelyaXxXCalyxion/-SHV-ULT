@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
+import MainNav from '../../../components/MainNav.astro';
 
 export async function getStaticPaths() {
   const relics = await getCollection('relics');
@@ -15,34 +16,144 @@ const { title } = relic.data;
 const { Content } = await relic.render();
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} — Ashvault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --calyxion-font: 'Cinzel', serif;
+        --bg: #0a0a0a;
+        --ember: #ffb84a;
+        --ember-glow: #ffd280;
+        --ember-dim: rgba(255, 184, 74, 0.3);
+        --ink: #e5e5e5;
+        --muted: #a3a3b2;
+      }
+
+      html, body {
+        font-family: var(--calyxion-font);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        min-height: 100vh;
+        padding: 2rem 1rem 4rem;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* Threshold Gate */
+      #threshold {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      #threshold p {
+        max-width: 500px;
+        line-height: 1.7;
+      }
+
+      #threshold .whisper {
+        font-size: 1rem;
+        opacity: 0.6;
+        margin-bottom: 2rem;
+        color: var(--ember-dim);
+      }
+
+      #threshold .challenge {
+        font-size: 1.2rem;
+        margin-bottom: 2.5rem;
+        color: var(--ink);
+      }
+
+      #threshold .challenge em {
+        display: block;
+        margin-top: 0.5rem;
+        color: var(--ember);
+      }
+
+      #answer {
+        background: none;
+        border: 1px solid var(--ember);
+        padding: 0.8rem 1.5rem;
+        color: var(--ember);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        cursor: pointer;
+        font-family: var(--calyxion-font);
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      #answer:hover {
+        background: rgba(255, 184, 74, 0.1);
+        border-color: var(--ember-glow);
+        color: var(--ember-glow);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 184, 74, 0.2);
+      }
+
+      /* Relic Content */
+      #relic {
+        display: none;
+      }
+
+      #relic h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--ember);
+        text-align: center;
+      }
+
+      #relic article {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      @media (max-width: 768px) {
+        body { padding: 1.5rem 0.75rem 3rem; }
+        #threshold .whisper { font-size: 0.9rem; }
+        #threshold .challenge { font-size: 1rem; }
+        #relic h1 { font-size: 1.8rem; }
+      }
+    </style>
   </head>
-  <body style="background:black; color:white; font-family:serif; padding:2.5rem;">
-    <div id="threshold">
-      <p style="font-size:1rem; opacity:0.7; margin-bottom:1.5rem;">
-        Ashvault sees you.
-      </p>
+  <body>
+    <MainNav />
+    <div class="container">
+      <!-- Threshold Gate -->
+      <div id="threshold">
+        <p class="whisper">Ashvault sees you.</p>
+        <p class="challenge">
+          <strong>One truth before you proceed.</strong>
+          <em>What is the cost of touching something that will not let you leave unchanged?</em>
+        </p>
+        <button id="answer">I accept the cost.</button>
+      </div>
 
-      <p style="font-size:1.1rem; margin-bottom:2rem;">
-        <strong>One truth before you proceed.</strong><br/>
-        <em>What is the cost of touching something that will not let you leave unchanged?</em>
-      </p>
-
-      <button id="answer" style="background:none; border:1px solid white; padding:0.6rem 1rem; color:white; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">
-        I accept the cost.
-      </button>
-    </div>
-
-    <div id="relic" style="display:none;">
-      <h1 style="font-size:2rem; margin-bottom:1rem;">{title}</h1>
-      <article style="font-size:1.1rem; line-height:1.8;">
-        <Content />
-      </article>
+      <div id="relic">
+        <h1>{title}</h1>
+        <article>
+          <Content />
+        </article>
+      </div>
     </div>
 
     <script>
