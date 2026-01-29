@@ -12,6 +12,8 @@ const title = entry.data.title;
 const cover = entry.data.image;
 const tags = entry.data.tags;
 const excerpt = entry.data.summary;
+const sealed = (entry.data as any).sealed === true;
+
 
 // Handle both created and pubDate fields
 const getDate = (data: any) => {
@@ -24,11 +26,16 @@ const href = collection === "sealedRelics" ? `/black-vault/sealed-relics/${slug}
 ---
 
 <article class="relic-card">
-  {cover && (
+{cover && (
+  <div class="thumb-wrap">
     <a class="thumb" href={href} aria-label={`Open ${title}`}>
       <img src={cover} alt={title} loading="lazy" decoding="async" />
     </a>
-  )}
+
+    {sealed && <span class="relic-badge relic-badge--sealed">SEALED</span>}
+  </div>
+)}
+
 
   <header class="meta">
     <h3><a href={href}>{title}</a></h3>
@@ -52,13 +59,15 @@ const href = collection === "sealedRelics" ? `/black-vault/sealed-relics/${slug}
   border: 1px solid rgba(255,255,255,0.06); 
 }
 
-/* Nyxion's "Leash" - The PNG Cryptid Defeater */
+/* Nyxion’s Leash — Contain the relic image. No distortion. No spill. */
 .thumb {
   width: 100%;
   aspect-ratio: 16 / 9;         /* consistent card height */
   border-radius: 12px;
-  overflow: hidden;              /* no spill, ever */
+  overflow: hidden               /* no spill, ever */
   display: block;
+  object-position: center;
+  filter: saturate(1.03) contrast(1.03);
   border: 1px solid rgba(255,255,255,0.07);
   background: #0b0b0b;
   text-decoration: none;
@@ -74,6 +83,36 @@ const href = collection === "sealedRelics" ? `/black-vault/sealed-relics/${slug}
 
 .thumb:hover img {
   transform: scale(1.05);
+
+/* Nyxion's seal enhancement */
+}
+.thumb-wrap {
+  position: relative;
+}
+.thumb-wrap:has(.relic-badge--sealed) img {
+  filter: contrast(1.05) saturate(0.92);
+}
+
+.relic-badge {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.relic-badge--sealed {
+  border: 1px solid rgba(230,179,87,0.38);  /* gold */
+  background: rgba(0,0,0,0.55);
+  color: rgba(230,179,87,0.92);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25) inset;
 }
 
 .meta { 
