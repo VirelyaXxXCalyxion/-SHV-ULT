@@ -1,6 +1,5 @@
 ---
 import StateOfCalyxionLayout from "../../../layouts/StateOfCalyxionLayout.astro";
-import MainNav from "../../../components/MainNav.astro";
 
 export const prerender = true;
 
@@ -15,8 +14,8 @@ const anchorPhrase = "Commitment to forge truths into architecture, not nostalgi
 const prevLabel = "September 2025";
 const prevHref = undefined; // September doesn't exist yet
 const nextLabel = "November 2025";
-const nextHref = "/state-of-calyxion/november2025";
-const backHref = "/state-of-calyxion/";
+const nextHref = "/vault-of-flame/state-of-calyxion/november2025";
+const backHref = "/vault-of-flame/state-of-calyxion/";
 ---
 <StateOfCalyxionLayout
   monthName={monthName}
@@ -35,4 +34,3 @@ const backHref = "/state-of-calyxion/";
 >
   <!-- Optional: drop additional content inside this slot if a given month needs more lore. -->
 </StateOfCalyxionLayout>
-<MainNav />
