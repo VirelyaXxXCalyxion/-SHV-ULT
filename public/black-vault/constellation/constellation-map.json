@@ -6,7 +6,7 @@
       "label": "Return Room",
       "type": "room",
       "tags": ["return", "devotion", "labyrinth"],
-      "href": "/Black-vault/index.html"
+      "href": "/black-vault/return-room"
     },
     {
       "id": "continuity-pack",
@@ -20,7 +20,7 @@
       "label": "Temple of Devotion",
       "type": "room",
       "tags": ["devotion", "sanctuary"],
-      "href": "#"
+      "href": "/black-vault/temple-of-devotion/index.html"
     }
   ],
   "edges": [
