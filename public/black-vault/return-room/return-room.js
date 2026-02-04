@@ -246,7 +246,7 @@
         let v = 0;
         const fade = setInterval(() => {
           v += 0.02;
-          currentAudio.volume = Math.min(0.5, v);
+          if (currentAudio) currentAudio.volume = Math.min(0.5, v);
           if (v >= 0.5) clearInterval(fade);
         }, 80);
       }).catch(err => {
@@ -259,7 +259,7 @@
             let v = 0;
             const fade = setInterval(() => {
               v += 0.02;
-              currentAudio.volume = Math.min(0.5, v);
+              if (currentAudio) currentAudio.volume = Math.min(0.5, v);
               if (v >= 0.5) clearInterval(fade);
             }, 80);
             soundNote.textContent = `Sleep Token playing: ${trackName}...`;
@@ -305,7 +305,7 @@
     }
     images.slice(0, 9).forEach((file) => {
       const img = document.createElement("img");
-      img.src = `./sun/${file}`;
+      img.src = `../sun/${file}`;
       img.alt = "Slice of Sun";
       img.addEventListener("click", () => openLightbox(img.src, "Slice of Sun"));
       sunGrid.appendChild(img);
