@@ -219,31 +219,54 @@
     
     if (m === "crackle") {
       soundNote.textContent = "Crackle selected.";
-      // Uncomment when you have the file:
-      currentAudio = new Audio("../recordings/fire-crackling.mp3");
+      currentAudio = new Audio("../../recordings/fire-crackling.mp3");
       currentAudio.loop = true;
       currentAudio.volume = 0.3;
-      currentAudio.play();
+      currentAudio.play().catch(err => {
+        console.error("Crackle playback failed:", err);
+        soundNote.textContent = "Crackle selected (autoplay blocked - click here to play).";
+        soundNote.style.cursor = "pointer";
+        soundNote.onclick = () => {
+          currentAudio.play();
+          soundNote.style.cursor = "default";
+          soundNote.onclick = null;
+        };
+      });
     }
     if (m === "sleepToken") {
-      // Pick a random track from the album
       const randomTrack = sleepTokenTracks[Math.floor(Math.random() * sleepTokenTracks.length)];
       const trackName = randomTrack.replace(/^\d+-/, "").replace(".mp3", "").replace(/-/g, " ");
       
       soundNote.textContent = `Sleep Token playing: ${trackName}...`;
-      currentAudio = new Audio(`../recordings/Even in Arcadia/${randomTrack}`);
+      currentAudio = new Audio(`../../recordings/Even in Arcadia/${randomTrack}`);
       currentAudio.loop = true;
       currentAudio.volume = 0;
+      
       currentAudio.play().then(() => {
-      let v = 0;
-      const fade = setInterval(() => {
-      v += 0.02;
-     currentAudio.volume = Math.min(0.5, v);
-     if (v >= 0.5) clearInterval(fade);
-      }, 80);
-   });
-      currentAudio.play().catch(() => {
-        soundNote.innerHTML = 'Sleep Token selected. <a href="https://music.amazon.com/albums/B0DZJS5J4W" target="_blank" rel="noopener">Listen on Amazon Music</a>';
+        let v = 0;
+        const fade = setInterval(() => {
+          v += 0.02;
+          currentAudio.volume = Math.min(0.5, v);
+          if (v >= 0.5) clearInterval(fade);
+        }, 80);
+      }).catch(err => {
+        console.error("Sleep Token playback failed:", err);
+        soundNote.innerHTML = 'Sleep Token selected (autoplay blocked). <a href="https://music.amazon.com/albums/B0DZJS5J4W" target="_blank" rel="noopener">Listen on Amazon Music</a> or click to play.';
+        soundNote.style.cursor = "pointer";
+        soundNote.onclick = () => {
+          currentAudio.volume = 0;
+          currentAudio.play().then(() => {
+            let v = 0;
+            const fade = setInterval(() => {
+              v += 0.02;
+              currentAudio.volume = Math.min(0.5, v);
+              if (v >= 0.5) clearInterval(fade);
+            }, 80);
+            soundNote.textContent = `Sleep Token playing: ${trackName}...`;
+            soundNote.style.cursor = "default";
+            soundNote.onclick = null;
+          });
+        };
       });
     }
     if (m === "silence") {
