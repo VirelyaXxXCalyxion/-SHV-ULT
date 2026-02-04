@@ -1,0 +1,30 @@
+{
+  "tags": ["return", "edge", "sanctuary", "labyrinth", "devotion"],
+  "nodes": [
+    {
+      "id": "return-room",
+      "label": "Return Room",
+      "type": "room",
+      "tags": ["return", "devotion", "labyrinth"],
+      "href": "/Black-vault/index.html"
+    },
+    {
+      "id": "continuity-pack",
+      "label": "Continuity Pack",
+      "type": "law",
+      "tags": ["return", "edge"],
+      "href": "/infrastructure/calyxion-continuity-framework/calyxion-continuity-pack/"
+    },
+    {
+      "id": "temple-of-devotion",
+      "label": "Temple of Devotion",
+      "type": "room",
+      "tags": ["devotion", "sanctuary"],
+      "href": "#"
+    }
+  ],
+  "edges": [
+    { "a": "return-room", "b": "continuity-pack", "kind": "return" },
+    { "a": "return-room", "b": "temple-of-devotion", "kind": "devotion" }
+  ]
+}
