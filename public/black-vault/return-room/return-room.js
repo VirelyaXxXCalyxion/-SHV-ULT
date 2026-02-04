@@ -251,7 +251,7 @@
         }, 80);
       }).catch(err => {
         console.error("Sleep Token playback failed:", err);
-        soundNote.innerHTML = 'Sleep Token selected (autoplay blocked). <a href="https://music.amazon.com/albums/B0DZJS5J4W" target="_blank" rel="noopener">Listen on Amazon Music</a> or click to play.';
+        soundNote.innerHTML = 'Sleep Token selected (autoplay blocked). <u>Click here to play.</u>';
         soundNote.style.cursor = "pointer";
         soundNote.onclick = () => {
           currentAudio.volume = 0;
