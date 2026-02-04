@@ -238,7 +238,7 @@
       const trackName = randomTrack.replace(/^\d+-/, "").replace(".mp3", "").replace(/-/g, " ");
       
       soundNote.textContent = `Sleep Token playing: ${trackName}...`;
-      currentAudio = new Audio(`../../recordings/Even in Arcadia/${randomTrack}`);
+      currentAudio = new Audio(`../../recordings/even-in-arcadia/${randomTrack}`);
       currentAudio.loop = true;
       currentAudio.volume = 0;
       
