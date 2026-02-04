@@ -1,3 +1,4 @@
+console.log("CONSTELLATION JS LOADED");
 (() => {
   const canvas = document.getElementById("sky");
   const ctx = canvas.getContext("2d", { alpha: true });
@@ -109,7 +110,10 @@
     ctx.fillStyle = grad;
     ctx.fillRect(0,0,w,h);
 
-    if (!data) return;
+    if (!data) {
+      requestAnimationFrame(draw);
+      return;
+    }
 
     // Edges
     ctx.lineWidth = 1;
@@ -208,6 +212,11 @@
     const n = pickNode(e.clientX, e.clientY);
     hoverNode = n;
     canvas.style.cursor = n ? "pointer" : "grab";
+    if (statusEl) {
+      statusEl.textContent = n
+        ? (n.whisper || `You are here: ${n.label}`)
+        : (activeTags.size ? `Filter: ${[...activeTags].join(", ")}` : "Vault online. Stars awake.");
+    }
   });
 
   canvas.addEventListener("click", (e) => {
@@ -216,8 +225,7 @@
     if (!n.href || n.href === "#") {
       statusEl.textContent = `"${n.label}" has no door yet. Build it when you’re ready.`;
       return;
-    }
-    window.location.href = n.href;
+    }    if (statusEl) statusEl.textContent = n.whisper || `Opening: ${n.label}`;    window.location.href = n.href;
   });
 
   canvas.addEventListener("wheel", (e) => {

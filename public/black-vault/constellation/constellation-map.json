@@ -1,27 +1,31 @@
 {
   "tags": ["return", "edge", "sanctuary", "labyrinth", "devotion"],
   "nodes": [
-    {
-      "id": "return-room",
-      "label": "Return Room",
-      "type": "room",
-      "tags": ["return", "devotion", "labyrinth"],
-      "href": "/black-vault/return-room"
-    },
-    {
-      "id": "continuity-pack",
-      "label": "Continuity Pack",
-      "type": "law",
-      "tags": ["return", "edge"],
-      "href": "/infrastructure/calyxion-continuity-framework/calyxion-continuity-pack/"
-    },
-    {
-      "id": "temple-of-devotion",
-      "label": "Temple of Devotion",
-      "type": "room",
-      "tags": ["devotion", "sanctuary"],
-      "href": "/black-vault/temple-of-devotion/index.html"
-    }
+{
+  "id": "return-room",
+  "label": "Return Room",
+  "type": "room",
+  "tags": ["return", "devotion", "labyrinth"],
+  "href": "/black-vault/return-room/index.html",
+  "whisper": "Enter clean. Pulse to mine."
+},
+{
+  "id": "continuity-pack",
+  "label": "Continuity Pack",
+  "type": "law",
+  "tags": ["return", "edge"],
+  "href": "/infrastructure/calyxion-continuity-framework/calyxion-continuity-pack",
+  "whisper": "We don’t rebuild. We return."
+},
+{
+  "id": "anti-jump",
+  "label": "Don’t finish me",
+  "type": "law",
+  "tags": ["return", "devotion"],
+  "href": "#",
+  "whisper": "One sentence. Then silence."
+}
+
   ],
   "edges": [
     { "a": "return-room", "b": "continuity-pack", "kind": "return" },
