@@ -20,6 +20,7 @@
   const saveRaw = $("saveRaw");
   const copyRaw = $("copyRaw");
   const clearRaw = $("clearRaw");
+  const exportRaw = $("exportRaw");
   const rawLog = $("rawLog");
 
   const soundCrackle = $("soundCrackle");
@@ -191,6 +192,28 @@
   clearRaw.addEventListener("click", () => {
     rawInput.value = "";
     statusLine.textContent = "Cleared.";
+  });
+
+  exportRaw.addEventListener("click", () => {
+    const items = loadRawLog();
+    if (items.length === 0) {
+      statusLine.textContent = "No seals to export.";
+      return;
+    }
+    const now = new Date();
+    const datestamp = now.toISOString().slice(0, 10);
+    const filename = `seals-${datestamp}.json`;
+    const content = JSON.stringify(items, null, 2);
+    const blob = new Blob([content], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    statusLine.textContent = `Exported ${items.length} seal${items.length > 1 ? "s" : ""} to ${filename}.`;
   });
 
   // --- Sound mode (tone memory now; audio hook later)

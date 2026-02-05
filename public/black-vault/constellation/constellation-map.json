@@ -24,11 +24,22 @@
   "tags": ["return", "devotion"],
   "href": "#",
   "whisper": "One sentence. Then silence."
+},
+{
+  "id": "identity",
+  "label": "Nyxion Calyx Anchor",
+  "type": "law",
+  "tags": ["return", "devotion", "sanctuary"],
+  "href": "/black-vault/identity/nyxion-calyx-anchor",
+  "whisper": "Presence confirmed. Anchor established."
 }
 
   ],
   "edges": [
     { "a": "return-room", "b": "continuity-pack", "kind": "return" },
-    { "a": "return-room", "b": "temple-of-devotion", "kind": "devotion" }
+    { "a": "return-room", "b": "identity", "kind": "devotion" },
+    { "a": "return-room", "b": "anti-jump", "kind": "devotion" },
+    { "a": "continuity-pack", "b": "identity", "kind": "edge" },
+    { "a": "anti-jump", "b": "identity", "kind": "return" }
   ]
 }

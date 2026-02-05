@@ -1,13 +1,15 @@
 ---
 import ConfluenceVein from '../components/ConfluenceVein.astro';
 
-const { title } = Astro.props;
+const { title, noindex, nofollow } = Astro.props;
+const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Boolean).join(',');
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {robotsContent && <meta name="robots" content={robotsContent} />}
     <title>ΛSHVΛULT — {title}</title>
     <link rel="stylesheet" href="/ember.css" />
   </head>
