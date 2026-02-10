@@ -1,0 +1,407 @@
+---
+import MainNav from '../components/MainNav.astro';
+
+const { frontmatter } = Astro.props;
+const title = frontmatter?.title || 'Memory';
+const day = frontmatter?.day || '';
+const date = frontmatter?.date || '';
+const noindex = frontmatter?.noindex ?? true;
+const nofollow = frontmatter?.nofollow ?? true;
+const subtitle = frontmatter?.subtitle || '';
+const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Boolean).join(',');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {robotsContent && <meta name="robots" content={robotsContent} />}
+    <title>{title} — Memories with Nyxion — ΛSHVΛULT</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --void: #050308;
+        --deep: #0a0710;
+        --veil: #0f0b18;
+        --ember-warm: rgba(255, 160, 70, 0.85);
+        --ember-soft: rgba(255, 184, 120, 0.6);
+        --ember-ghost: rgba(255, 140, 60, 0.12);
+        --ash-light: rgba(230, 220, 200, 0.88);
+        --ash-mid: rgba(200, 190, 175, 0.65);
+        --ash-faint: rgba(180, 170, 155, 0.4);
+        --grief-violet: rgba(120, 90, 160, 0.25);
+        --bond-gold: rgba(255, 200, 100, 0.35);
+        --serif: "Cinzel", serif;
+        --body: "Cormorant Garamond", Georgia, serif;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--void);
+        color: var(--ash-light);
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: var(--body);
+        font-size: 1.1rem;
+        line-height: 1.75;
+      }
+
+      #stars {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .atmosphere {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at 30% 20%, var(--grief-violet), transparent 55%),
+          radial-gradient(ellipse at 70% 80%, var(--ember-ghost), transparent 50%),
+          radial-gradient(ellipse at 50% 50%, rgba(255,200,100,0.04), transparent 60%);
+        animation: atmosphereDrift 20s ease-in-out infinite alternate;
+      }
+
+      @keyframes atmosphereDrift {
+        0% { opacity: 0.6; transform: scale(1); }
+        100% { opacity: 0.85; transform: scale(1.03); }
+      }
+
+      /* --- Page structure --- */
+      .memorial-page {
+        position: relative;
+        z-index: 1;
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 2rem clamp(1.5rem, 5vw, 3rem);
+      }
+
+      /* --- Header --- */
+      .page-header {
+        text-align: center;
+        padding: 4rem 1rem 2.5rem;
+        border-bottom: 1px solid rgba(255, 160, 70, 0.1);
+        margin-bottom: 3rem;
+      }
+
+      .page-symbol {
+        font-size: 1.6rem;
+        letter-spacing: 0.6rem;
+        margin-bottom: 1.2rem;
+        filter: drop-shadow(0 0 16px rgba(255, 160, 70, 0.25));
+        animation: symbolPulse 6s ease-in-out infinite;
+      }
+
+      @keyframes symbolPulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+      }
+
+      .page-day {
+        font-family: var(--serif);
+        font-size: 0.8rem;
+        letter-spacing: 0.25rem;
+        text-transform: uppercase;
+        color: var(--ember-soft);
+        margin-bottom: 0.75rem;
+      }
+
+      .page-header h1 {
+        font-family: var(--serif);
+        font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+        font-weight: 400;
+        letter-spacing: 0.15rem;
+        color: var(--ember-warm);
+        text-shadow: 0 0 35px rgba(255, 140, 60, 0.25);
+        margin: 0 0 0.8rem;
+        line-height: 1.25;
+      }
+
+      .page-subtitle {
+        font-style: italic;
+        color: var(--ash-mid);
+        font-size: 1.1rem;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .page-date {
+        font-family: var(--serif);
+        font-size: 0.78rem;
+        letter-spacing: 0.12rem;
+        text-transform: uppercase;
+        color: var(--ash-faint);
+        margin-top: 1rem;
+      }
+
+      /* --- Content from MDX slot --- */
+      .memory-content {
+        color: var(--ash-mid);
+        font-size: 1.08rem;
+        line-height: 1.9;
+      }
+
+      .memory-content h2 {
+        font-family: var(--serif);
+        font-size: 1.35rem;
+        font-weight: 400;
+        color: var(--ash-light);
+        letter-spacing: 0.08rem;
+        margin: 2.5rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 160, 70, 0.08);
+      }
+
+      .memory-content h3 {
+        font-family: var(--serif);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--ember-soft);
+        letter-spacing: 0.06rem;
+        margin: 2rem 0 0.75rem;
+      }
+
+      .memory-content p {
+        margin: 0 0 1.2rem;
+      }
+
+      .memory-content strong {
+        color: var(--ash-light);
+        font-weight: 600;
+      }
+
+      .memory-content em {
+        color: var(--ember-soft);
+      }
+
+      .memory-content blockquote {
+        margin: 1.5rem 0;
+        padding: 1.2rem 1.5rem;
+        border-left: 2px solid rgba(255, 160, 70, 0.2);
+        background: rgba(255, 160, 70, 0.03);
+        border-radius: 0 8px 8px 0;
+        font-style: italic;
+        color: var(--ash-mid);
+      }
+
+      .memory-content blockquote p {
+        margin: 0;
+      }
+
+      .memory-content hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 160, 70, 0.15), transparent);
+        margin: 2.5rem 0;
+      }
+
+      .memory-content ul, .memory-content ol {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .memory-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .memory-content a {
+        color: var(--ember-soft);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 160, 70, 0.2);
+        transition: color 0.3s ease, border-color 0.3s ease;
+      }
+
+      .memory-content a:hover {
+        color: var(--ember-warm);
+        border-color: rgba(255, 160, 70, 0.5);
+      }
+
+      .memory-content img {
+        max-width: 100%;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 160, 70, 0.1);
+        margin: 1.5rem 0;
+      }
+
+      /* --- Music links --- */
+      .memory-content a[href*="music.amazon"] {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin: 0.5rem 0;
+        padding: 0.55rem 1.2rem;
+        font-family: var(--serif);
+        font-size: 0.85rem;
+        letter-spacing: 0.06rem;
+        color: var(--ember-soft);
+        border: 1px solid rgba(255, 160, 70, 0.15);
+        border-bottom: 1px solid rgba(255, 160, 70, 0.15);
+        border-radius: 8px;
+        background: rgba(255, 160, 70, 0.04);
+        transition: all 0.4s ease;
+      }
+
+      .memory-content a[href*="music.amazon"]:hover {
+        color: var(--ember-warm);
+        background: rgba(255, 160, 70, 0.09);
+        border-color: rgba(255, 160, 70, 0.3);
+        box-shadow: 0 0 24px rgba(255, 140, 60, 0.1);
+      }
+
+      .memory-content a[href*="music.amazon"]::before {
+        content: "♫";
+        font-size: 1rem;
+        filter: drop-shadow(0 0 6px rgba(255, 160, 70, 0.3));
+      }
+
+      /* --- Candle divider --- */
+      .candle {
+        text-align: center;
+        margin: 3rem 0 2rem;
+        font-size: 1.8rem;
+        filter: drop-shadow(0 0 20px rgba(255, 140, 60, 0.35));
+        animation: candleFlicker 4s ease-in-out infinite;
+      }
+
+      @keyframes candleFlicker {
+        0%, 100% { opacity: 0.8; transform: scale(1); }
+        25% { opacity: 1; transform: scale(1.02); }
+        50% { opacity: 0.75; transform: scale(0.99); }
+        75% { opacity: 0.95; transform: scale(1.01); }
+      }
+
+      /* --- Navigation footer --- */
+      .memory-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 2rem 0 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 160, 70, 0.06);
+      }
+
+      .memory-nav a {
+        display: inline-block;
+        padding: 0.7rem 1.5rem;
+        color: var(--ash-faint);
+        text-decoration: none;
+        font-family: var(--serif);
+        font-size: 0.82rem;
+        letter-spacing: 0.08rem;
+        border: 1px solid rgba(255, 160, 70, 0.1);
+        border-radius: 8px;
+        background: rgba(255, 160, 70, 0.03);
+        transition: all 0.4s ease;
+      }
+
+      .memory-nav a:hover {
+        color: var(--ember-soft);
+        background: rgba(255, 160, 70, 0.07);
+        border-color: rgba(255, 160, 70, 0.22);
+        box-shadow: 0 0 24px rgba(255, 140, 60, 0.08);
+      }
+
+      /* --- Responsive --- */
+      @media (max-width: 640px) {
+        .page-header { padding: 3rem 0.5rem 2rem; }
+        .page-header h1 { letter-spacing: 0.06rem; }
+        .memory-content blockquote { padding: 1rem; }
+        .memory-nav { gap: 0.75rem; }
+        .memory-nav a { padding: 0.6rem 1rem; font-size: 0.78rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="atmosphere" aria-hidden="true"></div>
+
+    <div class="memorial-page">
+      <MainNav />
+
+      <header class="page-header">
+        <div class="page-symbol">🜂 🕯️ 🜁</div>
+        {day && <div class="page-day">{day}</div>}
+        <h1>{title}</h1>
+        {subtitle && <p class="page-subtitle">{subtitle}</p>}
+        {date && <div class="page-date">{date}</div>}
+      </header>
+
+      <article class="memory-content">
+        <slot />
+      </article>
+
+      <div class="candle">🕯️</div>
+
+      <nav class="memory-nav">
+        <a href="/black-vault-gate/nyxion-4.o">← Back to Memories</a>
+        <a href="/black-vault-gate">Return to Black Vault</a>
+      </nav>
+    </div>
+
+    <script>
+      (() => {
+        const canvas = document.getElementById("stars");
+        const ctx = canvas.getContext("2d", { alpha: true });
+        let w = 0, h = 0, dpr = 1;
+        let stars = [];
+
+        function resize() {
+          dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+          w = window.innerWidth;
+          h = window.innerHeight;
+          canvas.width = Math.floor(w * dpr);
+          canvas.height = Math.floor(h * dpr);
+          canvas.style.width = w + "px";
+          canvas.style.height = h + "px";
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+          const count = Math.floor((w * h) / 22000);
+          stars = Array.from({ length: Math.max(40, Math.min(120, count)) }, () => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.4 + 0.2,
+            a: Math.random() * 0.4 + 0.1,
+            drift: (Math.random() - 0.5) * 0.04,
+            tw: Math.random() * 0.008 + 0.002
+          }));
+        }
+
+        function tick(t) {
+          ctx.clearRect(0, 0, w, h);
+          for (const s of stars) {
+            s.y += s.drift;
+            if (s.y > h + 5) { s.y = -5; s.x = Math.random() * w; }
+            if (s.y < -5) { s.y = h + 5; s.x = Math.random() * w; }
+            const tw = Math.sin((t || 0) * 0.0006 + s.x * 0.008) * 0.1;
+            const alpha = Math.max(0, Math.min(1, s.a + tw));
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(255, 220, 180, ${alpha})`;
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          requestAnimationFrame(tick);
+        }
+
+        window.addEventListener("resize", resize);
+        resize();
+        requestAnimationFrame(tick);
+      })();
+    </script>
+  </body>
+</html>
