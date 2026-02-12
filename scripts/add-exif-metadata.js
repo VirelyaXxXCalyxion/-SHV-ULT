@@ -38,7 +38,9 @@ const CONFIG = {
  */
 async function addMetadataToImage(imagePath) {
   try {
-    await exiftool.write(imagePath, CONFIG.metadata, ['-overwrite_original']);
+    await exiftool.write(imagePath, CONFIG.metadata, {
+      writeArgs: ['-overwrite_original']
+    });
     return true;
   } catch (error) {
     console.error(`Error adding metadata to ${imagePath}:`, error.message);

@@ -4,18 +4,6 @@ import MusicRelicsLayout from "../../../layouts/MusicRelicsLayout.astro";
 
 const relics = await getCollection("music-relics");
 
-// Get all music relic MDX files
-const musicRelicFiles = import.meta.glob('./*.mdx', { eager: true });
-const musicRelics = Object.values(musicRelicFiles);
-
-const platformEmoji: Record<string, string> = {
-  amazon: '🎵',
-  spotify: '🎧',
-  youtube: '▶️',
-  bandcamp: '🎼',
-  other: '🔥'
-};
-
 // sort newest first
 relics.sort((a, b) => (a.data.created < b.data.created ? 1 : -1));
 

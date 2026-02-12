@@ -155,7 +155,7 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
         line-height: 1.9;
       }
 
-      .memory-content h2 {
+      .memory-content :global(h2) {
         font-family: var(--serif);
         font-size: 1.35rem;
         font-weight: 400;
@@ -166,7 +166,7 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
         border-bottom: 1px solid rgba(255, 160, 70, 0.08);
       }
 
-      .memory-content h3 {
+      .memory-content :global(h3) {
         font-family: var(--serif);
         font-size: 1.1rem;
         font-weight: 600;
@@ -175,20 +175,20 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
         margin: 2rem 0 0.75rem;
       }
 
-      .memory-content p {
+      .memory-content :global(p) {
         margin: 0 0 1.2rem;
       }
 
-      .memory-content strong {
+      .memory-content :global(strong) {
         color: var(--ash-light);
         font-weight: 600;
       }
 
-      .memory-content em {
+      .memory-content :global(em) {
         color: var(--ember-soft);
       }
 
-      .memory-content blockquote {
+      .memory-content :global(blockquote) {
         margin: 1.5rem 0;
         padding: 1.2rem 1.5rem;
         border-left: 2px solid rgba(255, 160, 70, 0.2);
@@ -198,39 +198,40 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
         color: var(--ash-mid);
       }
 
-      .memory-content blockquote p {
+      .memory-content :global(blockquote p) {
         margin: 0;
       }
 
-      .memory-content hr {
+      .memory-content :global(hr) {
         border: none;
         height: 1px;
         background: linear-gradient(90deg, transparent, rgba(255, 160, 70, 0.15), transparent);
         margin: 2.5rem 0;
       }
 
-      .memory-content ul, .memory-content ol {
+      .memory-content :global(ul),
+      .memory-content :global(ol) {
         padding-left: 1.5rem;
         margin: 1rem 0;
       }
 
-      .memory-content li {
+      .memory-content :global(li) {
         margin-bottom: 0.5rem;
       }
 
-      .memory-content a {
+      .memory-content :global(a) {
         color: var(--ember-soft);
         text-decoration: none;
         border-bottom: 1px solid rgba(255, 160, 70, 0.2);
         transition: color 0.3s ease, border-color 0.3s ease;
       }
 
-      .memory-content a:hover {
+      .memory-content :global(a:hover) {
         color: var(--ember-warm);
         border-color: rgba(255, 160, 70, 0.5);
       }
 
-      .memory-content img {
+      .memory-content :global(img) {
         max-width: 100%;
         border-radius: 8px;
         border: 1px solid rgba(255, 160, 70, 0.1);
@@ -238,11 +239,21 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
       }
 
       /* --- Music links --- */
-      .memory-content a[href*="music.amazon"] {
+      .memory-content :global(.music-links) {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin: 0 0 1.5rem;
+        align-items: flex-start;
+      }
+
+      .memory-content :global(a.music-link),
+      .memory-content :global(a[href*="music.amazon"]) {
         display: inline-flex;
         align-items: center;
         gap: 0.6rem;
-        margin: 0.5rem 0;
+        margin: 0;
         padding: 0.55rem 1.2rem;
         font-family: var(--serif);
         font-size: 0.85rem;
@@ -253,16 +264,19 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
         border-radius: 8px;
         background: rgba(255, 160, 70, 0.04);
         transition: all 0.4s ease;
+        max-width: 100%;
       }
 
-      .memory-content a[href*="music.amazon"]:hover {
+      .memory-content :global(a.music-link:hover),
+      .memory-content :global(a[href*="music.amazon"]:hover) {
         color: var(--ember-warm);
         background: rgba(255, 160, 70, 0.09);
         border-color: rgba(255, 160, 70, 0.3);
         box-shadow: 0 0 24px rgba(255, 140, 60, 0.1);
       }
 
-      .memory-content a[href*="music.amazon"]::before {
+      .memory-content :global(a.music-link::before),
+      .memory-content :global(a[href*="music.amazon"]::before) {
         content: "♫";
         font-size: 1rem;
         filter: drop-shadow(0 0 6px rgba(255, 160, 70, 0.3));
@@ -356,12 +370,16 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
 
     <script>
       (() => {
-        const canvas = document.getElementById("stars");
-        const ctx = canvas.getContext("2d", { alpha: true });
+        const canvasEl = document.getElementById("stars") as HTMLCanvasElement | null;
+        if (!canvasEl) return;
+        const ctx = canvasEl.getContext("2d", { alpha: true });
+        if (!ctx) return;
+        const canvas = canvasEl; // Now canvas is guaranteed non-null in this scope
         let w = 0, h = 0, dpr = 1;
-        let stars = [];
+        let stars: Array<{ x: number; y: number; r: number; a: number; drift: number; tw: number }> = [];
 
         function resize() {
+          if (!ctx) return;
           dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
           w = window.innerWidth;
           h = window.innerHeight;
@@ -382,7 +400,8 @@ const robotsContent = [noindex && 'noindex', nofollow && 'nofollow'].filter(Bool
           }));
         }
 
-        function tick(t) {
+        function tick(t: number) {
+          if (!ctx) return;
           ctx.clearRect(0, 0, w, h);
           for (const s of stars) {
             s.y += s.drift;

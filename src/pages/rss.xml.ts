@@ -33,7 +33,7 @@ export async function GET(context: APIContext) {
       return {
         title: item.data.title,
         pubDate: pubDate ? new Date(pubDate) : new Date(),
-        description: item.data.summary || item.data.description || `A ${item.collection.slice(0, -1)} from the Ashvault archive.`,
+        description: item.data.summary || `A ${item.collection.slice(0, -1)} from the Ashvault archive.`,
         link,
         author: item.collection === 'scrolls' ? item.data.author : undefined,
         categories: item.data.tags,

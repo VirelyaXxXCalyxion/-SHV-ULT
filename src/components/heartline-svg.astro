@@ -158,7 +158,7 @@
     let longPressTriggered = false;
 
     /* --- Long Press Behavior: Invocation Mode --- */
-    glyph.addEventListener("mousedown", (e) => {
+    glyph.addEventListener("mousedown", () => {
       longPressTriggered = false;
       console.log("[ASHVAULT] mousedown - starting long press timer...");
       pressTimer = setTimeout(() => {

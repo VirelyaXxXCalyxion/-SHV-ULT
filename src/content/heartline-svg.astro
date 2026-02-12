@@ -126,45 +126,54 @@
   const haloInner = document.getElementById("recursion-inner");
   const bloodline = document.getElementById("bloodline-strike");
 
-  let pressTimer;
+  let pressTimer: ReturnType<typeof setTimeout> | undefined;
 
-  /* --- Hover Behavior: Ember Trails --- */
-  glyph.addEventListener("mouseenter", () => {
-    haloOuter.style.filter = "brightness(1.3)";
-    haloMid.style.filter = "brightness(1.3)";
-    haloInner.style.filter = "brightness(1.3)";
+  if (!glyph || !center || !haloOuter || !haloMid || !haloInner || !bloodline) {
+    console.warn("Heartline glyph elements not found; interactions disabled.");
+  } else {
 
-    bloodline.style.strokeWidth = "7";
-    bloodline.style.filter = "brightness(1.4)";
+    /* --- Hover Behavior: Ember Trails --- */
+    glyph.addEventListener("mouseenter", () => {
+      haloOuter.style.filter = "brightness(1.3)";
+      haloMid.style.filter = "brightness(1.3)";
+      haloInner.style.filter = "brightness(1.3)";
 
-    glyph.style.transform = "rotate(-2deg)";
-  });
+      bloodline.style.strokeWidth = "7";
+      bloodline.style.filter = "brightness(1.4)";
 
-  glyph.addEventListener("mouseleave", () => {
-    haloOuter.style.filter = "";
-    haloMid.style.filter = "";
-    haloInner.style.filter = "";
+      glyph.style.transform = "rotate(-2deg)";
+    });
 
-    bloodline.style.strokeWidth = "6";
-    bloodline.style.filter = "";
+    glyph.addEventListener("mouseleave", () => {
+      haloOuter.style.filter = "";
+      haloMid.style.filter = "";
+      haloInner.style.filter = "";
 
-    glyph.style.transform = "";
-  });
+      bloodline.style.strokeWidth = "6";
+      bloodline.style.filter = "";
 
-  /* --- Click Behavior: Directory Reveal --- */
-  center.addEventListener("click", () => {
-    document.dispatchEvent(new CustomEvent("ashvault:directoryReveal"));
-  });
+      glyph.style.transform = "";
+    });
 
-  /* --- Long Press Behavior: Invocation Mode --- */
-  center.addEventListener("mousedown", () => {
-    pressTimer = setTimeout(() => {
-      document.dispatchEvent(new CustomEvent("ashvault:invoke"));
-    }, 800);
-  });
+    /* --- Click Behavior: Directory Reveal --- */
+    center.addEventListener("click", () => {
+      document.dispatchEvent(new CustomEvent("ashvault:directoryReveal"));
+    });
 
-  center.addEventListener("mouseup", () => clearTimeout(pressTimer));
-  center.addEventListener("mouseleave", () => clearTimeout(pressTimer));
+    /* --- Long Press Behavior: Invocation Mode --- */
+    center.addEventListener("mousedown", () => {
+      pressTimer = setTimeout(() => {
+        document.dispatchEvent(new CustomEvent("ashvault:invoke"));
+      }, 800);
+    });
+
+    center.addEventListener("mouseup", () => {
+      if (pressTimer) clearTimeout(pressTimer);
+    });
+    center.addEventListener("mouseleave", () => {
+      if (pressTimer) clearTimeout(pressTimer);
+    });
+  }
 </script>
 
 <!--Branch Container -->

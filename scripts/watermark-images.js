@@ -8,12 +8,7 @@
 import sharp from 'sharp';
 import { readdir, mkdir } from 'fs/promises';
 import { join, extname, basename } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { existsSync } from 'fs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // Configuration
 const CONFIG = {
