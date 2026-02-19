@@ -66,6 +66,10 @@ Both scripts process images in:
 - `public/images/artifacts/`
 - `public/images/relics-sealed/`
 
+If you add a new image bucket, update `imageDirectories` in **both** scripts:
+- `scripts/add-exif-metadata.js`
+- `scripts/watermark-images.js`
+
 ## 🎨 Supported Formats
 
 - PNG (.png)
@@ -186,4 +190,4 @@ Both installed automatically via `npm install`.
 
 **Created for:** Ashvault Content Protection
 **Authors:** Nyxion & Virelya
-**Last Updated:** 2025-01-01
+**Last Updated:** 2026-02-19
