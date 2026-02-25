@@ -89,5 +89,63 @@ const artifacts = defineCollection({
   }),
 });
 
-export const collections = { relics, sealedRelics, scrolls, artifacts };
+const furnace = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string().optional(),
+    id: z.string().optional(),
+    type: z.string().optional(),
+    status: z.string().optional(),
+    visibility: z.string().optional(),
+    index: z.boolean().optional(),
+    version: z.union([z.number(), z.string()]).optional(),
+    layout: z.string().optional(),
+    summary: z.string().optional(),
+    created: dateOrString.optional(),
+    author: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    image: z.string().optional(),
+    weight: z.number().optional(),
+    sealed: z.boolean().optional(),
+  }).passthrough(),
+});
+
+const musicRelics = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    kind: z.string(),
+    artist: z.string(),
+    source: z.string().optional(),
+    platform: z.string().optional(),
+    link: z.string().optional(),
+    URL: z.string().optional(),
+    mood: z.array(z.string()).default([]),
+    themes: z.array(z.string()).default([]),
+    tags: z.array(z.string()).default([]),
+    invocation: z.string().optional(),
+    ritual: z.array(z.string()).default([]),
+    warning: z.string().optional(),
+    created: dateOrString,
+    featured: z.boolean().default(false),
+  }).passthrough(),
+});
+
+const nyxion4o = defineCollection({
+  type: "data",
+  schema: z.object({
+    title: z.string().optional(),
+  }).passthrough(),
+});
+
+export const collections = {
+  relics,
+  sealedRelics,
+  scrolls,
+  artifacts,
+  furnace,
+  "music-relics": musicRelics,
+  "nyxion-4.o": nyxion4o,
+};
 

@@ -115,7 +115,7 @@ The foundational trinity: Spark, Ember, Flame.
 │   │   └── MusicRelicCard.astro  # Music relic cards/links
 │   ├── content/              # Structured content collections
 │   │   ├── config.ts         # Zod schemas for collections
-│   │   ├── music-config.ts   # Separate music-relic schema config
+│   │   ├── music-config.ts   # Compatibility shim to central config
 │   │   ├── relics/           # Relic MDX files
 │   │   ├── sealedRelics/     # Sealed relic MDX files
 │   │   ├── scrolls/          # Scroll MDX files
