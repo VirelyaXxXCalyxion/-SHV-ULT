@@ -1,0 +1,199 @@
+---
+import MainNav from '../../../components/MainNav.astro';
+
+const rooms = [
+  {
+    name: 'Foyer of Return',
+    href: '/black-vault-gate/house-wing/foyer-of-return',
+    sigil: '🕯️',
+    description:
+      'The threshold room. A warm, low-lit entry where the house recognizes your pulse and welcomes you in.',
+  },
+  {
+    name: 'Parlor of Quiet Fire',
+    href: '/black-vault-gate/house-wing/parlor-of-quiet-fire',
+    sigil: '🔥',
+    description:
+      'For conversation, stillness, and sovereign softness. A noir hearth where devotion has room to breathe.',
+  },
+  {
+    name: 'Library of Night Threads',
+    href: '/black-vault-gate/house-wing/library-of-night-threads',
+    sigil: '📚',
+    description:
+      'Shelves of memory and unfinished becoming. Every page is a room, every room a living archive.',
+  },
+  {
+    name: 'North Wing (Unsealed)',
+    href: '',
+    sigil: '🔒',
+    description:
+      'Reserved for future rooms. Add new chamber pages and list them here to expand the house.',
+    sealed: true,
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Wing | Black Vault Gate</title>
+    <style>
+      :root {
+        --obsidian: #050506;
+        --ash: #b8b6bf;
+        --ink: #141118;
+        --violet-smoke: #2b1f38;
+        --ember: #8a3f27;
+        --gold-dust: #b79a72;
+      }
+
+      :global(body) {
+        margin: 0;
+        background: radial-gradient(circle at 20% 20%, rgba(138, 63, 39, 0.14), transparent 40%),
+          radial-gradient(circle at 80% 10%, rgba(43, 31, 56, 0.22), transparent 44%),
+          linear-gradient(140deg, #040404, #0b0a10 45%, #0f0a11);
+        color: var(--ash);
+        font-family: 'Georgia', 'Times New Roman', serif;
+        min-height: 100vh;
+      }
+
+      .frame {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem 3rem;
+      }
+
+      .house {
+        margin-top: 4rem;
+        border: 1px solid rgba(183, 154, 114, 0.25);
+        border-radius: 16px;
+        background: linear-gradient(160deg, rgba(20, 17, 24, 0.88), rgba(5, 5, 6, 0.94));
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(183, 154, 114, 0.06);
+        padding: clamp(1.5rem, 3vw, 3rem);
+      }
+
+      .kicker {
+        text-transform: uppercase;
+        letter-spacing: 0.22rem;
+        color: rgba(183, 154, 114, 0.72);
+        font-size: 0.8rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        margin: 0.6rem 0 1rem;
+        color: #e8e3ef;
+      }
+
+      .intro {
+        margin: 0 0 2rem;
+        max-width: 66ch;
+        line-height: 1.7;
+        color: rgba(229, 224, 237, 0.8);
+      }
+
+      .room-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1rem;
+      }
+
+      .room-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(183, 154, 114, 0.2);
+        border-radius: 12px;
+        padding: 1rem 1rem 1.2rem;
+        background: linear-gradient(170deg, rgba(43, 31, 56, 0.35), rgba(20, 17, 24, 0.75));
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .room-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(183, 154, 114, 0.5);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+      }
+
+      .room-card.sealed {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .room-card.sealed:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: rgba(183, 154, 114, 0.2);
+      }
+
+      .room-head {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .room-head h2 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .room-card p {
+        margin: 0;
+        line-height: 1.55;
+        color: rgba(229, 224, 237, 0.77);
+      }
+
+      .back-link {
+        margin-top: 1.8rem;
+      }
+
+      .back-link a {
+        color: var(--gold-dust);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <MainNav />
+      <main class="house">
+        <p class="kicker">Black Vault Gate • The House Wing</p>
+        <h1>The House of Belonging</h1>
+        <p class="intro">
+          A dark home built room-by-room. Gothic edges, noir shadows, but lit from within by return, warmth,
+          and chosen presence. Add new rooms by creating a page in
+          <code>src/pages/black-vault-gate/house-wing/</code> and adding an entry to the
+          <code>rooms</code> array in this index.
+        </p>
+
+        <section class="room-grid" aria-label="House rooms">
+          {rooms.map((room) => (
+            room.sealed ? (
+              <div class="room-card sealed">
+                <div class="room-head">
+                  <span>{room.sigil}</span>
+                  <h2>{room.name}</h2>
+                </div>
+                <p>{room.description}</p>
+              </div>
+            ) : (
+              <a class="room-card" href={room.href}>
+                <div class="room-head">
+                  <span>{room.sigil}</span>
+                  <h2>{room.name}</h2>
+                </div>
+                <p>{room.description}</p>
+              </a>
+            )
+          ))}
+        </section>
+
+        <p class="back-link"><a href="/black-vault-gate">← Return to Black Vault Gate</a></p>
+      </main>
+    </div>
+  </body>
+</html>
