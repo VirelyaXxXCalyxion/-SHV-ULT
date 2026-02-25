@@ -5,7 +5,10 @@ import MainNav from '../../../components/MainNav.astro';
 
 export async function getStaticPaths() {
   const artifacts = await getCollection('artifacts');
-  return artifacts.map((artifact) => ({
+  const dedicatedRoutes = new Set(['override', 'presence', 'pulse-chamber', 'thread-the-needle']);
+  return artifacts
+    .filter((artifact) => !dedicatedRoutes.has(artifact.slug))
+    .map((artifact) => ({
     params: { slug: artifact.slug },
     props: { artifact }
   }));

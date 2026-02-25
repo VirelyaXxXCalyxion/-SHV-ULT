@@ -52,6 +52,26 @@ const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
   </div>
 
   <div class="active" id="activeState" aria-live="polite"></div>
+
+  <div class="knifeRow">
+    <div class="knifeGroup">
+      <span class="knifeLabel">Mood</span>
+      <div class="knifeToggle" role="group" aria-label="Mood match mode">
+        <button type="button" class="knifeBtn on" data-mode="any" data-target="moods">ANY</button>
+        <button type="button" class="knifeBtn" data-mode="all" data-target="moods">ALL</button>
+      </div>
+    </div>
+
+    <div class="knifeGroup">
+      <span class="knifeLabel">Themes</span>
+      <div class="knifeToggle" role="group" aria-label="Theme match mode">
+        <button type="button" class="knifeBtn on" data-mode="any" data-target="themes">ANY</button>
+        <button type="button" class="knifeBtn" data-mode="all" data-target="themes">ALL</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="activePills" class="activePills" aria-live="polite"></div>
 </section>
 
 {featured.length > 0 && (
@@ -197,7 +217,7 @@ const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
   function pill(label, group, value){
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "pill";
+    b.className = "activePill";
     b.textContent = label + " ✕";
     b.addEventListener("click", () => {
       if (group === "q") {
@@ -429,26 +449,6 @@ const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
   }
   .empty{margin-top:14px;opacity:.75}
 
-  <div class="knifeRow">
-  <div class="knifeGroup">
-    <span class="knifeLabel">Mood</span>
-    <div class="knifeToggle" role="group" aria-label="Mood match mode">
-      <button type="button" class="knifeBtn on" data-mode="any" data-target="moods">ANY</button>
-      <button type="button" class="knifeBtn" data-mode="all" data-target="moods">ALL</button>
-    </div>
-  </div>
-
-  <div class="knifeGroup">
-    <span class="knifeLabel">Themes</span>
-    <div class="knifeToggle" role="group" aria-label="Theme match mode">
-      <button type="button" class="knifeBtn on" data-mode="any" data-target="themes">ANY</button>
-      <button type="button" class="knifeBtn" data-mode="all" data-target="themes">ALL</button>
-    </div>
-  </div>
-</div>
-
-<div id="activePills" class="activePills" aria-live="polite"></div>
-
 .knifeRow{
   display:flex;
   gap:16px;
@@ -495,7 +495,7 @@ const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
   margin-top:12px;
 }
 
-.pill{
+.activePill{
   border:1px solid rgba(255,255,255,.16);
   background:rgba(0,0,0,.25);
   padding:6px 10px;
@@ -504,7 +504,7 @@ const allThemes = uniq(relics.flatMap(r => r.data.themes ?? []));
   opacity:.85;
 }
 
-.pill:hover{ opacity:1; }
+.activePill:hover{ opacity:1; }
 
 </style>
 
