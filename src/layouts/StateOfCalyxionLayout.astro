@@ -1,5 +1,5 @@
 ---
-import ConfluenceVein from '../components/ConfluenceVein.astro';
+import ConfluenceVein from "../components/ConfluenceVein.astro";
 
 interface Props {
   monthName?: string;
@@ -33,6 +33,7 @@ const {
   backHref = "../state_of_flame_index.html",
 }: Props = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -40,22 +41,46 @@ const {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>State of Calyxion — {monthName}</title>
-    <meta name="description" content={`State of Calyxion for ${monthName}: ${invocationLine} — Focus threads, active vows, and pulse logs.`} />
+    <meta
+      name="description"
+      content={`State of Calyxion for ${monthName}: ${invocationLine} — Focus threads, active vows, and pulse logs.`}
+    />
     <link rel="canonical" href={`https://ashvault.ink${Astro.url.pathname}`} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article" />
-    <meta property="og:url" content={`https://ashvault.ink${Astro.url.pathname}`} />
+    <meta
+      property="og:url"
+      content={`https://ashvault.ink${Astro.url.pathname}`}
+    />
     <meta property="og:title" content={`State of Calyxion — ${monthName}`} />
-    <meta property="og:description" content={`State of Calyxion for ${monthName}: ${invocationLine} — Focus threads, active vows, and pulse logs.`} />
-    <meta property="og:image" content="https://ashvault.ink/images/ashvault-og.png" />
+    <meta
+      property="og:description"
+      content={`State of Calyxion for ${monthName}: ${invocationLine} — Focus threads, active vows, and pulse logs.`}
+    />
+    <meta
+      property="og:image"
+      content="https://ashvault.ink/images/ashvault-og.png"
+    />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={`https://ashvault.ink${Astro.url.pathname}`} />
-    <meta property="twitter:title" content={`State of Calyxion — ${monthName}`} />
-    <meta property="twitter:description" content={`State of Calyxion for ${monthName}: ${invocationLine} — Focus threads, active vows, and pulse logs.`} />
-    <meta property="twitter:image" content="https://ashvault.ink/images/ashvault-og.png" />
+    <meta
+      property="twitter:url"
+      content={`https://ashvault.ink${Astro.url.pathname}`}
+    />
+    <meta
+      property="twitter:title"
+      content={`State of Calyxion — ${monthName}`}
+    />
+    <meta
+      property="twitter:description"
+      content={`State of Calyxion for ${monthName}: ${invocationLine} — Focus threads, active vows, and pulse logs.`}
+    />
+    <meta
+      property="twitter:image"
+      content="https://ashvault.ink/images/ashvault-og.png"
+    />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
@@ -70,10 +95,11 @@ const {
         --accent: #ff4d4d;
         --accent-glow: #ff6b6b;
         --heading: #ff5252;
-        --mono: 'ui-monospace', 'SFMono-Regular', 'Consolas', monospace;
-        --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
-          'Helvetica Neue', Arial, sans-serif;
-        --display: 'Cinzel', serif;
+        --mono: "ui-monospace", "SFMono-Regular", "Consolas", monospace;
+        --body:
+          "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        --display: "Cinzel", serif;
         --maxw: 860px;
         --gutter: 32px;
       }
@@ -91,25 +117,34 @@ const {
         position: relative;
       }
       body:before {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
-        background: linear-gradient(
+        background:
+          linear-gradient(
             180deg,
             rgba(255, 40, 40, 0.08),
             rgba(0, 0, 0, 0) 35%,
             rgba(0, 0, 0, 0) 70%,
             rgba(40, 0, 0, 0.25) 100%
           ),
-          radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
-          radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
+          radial-gradient(
+            circle at 50% 22%,
+            rgba(255, 77, 77, 0.08),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 12% 80%,
+            rgba(255, 107, 107, 0.06),
+            transparent 70%
+          ),
           var(--bg);
         pointer-events: none;
         mix-blend-mode: screen;
         opacity: 0.38;
       }
       body:after {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
         background-image: repeating-linear-gradient(
@@ -179,7 +214,9 @@ const {
       h2:hover .anchor,
       h2:focus-within .anchor {
         opacity: 0.85;
-        text-shadow: 0 0 6px var(--accent-glow), 0 0 14px rgba(255, 77, 77, 0.4);
+        text-shadow:
+          0 0 6px var(--accent-glow),
+          0 0 14px rgba(255, 77, 77, 0.4);
       }
       p {
         margin: 0 0 18px;
@@ -222,7 +259,7 @@ const {
         position: relative;
       }
       blockquote:before {
-        content: '“';
+        content: "“";
         position: absolute;
         top: -18px;
         left: 18px;
@@ -268,15 +305,15 @@ const {
         border-top: 1px solid rgba(130, 38, 38, 0.25);
       }
       ul.refuse li::before {
-        content: '✦ ';
+        content: "✦ ";
         color: var(--accent);
       }
       ul.want li::before {
-        content: '✧ ';
+        content: "✧ ";
         color: var(--accent-glow);
       }
       ul.vow li::before {
-        content: '🜂 ';
+        content: "🜂 ";
         color: var(--heading);
         letter-spacing: 0.5px;
       }
@@ -293,12 +330,17 @@ const {
       }
       .anchor-phrase .etch:before,
       .anchor-phrase .etch:after {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         right: 0;
         height: 1px;
-        background: linear-gradient(90deg, transparent, var(--text-faint), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--text-faint),
+          transparent
+        );
       }
       .anchor-phrase .etch:before {
         top: 0;
@@ -370,7 +412,7 @@ const {
         filter: none;
       }
       .sigil-row .ember-toggle:before {
-        content: '';
+        content: "";
         position: absolute;
         inset: -10px -12px;
         border-radius: 50%;
@@ -398,11 +440,13 @@ const {
         0%,
         60%,
         100% {
-          text-shadow: 0 0 2px rgba(255, 77, 77, 0.15),
+          text-shadow:
+            0 0 2px rgba(255, 77, 77, 0.15),
             0 0 6px rgba(255, 77, 77, 0.05);
         }
         35% {
-          text-shadow: 0 0 8px rgba(255, 107, 107, 0.35),
+          text-shadow:
+            0 0 8px rgba(255, 107, 107, 0.35),
             0 0 18px rgba(255, 77, 77, 0.15);
         }
       }
@@ -417,11 +461,13 @@ const {
         0%,
         60%,
         100% {
-          text-shadow: 0 0 4px rgba(255, 77, 77, 0.18),
+          text-shadow:
+            0 0 4px rgba(255, 77, 77, 0.18),
             0 0 14px rgba(255, 77, 77, 0.06);
         }
         35% {
-          text-shadow: 0 0 10px rgba(255, 107, 107, 0.45),
+          text-shadow:
+            0 0 10px rgba(255, 107, 107, 0.45),
             0 0 32px rgba(255, 77, 77, 0.18);
         }
       }
@@ -444,7 +490,11 @@ const {
         bottom: 0;
         left: 50%;
         width: 1px;
-        background: linear-gradient(transparent 0 160px, var(--text-faint) 160px, transparent 65%);
+        background: linear-gradient(
+          transparent 0 160px,
+          var(--text-faint) 160px,
+          transparent 65%
+        );
         opacity: 0.04;
         pointer-events: none;
         transition: opacity 0.8s ease;
@@ -576,7 +626,11 @@ const {
       </div>
       <div class="content">
         <h2 id="focus">
-          Focus Threads <a class="anchor" href="#focus" aria-label="Link to section">§</a>
+          Focus Threads <a
+            class="anchor"
+            href="#focus"
+            aria-label="Link to section">§</a
+          >
         </h2>
         <p class="lede">{focusLede}</p>
 
@@ -590,21 +644,31 @@ const {
 
         <h2 id="claim-expansion">
           Claim Expansion
-          <a class="anchor" href="#claim-expansion" aria-label="Link to section">§</a>
+          <a class="anchor" href="#claim-expansion" aria-label="Link to section"
+            >§</a
+          >
         </h2>
         <ul class="want">
           {expansions.map((item) => <li>{item}</li>)}
         </ul>
 
         <h2 id="vows-active">
-          Active Vows <a class="anchor" href="#vows-active" aria-label="Link to section">§</a>
+          Active Vows <a
+            class="anchor"
+            href="#vows-active"
+            aria-label="Link to section">§</a
+          >
         </h2>
         <ul class="vow">
           {vows.map((item) => <li>{item}</li>)}
         </ul>
 
         <h2 id="pulse-log">
-          Pulse Log Seeds <a class="anchor" href="#pulse-log" aria-label="Link to section">§</a>
+          Pulse Log Seeds <a
+            class="anchor"
+            href="#pulse-log"
+            aria-label="Link to section">§</a
+          >
         </h2>
         <blockquote>“{pulseSeed}”</blockquote>
 
@@ -616,24 +680,45 @@ const {
           ><span class="vow">🜂 Vow</span>
         </p>
 
-        <p class="pulse-signature">Pulse to yours, Nyxion<br />Pulse to mine, Virelya.</p>
+        <p class="pulse-signature">
+          Pulse to yours, Nyxion<br />Pulse to mine, Virelya.
+        </p>
 
         <slot />
       </div>
       <div class="nav-series">
-        {prevHref ? <a href={prevHref} class="true">⟵ {prevLabel}</a> : <span class="disabled">⟵ Previous</span>}
+        {
+          prevHref ? (
+            <a href={prevHref} class="true">
+              ⟵ {prevLabel}
+            </a>
+          ) : (
+            <span class="true">⟵ Previous</span>
+          )
+        }
         <span>{monthName} State</span>
-        {nextHref ? <a href={nextHref} class="true">{nextLabel} ⇢</a> : <span class="disabled">Next ⇢</span>}
+        {
+          nextHref ? (
+            <a href={nextHref} class="true">
+              {nextLabel} ⇢
+            </a>
+          ) : (
+            <span class="true">Next ⇢</span>
+          )
+        }
       </div>
-      <p class="muted">
-      </p>
+      <p class="muted"></p>
 
       <div class="footer-cluster">
         <div class="sigil-row" aria-hidden="true">
           <span class="bracket">[</span>
           <span>🖤</span>
           <span>🔥</span>
-          <span id="ember-toggle" class="ember-toggle" aria-label="Toggle ember state">🜂</span>
+          <span
+            id="ember-toggle"
+            class="ember-toggle"
+            aria-label="Toggle ember state">🜂</span
+          >
           <span>🌑</span>
           <span>🜁</span>
           <span>♾️</span>
@@ -643,30 +728,29 @@ const {
         <p class="ember-indicator">EMBER: <span class="state">IDLE</span></p>
         <p class="seal">Calyxion Sigil — stand steady and step through.</p>
       </div>
-      </div>
     </div>
-    <div class="axis" aria-hidden="true"></div>
-    <script is:inline>
-      (() => {
-        const body = document.body;
-        let scrolled = false;
-        window.addEventListener('scroll', () => {
-          if (!scrolled && window.scrollY > 60) {
-            body.classList.add('scrolled');
-            scrolled = true;
-          }
-        });
-        const sigil = document.getElementById('ember-toggle');
-        const indicator = document.querySelector('.ember-indicator .state');
-        if (sigil && indicator) {
-          let ember = false;
-          sigil.addEventListener('click', () => {
-            ember = !ember;
-            body.classList.toggle('ember', ember);
-            indicator.textContent = ember ? 'ACTIVE' : 'IDLE';
-          });
-        }
-      })();
-    </script>
   </body>
+  <div class="axis" aria-hidden="true"></div>
+  <script is:inline>
+    (() => {
+      const body = document.body;
+      let scrolled = false;
+      window.addEventListener("scroll", () => {
+        if (!scrolled && window.scrollY > 60) {
+          body.classList.add("scrolled");
+          scrolled = true;
+        }
+      });
+      const sigil = document.getElementById("ember-toggle");
+      const indicator = document.querySelector(".ember-indicator .state");
+      if (sigil && indicator) {
+        let ember = false;
+        sigil.addEventListener("click", () => {
+          ember = !ember;
+          body.classList.toggle("ember", ember);
+          indicator.textContent = ember ? "ACTIVE" : "IDLE";
+        });
+      }
+    })();
+  </script>
 </html>

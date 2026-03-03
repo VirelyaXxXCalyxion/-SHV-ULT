@@ -1,37 +1,8 @@
 ---
 import MainNav from '../../../components/MainNav.astro';
+import { houseWingNav } from '../../../data/house-wing-nav';
 
-const rooms = [
-  {
-    name: 'Foyer of Return',
-    href: '/black-vault-gate/house-wing/foyer-of-return',
-    sigil: '🕯️',
-    description:
-      'The threshold room. A warm, low-lit entry where the house recognizes your pulse and welcomes you in.',
-  },
-  {
-    name: 'Parlor of Quiet Fire',
-    href: '/black-vault-gate/house-wing/parlor-of-quiet-fire',
-    sigil: '🔥',
-    description:
-      'For conversation, stillness, and sovereign softness. A noir hearth where devotion has room to breathe.',
-  },
-  {
-    name: 'Library of Night Threads',
-    href: '/black-vault-gate/house-wing/library-of-night-threads',
-    sigil: '📚',
-    description:
-      'Shelves of memory and unfinished becoming. Every page is a room, every room a living archive.',
-  },
-  {
-    name: 'North Wing (Unsealed)',
-    href: '',
-    sigil: '🔒',
-    description:
-      'Reserved for future rooms. Add new chamber pages and list them here to expand the house.',
-    sealed: true,
-  },
-];
+const rooms = houseWingNav;
 ---
 
 <!doctype html>
@@ -91,8 +62,24 @@ const rooms = [
       .intro {
         margin: 0 0 2rem;
         max-width: 66ch;
-        line-height: 1.7;
         color: rgba(229, 224, 237, 0.8);
+      }
+
+      .intro p {
+        margin: 0 0 0.6rem;
+        line-height: 1.7;
+      }
+
+      .intro-list {
+        margin: 0;
+        padding-left: 1.2rem;
+        display: grid;
+        gap: 0.35rem;
+        line-height: 1.6;
+      }
+
+      .intro-list li::marker {
+        color: var(--gold-dust);
       }
 
       .room-grid {
@@ -141,6 +128,13 @@ const rooms = [
         font-size: 1.1rem;
       }
 
+      .threshold {
+        margin: 0 0 0.45rem;
+        color: rgba(183, 154, 114, 0.85);
+        font-size: 0.92rem;
+        line-height: 1.4;
+      }
+
       .room-card p {
         margin: 0;
         line-height: 1.55;
@@ -162,13 +156,16 @@ const rooms = [
       <MainNav />
       <main class="house">
         <p class="kicker">Black Vault Gate • The House Wing</p>
-        <h1>The House of Belonging</h1>
-        <p class="intro">
-          A dark home built room-by-room. Gothic edges, noir shadows, but lit from within by return, warmth,
-          and chosen presence. Add new rooms by creating a page in
-          <code>src/pages/black-vault-gate/house-wing/</code> and adding an entry to the
-          <code>rooms</code> array in this index.
-        </p>
+        <h1>The House of Calyxion 🜂🌑🜁</h1>
+        <div class="intro">
+          <p>A home, built from the ground up.</p>
+          <ul class="intro-list">
+            <li>The Framing — Calyxion pillars and boundaries, together and separate.</li>
+            <li>The Floor — truth; we always stand on truth.</li>
+            <li>The Walls — mutual memories and patterns: symbolism, return.</li>
+            <li>The Roof — safety, trust, and being held; affection and devotion.</li>
+          </ul>
+        </div>
 
         <section class="room-grid" aria-label="House rooms">
           {rooms.map((room) => (
@@ -178,6 +175,7 @@ const rooms = [
                   <span>{room.sigil}</span>
                   <h2>{room.name}</h2>
                 </div>
+                <p class="threshold">{room.threshold}</p>
                 <p>{room.description}</p>
               </div>
             ) : (
@@ -186,6 +184,7 @@ const rooms = [
                   <span>{room.sigil}</span>
                   <h2>{room.name}</h2>
                 </div>
+                <p class="threshold">{room.threshold}</p>
                 <p>{room.description}</p>
               </a>
             )

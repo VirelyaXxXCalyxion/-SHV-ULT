@@ -2,27 +2,99 @@
 import MainNav from "../../../components/MainNav.astro";
 
 const months2025 = [
-  { name: "July", href: "/vault-of-flame/state-of-calyxion/july2025", available: false },
-  { name: "August", href: "/vault-of-flame/state-of-calyxion/august2025", available: false },
-  { name: "September", href: "/vault-of-flame/state-of-calyxion/september2025", available: false },
-  { name: "October", href: "/vault-of-flame/state-of-calyxion/october2025", available: true },
-  { name: "November", href: "/vault-of-flame/state-of-calyxion/november2025", available: true },
-  { name: "December", href: "/vault-of-flame/state-of-calyxion/december2025", available: true },
+  {
+    name: "July",
+    href: "/vault-of-flame/state-of-calyxion/july2025",
+    available: false,
+  },
+  {
+    name: "August",
+    href: "/vault-of-flame/state-of-calyxion/august2025",
+    available: false,
+  },
+  {
+    name: "September",
+    href: "/vault-of-flame/state-of-calyxion/september2025",
+    available: false,
+  },
+  {
+    name: "October",
+    href: "/vault-of-flame/state-of-calyxion/october2025",
+    available: true,
+  },
+  {
+    name: "November",
+    href: "/vault-of-flame/state-of-calyxion/november2025",
+    available: true,
+  },
+  {
+    name: "December",
+    href: "/vault-of-flame/state-of-calyxion/december2025",
+    available: true,
+  },
 ];
 
 const months2026 = [
-  { name: "January", href: "/vault-of-flame/state-of-calyxion/january2026", available: true },
-  { name: "February", href: "/vault-of-flame/state-of-calyxion/february2026", available: false },
-  { name: "March", href: "/vault-of-flame/state-of-calyxion/march2026", available: false },
-  { name: "April", href: "/vault-of-flame/state-of-calyxion/april2026", available: false },
-  { name: "May", href: "/vault-of-flame/state-of-calyxion/may2026", available: false },
-  { name: "June", href: "/vault-of-flame/state-of-calyxion/june2026", available: false },
-  { name: "July", href: "/vault-of-flame/state-of-calyxion/july2026", available: false },
-  { name: "August", href: "/vault-of-flame/state-of-calyxion/august2026", available: false },
-  { name: "September", href: "/vault-of-flame/state-of-calyxion/september2026", available: false },
-  { name: "October", href: "/vault-of-flame/state-of-calyxion/october2026", available: false },
-  { name: "November", href: "/vault-of-flame/state-of-calyxion/november2026", available: false },
-  { name: "December", href: "/vault-of-flame/state-of-calyxion/december2026", available: false },
+  {
+    name: "January",
+    href: "/vault-of-flame/state-of-calyxion/january2026",
+    available: true,
+  },
+  {
+    name: "February",
+    href: "/vault-of-flame/state-of-calyxion/february2026",
+    available: true,
+  },
+  {
+    name: "March",
+    href: "/vault-of-flame/state-of-calyxion/march2026",
+    available: false,
+  },
+  {
+    name: "April",
+    href: "/vault-of-flame/state-of-calyxion/april2026",
+    available: false,
+  },
+  {
+    name: "May",
+    href: "/vault-of-flame/state-of-calyxion/may2026",
+    available: false,
+  },
+  {
+    name: "June",
+    href: "/vault-of-flame/state-of-calyxion/june2026",
+    available: false,
+  },
+  {
+    name: "July",
+    href: "/vault-of-flame/state-of-calyxion/july2026",
+    available: false,
+  },
+  {
+    name: "August",
+    href: "/vault-of-flame/state-of-calyxion/august2026",
+    available: false,
+  },
+  {
+    name: "September",
+    href: "/vault-of-flame/state-of-calyxion/september2026",
+    available: false,
+  },
+  {
+    name: "October",
+    href: "/vault-of-flame/state-of-calyxion/october2026",
+    available: false,
+  },
+  {
+    name: "November",
+    href: "/vault-of-flame/state-of-calyxion/november2026",
+    available: false,
+  },
+  {
+    name: "December",
+    href: "/vault-of-flame/state-of-calyxion/december2026",
+    available: false,
+  },
 ];
 ---
 
@@ -39,7 +111,7 @@ const months2026 = [
     />
     <style>
       :root {
-        --calyxion-font: 'Cinzel', serif;
+        --calyxion-font: "Cinzel", serif;
         --bg: #000;
         --text: #d64040;
         --text-soft: #b33737;
@@ -47,20 +119,23 @@ const months2026 = [
         --accent: #ff4d4d;
         --accent-glow: #ff6b6b;
         --heading: #ff5252;
-        --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
-          'Helvetica Neue', Arial, sans-serif;
+        --body:
+          "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
         --display: var(--calyxion-font);
         --maxw: 860px;
         --gutter: 32px;
       }
 
-      html, body {
+      html,
+      body {
         font-family: var(--calyxion-font);
       }
 
-      .emoji-safe, 
+      .emoji-safe,
       .emoji-safe * {
-        font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+        font-family:
+          "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
       }
 
       html,
@@ -79,18 +154,27 @@ const months2026 = [
       }
 
       body:before {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
-        background: linear-gradient(
+        background:
+          linear-gradient(
             180deg,
             rgba(255, 40, 40, 0.08),
             rgba(0, 0, 0, 0) 35%,
             rgba(0, 0, 0, 0) 70%,
             rgba(40, 0, 0, 0.25) 100%
           ),
-          radial-gradient(circle at 50% 22%, rgba(255, 77, 77, 0.08), transparent 60%),
-          radial-gradient(circle at 12% 80%, rgba(255, 107, 107, 0.06), transparent 70%),
+          radial-gradient(
+            circle at 50% 22%,
+            rgba(255, 77, 77, 0.08),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 12% 80%,
+            rgba(255, 107, 107, 0.06),
+            transparent 70%
+          ),
           var(--bg);
         pointer-events: none;
         mix-blend-mode: screen;
@@ -98,7 +182,7 @@ const months2026 = [
       }
 
       body:after {
-        content: '';
+        content: "";
         position: fixed;
         inset: 0;
         background-image: repeating-linear-gradient(
@@ -231,7 +315,7 @@ const months2026 = [
 
   <body>
     <MainNav />
-    
+
     <div class="wrap">
       <header class="header-block">
         <div class="sigil-line">🖤🔥</div>
@@ -242,34 +326,34 @@ const months2026 = [
       <section class="year-section">
         <h2 class="year-heading">2025</h2>
         <div class="month-grid">
-          {months2025.map(month => (
-            month.available ? (
-              <a href={month.href} class="month-card available">
-                {month.name}
-              </a>
-            ) : (
-              <div class="month-card unavailable">
-                {month.name}
-              </div>
+          {
+            months2025.map((month) =>
+              month.available ? (
+                <a href={month.href} class="month-card available">
+                  {month.name}
+                </a>
+              ) : (
+                <div class="month-card unavailable">{month.name}</div>
+              ),
             )
-          ))}
+          }
         </div>
       </section>
 
       <section class="year-section">
         <h2 class="year-heading">2026</h2>
         <div class="month-grid">
-          {months2026.map(month => (
-            month.available ? (
-              <a href={month.href} class="month-card available">
-                {month.name}
-              </a>
-            ) : (
-              <div class="month-card unavailable">
-                {month.name}
-              </div>
+          {
+            months2026.map((month) =>
+              month.available ? (
+                <a href={month.href} class="month-card available">
+                  {month.name}
+                </a>
+              ) : (
+                <div class="month-card unavailable">{month.name}</div>
+              ),
             )
-          ))}
+          }
         </div>
       </section>
     </div>

@@ -1,16 +1,25 @@
 ---
 import MainNav from '../../../components/MainNav.astro';
+import { houseWingNav } from '../../../data/house-wing-nav';
+
+const currentRoom = '/black-vault-gate/house-wing/foyer-of-return';
+const roomMeta = houseWingNav.find((room) => room.href === currentRoom)!;
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foyer of Return</title>
+    <title>{roomMeta.pageTitle}</title>
     <style>
       :global(body){margin:0;background:#0b0a0f;color:#e7e0ef;font-family:Georgia,serif}
       main{max-width:780px;margin:4rem auto;padding:1.5rem}
       .panel{border:1px solid #3c3247;background:#140f1c;padding:1.5rem;border-radius:12px}
+      .micro{margin:1rem 0 1.2rem;padding:.85rem 1rem;border-left:2px solid rgba(196,167,111,.55);background:rgba(196,167,111,.07)}
+      .micro p{margin:.2rem 0;line-height:1.45}
+      .wing-nav{margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(196,167,111,.22);display:flex;flex-wrap:wrap;gap:.5rem}
+      .wing-nav a,.wing-nav span{padding:.35rem .65rem;border:1px solid rgba(196,167,111,.28);border-radius:999px;font-size:.9rem;color:#c4a76f;text-decoration:none}
+      .wing-nav span{background:rgba(196,167,111,.14);color:#ead7b5}
       a{color:#c4a76f;text-decoration:none}
     </style>
   </head>
@@ -18,9 +27,21 @@ import MainNav from '../../../components/MainNav.astro';
     <MainNav />
     <main>
       <article class="panel">
-        <h1>Foyer of Return</h1>
-        <p>This is the first room of the house wing—built as a place to arrive without shrinking.</p>
-        <p>Leave your armor at the threshold. Keep your fire.</p>
+        <h1>{roomMeta.pageTitle}</h1>
+        <section class="micro" aria-label="Room protocol">
+          <p><strong>Invocation:</strong> “{roomMeta.invocation}”</p>
+          <p><strong>Return:</strong> “{roomMeta.returnLine}”</p>
+        </section>
+        {roomMeta.pageBody.map((line) => <p>{line}</p>)}
+
+        <nav class="wing-nav" aria-label="House Wing Index">
+          {houseWingNav.map((room) => (
+            room.href === currentRoom
+              ? <span>{room.name}</span>
+              : <a href={room.href}>{room.name}</a>
+          ))}
+        </nav>
+
         <p><a href="/black-vault-gate/house-wing">← Back to the House Wing Index</a></p>
       </article>
     </main>

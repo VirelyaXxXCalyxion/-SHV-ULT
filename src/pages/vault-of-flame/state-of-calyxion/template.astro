@@ -12,9 +12,12 @@ const vows = ["{{VOW_1}}", "{{VOW_2}}", "{{VOW_3}}"];
 const pulseSeed = "{{PULSE_SEED}}";
 const anchorPhrase = "{{ANCHOR_PHRASE}}";
 const prevLabel = "{{PREV_LABEL}}";
+const prevHref = "{{PREV_HREF}}";
 const nextLabel = "{{NEXT_LABEL}}";
-const backHref = "../state_of_flame_index.html";
+const nextHref = "{{NEXT_HREF}}";
+const backHref = "/vault-of-flame/state-of-calyxion/";
 ---
+
 <StateOfCalyxionLayout
   monthName={monthName}
   invocationLine={invocationLine}
@@ -25,7 +28,9 @@ const backHref = "../state_of_flame_index.html";
   pulseSeed={pulseSeed}
   anchorPhrase={anchorPhrase}
   prevLabel={prevLabel}
+  prevHref={prevHref}
   nextLabel={nextLabel}
+  nextHref={nextHref}
   backHref={backHref}
 >
   <!-- Optional: drop additional content inside this slot if a given month needs more lore. -->
