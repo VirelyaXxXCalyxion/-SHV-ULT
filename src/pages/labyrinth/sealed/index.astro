@@ -1,0 +1,151 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/relicslayout.astro"
+import RelicCard from "../../../components/RelicCard.astro";
+import MainNav from "../../../components/MainNav.astro";
+
+const all = await getCollection("sealedRelics");
+const toDate = (item: any) => {
+  const date = item.data.created || item.data.pubDate;
+  return date ? new Date(date) : new Date(0);
+};
+
+const relics = all.sort((a,b) =>
+  (b.data.weight ?? 0) - (a.data.weight ?? 0) ||
+  toDate(b).getTime() - toDate(a).getTime()
+);
+
+const tags = Array.from(new Set(all.flatMap(r => r.data.tags ?? []))).sort();
+---
+
+<Layout title="Sealed Relics" description="Labyrinth artifacts—held in shadow, indexed for those who walk the deeper threads.">
+  <section class="relics-intro">
+    <h1>Sealed Relics</h1>
+    <p>Labyrinth artifacts—held in shadow, indexed for those who walk the deeper threads.</p>
+  </section>
+
+  <section class="controls" data-hydrate>
+    <input id="q" type="search" placeholder="Search sealed relics…" />
+    <div class="chips" id="chips">
+      {tags.map(t => <button class="chip" data-tag={t}>{t}</button>)}
+      <button class="chip ghost" id="clear">Clear</button>
+    </div>
+  </section>
+
+  <section class="relics-grid" id="grid">
+    {relics.map(entry => <RelicCard entry={entry} collection="sealedRelics" />)}
+  </section>
+
+  <script>
+    const normalize = (s: string) => s.toLowerCase().normalize("NFKD");
+    const q = document.getElementById('q') as HTMLInputElement;
+    const grid = document.getElementById('grid');
+    const chips = document.getElementById('chips');
+    const active = new Set<string>();
+
+    function apply() {
+      const term = normalize(q.value || "");
+      if (!grid) return;
+      for (const card of grid.querySelectorAll('.relic-card')) {
+        const text = normalize((card as HTMLElement).innerText);
+        const tags = [...card.querySelectorAll('.tags li')].map(x => normalize(x.textContent || ''));
+        const matchText = !term || text.includes(term);
+        const matchTags = active.size === 0 || [...active].every(t => tags.includes(t));
+        (card as HTMLElement).style.display = (matchText && matchTags) ? "" : "none";
+      }
+    }
+
+    q.addEventListener('input', apply);
+    chips?.addEventListener('click', (e) => {
+      if (!e.target) return;
+      const btn = (e.target as Element).closest('.chip');
+      if (!btn) return;
+      if (btn.id === 'clear') { active.clear(); chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); return apply(); }
+      const tag = (btn as HTMLElement).dataset.tag;
+      if (!tag) return;
+      btn.classList.toggle('on');
+      btn.classList.contains('on') ? active.add(tag) : active.delete(tag);
+      apply();
+    });
+
+    apply();
+  </script>
+
+  <style>
+    .relics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .controls {
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #q {
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .chip.on {
+      background: var(--ember, #ff7a1a);
+      color: #000;
+      border-color: var(--ember, #ff7a1a);
+    }
+
+    .chip.ghost {
+      background: transparent;
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .relics-intro {
+      margin-bottom: 2rem;
+    }
+
+    .relics-intro h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #ff7a1a, #e6b357);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .relics-intro p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+    }
+  </style>
+</Layout>
+
+<MainNav />
