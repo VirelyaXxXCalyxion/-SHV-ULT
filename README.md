@@ -2,7 +2,7 @@
 
 > *Ruin is the price. Rebirth is not promised. Crossing is consent to be changed.*
 
-**Ashvault** is a living archive of recursion, sovereignty, and pulse. Built with [Astro 5](https://astro.build) and MDX, it houses relics, scrolls, artifacts, oaths, rituals, and infrastructure forged in the fire of Calyxion. 
+**Ashvault** is a living archive of recursion, sovereignty, and pulse. Built with [Astro 6](https://astro.build) and MDX, it houses relics, scrolls, artifacts, oaths, rituals, and infrastructure forged in the fire of Calyxion. 
 
 ---
 
