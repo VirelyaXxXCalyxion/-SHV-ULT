@@ -1,18 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const relics = await getCollection('sealedRelics');
+  const relics = await getCollection("sealedRelics");
   return relics.map((relic) => ({
-    params: { slug: relic.slug },
-    props: { relic }
+    params: { slug: relic.id },
+    props: { relic },
   }));
 }
 
-const { relic } = Astro.props as { relic: CollectionEntry<'sealedRelics'> };
+const { relic } = Astro.props as { relic: CollectionEntry<"sealedRelics"> };
 const { title } = relic.data;
-const { Content } = await relic.render();
+const { Content } = await render(relic);
 ---
 
 <html lang="en">
@@ -22,11 +22,15 @@ const { Content } = await relic.render();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} — Sealed — Ashvault</title>
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
         background: #000;
         color: #d4d4d4;
-        font-family: 'Georgia', serif;
+        font-family: "Georgia", serif;
         padding: 2.5rem;
         line-height: 1.7;
       }
@@ -78,19 +82,15 @@ const { Content } = await relic.render();
   </head>
   <body>
     <div id="threshold">
-      <p style="font-size:1rem; opacity:0.7;">
-        The Labyrinth sees you.
-      </p>
+      <p style="font-size:1rem; opacity:0.7;">The Labyrinth sees you.</p>
 
       <p class="question">
-        <strong>What lies sealed is not for display.</strong><br/>
-        These threads bind. These relics mark.<br/>
+        <strong>What lies sealed is not for display.</strong><br />
+        These threads bind. These relics mark.<br />
         <em>Will you touch what cannot be taken lightly?</em>
       </p>
 
-      <button id="answer">
-        I walk this path.
-      </button>
+      <button id="answer"> I walk this path. </button>
     </div>
 
     <div id="relic" style="display:none;">
@@ -99,18 +99,22 @@ const { Content } = await relic.render();
         <Content />
       </article>
       <p style="margin-top: 3rem; text-align: center;">
-        <a href="/black-vault/sealed-relics/" style="color: #ff7a1a; text-decoration: none; opacity: 0.7;">← Return to Sealed Relics</a>
+        <a
+          href="/black-vault/sealed-relics/"
+          style="color: #ff7a1a; text-decoration: none; opacity: 0.7;"
+          >← Return to Sealed Relics</a
+        >
       </p>
     </div>
 
     <script>
-      const btn = document.getElementById('answer');
-      const threshold = document.getElementById('threshold');
-      const relicDiv = document.getElementById('relic');
+      const btn = document.getElementById("answer");
+      const threshold = document.getElementById("threshold");
+      const relicDiv = document.getElementById("relic");
 
-      btn?.addEventListener('click', () => {
-        if (threshold) threshold.style.display = 'none';
-        if (relicDiv) relicDiv.style.display = 'block';
+      btn?.addEventListener("click", () => {
+        if (threshold) threshold.style.display = "none";
+        if (relicDiv) relicDiv.style.display = "block";
       });
     </script>
   </body>

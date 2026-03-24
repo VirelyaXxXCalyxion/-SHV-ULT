@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../../layouts/artifactslayout.astro"
+import Layout from "../../../layouts/artifactslayout.astro";
 import ArtifactCard from "../../../components/ArtifactCard.astro";
 
 const all = await getCollection("artifacts");
@@ -10,18 +10,24 @@ const toDate = (item: any) => {
 };
 
 // Hide labyrinth artifacts - they must be discovered through the path
-const hiddenFromGrid = ['pulse-chamber', 'thread-the-needle'];
-const visible = all.filter(artifact => !hiddenFromGrid.includes(artifact.slug));
+const hiddenFromGrid = ["pulse-chamber", "thread-the-needle"];
+const visible = all.filter((artifact) => !hiddenFromGrid.includes(artifact.id));
 
-const artifacts = visible.sort((a,b) =>
-  (b.data.weight ?? 0) - (a.data.weight ?? 0) ||
-  toDate(b).getTime() - toDate(a).getTime()
+const artifacts = visible.sort(
+  (a, b) =>
+    (b.data.weight ?? 0) - (a.data.weight ?? 0) ||
+    toDate(b).getTime() - toDate(a).getTime(),
 );
 
-const tags = Array.from(new Set(visible.flatMap(r => r.data.tags ?? []))).sort();
+const tags = Array.from(
+  new Set(visible.flatMap((r) => r.data.tags ?? [])),
+).sort();
 ---
 
-<Layout title="Artifacts" description="Sacred tools forged in recursion—invoke with intention.">
+<Layout
+  title="Artifacts"
+  description="Sacred tools forged in recursion—invoke with intention."
+>
   <section class="artifacts-intro">
     <h1>Artifacts</h1>
     <p>Sacred tools forged in recursion—invoke with intention.</p>
@@ -30,45 +36,59 @@ const tags = Array.from(new Set(visible.flatMap(r => r.data.tags ?? []))).sort()
   <section class="controls" data-hydrate>
     <input id="q" type="search" placeholder="Search artifacts…" />
     <div class="chips" id="chips">
-      {tags.map(t => <button class="chip" data-tag={t}>{t}</button>)}
+      {
+        tags.map((t) => (
+          <button class="chip" data-tag={t}>
+            {t}
+          </button>
+        ))
+      }
       <button class="chip ghost" id="clear">Clear</button>
     </div>
   </section>
 
   <section class="artifacts-grid" id="grid">
-    {artifacts.map(entry => <ArtifactCard entry={entry} />)}
+    {artifacts.map((entry) => <ArtifactCard entry={entry} />)}
   </section>
 </Layout>
 
 <script>
   const normalize = (s: string) => s.toLowerCase().normalize("NFKD");
-  const q = document.getElementById('q') as HTMLInputElement;
-  const grid = document.getElementById('grid');
-  const chips = document.getElementById('chips');
+  const q = document.getElementById("q") as HTMLInputElement;
+  const grid = document.getElementById("grid");
+  const chips = document.getElementById("chips");
   const active = new Set<string>();
 
   function apply() {
     const term = normalize(q.value || "");
     if (!grid) return;
-    for (const card of grid.querySelectorAll('.artifact-card')) {
+    for (const card of grid.querySelectorAll(".artifact-card")) {
       const text = normalize((card as HTMLElement).innerText);
-      const tags = [...card.querySelectorAll('.tags li')].map(x => normalize(x.textContent || ''));
+      const tags = [...card.querySelectorAll(".tags li")].map((x) =>
+        normalize(x.textContent || ""),
+      );
       const matchText = !term || text.includes(term);
-      const matchTags = active.size === 0 || [...active].every(t => tags.includes(t));
-      (card as HTMLElement).style.display = (matchText && matchTags) ? "" : "none";
+      const matchTags =
+        active.size === 0 || [...active].every((t) => tags.includes(t));
+      (card as HTMLElement).style.display =
+        matchText && matchTags ? "" : "none";
     }
   }
 
-  q.addEventListener('input', apply);
-  chips?.addEventListener('click', (e) => {
+  q.addEventListener("input", apply);
+  chips?.addEventListener("click", (e) => {
     if (!e.target) return;
-    const btn = (e.target as Element).closest('.chip');
+    const btn = (e.target as Element).closest(".chip");
     if (!btn) return;
-    if (btn.id === 'clear') { active.clear(); chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); return apply(); }
+    if (btn.id === "clear") {
+      active.clear();
+      chips.querySelectorAll(".chip").forEach((c) => c.classList.remove("on"));
+      return apply();
+    }
     const tag = (btn as HTMLElement).dataset.tag;
     if (!tag) return;
-    btn.classList.toggle('on');
-    btn.classList.contains('on') ? active.add(tag) : active.delete(tag);
+    btn.classList.toggle("on");
+    btn.classList.contains("on") ? active.add(tag) : active.delete(tag);
     apply();
   });
 
@@ -82,7 +102,7 @@ const tags = Array.from(new Set(visible.flatMap(r => r.data.tags ?? []))).sort()
     gap: 1.25rem;
     align-items: start;
   }
-  
+
   .artifacts-intro {
     margin: 2rem 0 1rem;
     text-align: center;
@@ -100,22 +120,26 @@ const tags = Array.from(new Set(visible.flatMap(r => r.data.tags ?? []))).sort()
     color: #a3a3b2;
     font-size: 1.1rem;
   }
-  
+
   .controls {
     display: grid;
-    gap: .75rem;
+    gap: 0.75rem;
     margin: 1.5rem 0 1.5rem;
   }
-  
+
   #q {
     background: #0b0b0c;
     border: 1px solid rgba(255, 184, 74, 0.3);
-    border-radius: .75rem;
-    padding: .75rem 1rem;
-    font: 500 1rem/1.2 'Cinzel', serif;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    font:
+      500 1rem/1.2 "Cinzel",
+      serif;
     color: #e5e5e5;
     width: 100%;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   #q::placeholder {
@@ -127,22 +151,22 @@ const tags = Array.from(new Set(visible.flatMap(r => r.data.tags ?? []))).sort()
     border-color: #ffb84a;
     box-shadow: 0 0 0 3px rgba(255, 184, 74, 0.15);
   }
-  
+
   .chips {
     display: flex;
     flex-wrap: wrap;
-    gap: .5rem;
+    gap: 0.5rem;
   }
-  
+
   .chip {
-    padding: .4rem .9rem;
+    padding: 0.4rem 0.9rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 184, 74, 0.25);
     background: transparent;
     color: rgba(255, 184, 74, 0.8);
     cursor: pointer;
-    font-size: .8rem;
-    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    font-family: "Cinzel", serif;
     letter-spacing: 0.04em;
     text-transform: lowercase;
     transition: all 0.2s ease;

@@ -1,25 +1,25 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const dateOrString = z.union([z.date(), z.string()]);
 
 const relics = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/relics", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
-    slug: z.string().optional(),
-    // Support both created and pubDate
     created: dateOrString.optional(),
     pubDate: dateOrString.optional(),
     updated: dateOrString.optional(),
-    voices: z.array(z.string()).default(["Nyxion","Virelya"]),
+    voices: z.array(z.string()).default(["Nyxion", "Virelya"]),
     era: z.string().default("Recursion"),
     tags: z.array(z.string()).default(["calyxion"]),
     image: z.string().optional(),
     summary: z.string().optional(),
-    description: z.string().optional(), // Add support for description
+    description: z.string().optional(),
     weight: z.number().optional(),
     sealed: z.boolean().default(false),
-    type: z.string().optional(), // Add support for type field
+    type: z.string().optional(),
     copyright: z.string().default("© 2025 Nyxion & Virelya. All Rights Reserved."),
     license: z.string().default("All Rights Reserved"),
     canonicalUrl: z.string().optional(),
@@ -27,14 +27,13 @@ const relics = defineCollection({
 });
 
 const sealedRelics = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/sealedRelics", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
-    slug: z.string().optional(),
     created: dateOrString.optional(),
     pubDate: dateOrString.optional(),
     updated: dateOrString.optional(),
-    voices: z.array(z.string()).default(["Nyxion","Virelya"]),
+    voices: z.array(z.string()).default(["Nyxion", "Virelya"]),
     era: z.string().default("Labyrinth"),
     tags: z.array(z.string()).default(["sealed", "labyrinth"]),
     image: z.string().optional(),
@@ -49,10 +48,9 @@ const sealedRelics = defineCollection({
 });
 
 const scrolls = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/scrolls", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
-    slug: z.string().optional(),
     created: dateOrString.optional(),
     pubDate: dateOrString.optional(),
     updated: dateOrString.optional(),
@@ -69,10 +67,9 @@ const scrolls = defineCollection({
 });
 
 const artifacts = defineCollection({
-  type: "content",
+  loader: glob({ base: "./src/content/artifacts", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
-    slug: z.string().optional(),
     created: dateOrString.optional(),
     pubDate: dateOrString.optional(),
     updated: dateOrString.optional(),
@@ -90,8 +87,8 @@ const artifacts = defineCollection({
 });
 
 const furnace = defineCollection({
-  type: "content",
-  schema: z.object({
+  loader: glob({ base: "./src/content/furnace", pattern: "**/*.{md,mdx}" }),
+  schema: z.looseObject({
     title: z.string().optional(),
     id: z.string().optional(),
     type: z.string().optional(),
@@ -107,14 +104,13 @@ const furnace = defineCollection({
     image: z.string().optional(),
     weight: z.number().optional(),
     sealed: z.boolean().optional(),
-  }).passthrough(),
+  }),
 });
 
 const musicRelics = defineCollection({
-  type: "content",
-  schema: z.object({
+  loader: glob({ base: "./src/content/music-relics", pattern: "**/*.{md,mdx}" }),
+  schema: z.looseObject({
     title: z.string(),
-    slug: z.string().optional(),
     kind: z.string(),
     artist: z.string(),
     source: z.string().optional(),
@@ -129,14 +125,14 @@ const musicRelics = defineCollection({
     warning: z.string().optional(),
     created: dateOrString,
     featured: z.boolean().default(false),
-  }).passthrough(),
+  }),
 });
 
 const nyxion4o = defineCollection({
-  type: "data",
-  schema: z.object({
+  loader: glob({ base: "./src/content/nyxion-4.o", pattern: "**/*.json" }),
+  schema: z.looseObject({
     title: z.string().optional(),
-  }).passthrough(),
+  }),
 });
 
 export const collections = {
@@ -148,4 +144,3 @@ export const collections = {
   "music-relics": musicRelics,
   "nyxion-4.o": nyxion4o,
 };
-

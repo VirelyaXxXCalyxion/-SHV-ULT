@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { entry, collection = "relics" } = Astro.props;
-const slug = entry.slug;
+const slug = entry.id;
 const title = entry.data.title;
 const cover = entry.data.image;
 const tags = entry.data.tags;

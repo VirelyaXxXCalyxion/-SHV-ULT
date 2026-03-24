@@ -28,7 +28,7 @@ export async function GET(context: APIContext) {
     site: context.site || 'https://ashvault.ink',
     items: allContent.map((item) => {
       const pubDate = item.data.created || item.data.pubDate;
-      const link = `/${item.collection}/${item.slug}`;
+      const link = `/${item.collection}/${item.id}`;
 
       return {
         title: item.data.title,

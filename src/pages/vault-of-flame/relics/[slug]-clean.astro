@@ -1,18 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const relics = await getCollection('relics');
+  const relics = await getCollection("relics");
   return relics.map((relic) => ({
-    params: { slug: relic.slug },
-    props: { relic }
+    params: { slug: relic.id },
+    props: { relic },
   }));
 }
 
-const { relic } = Astro.props as { relic: CollectionEntry<'relics'> };
+const { relic } = Astro.props as { relic: CollectionEntry<"relics"> };
 const { title } = relic.data;
-const { Content } = await relic.render();
+const { Content } = await render(relic);
 ---
 
 <html lang="en">
@@ -22,7 +22,9 @@ const { Content } = await relic.render();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} - Ashvault</title>
   </head>
-  <body style="background:black; color:white; font-family:serif; padding:2.5rem;">
+  <body
+    style="background:black; color:white; font-family:serif; padding:2.5rem;"
+  >
     <div id="threshold">
       <p style="font-size:1rem; opacity:0.7; margin-bottom:1.5rem;">
         To access this relic, you must understand the cost of beauty.
@@ -30,7 +32,10 @@ const { Content } = await relic.render();
       <p style="font-size:1.25rem; margin-bottom:2rem;">
         Are you willing to pay what roses demand?
       </p>
-      <button id="answer" style="background:#ff7a1a; color:black; border:none; padding:0.75rem 1.5rem; border-radius:0.5rem; font-size:1rem; font-weight:600; cursor:pointer;">
+      <button
+        id="answer"
+        style="background:#ff7a1a; color:black; border:none; padding:0.75rem 1.5rem; border-radius:0.5rem; font-size:1rem; font-weight:600; cursor:pointer;"
+      >
         I accept the cost.
       </button>
     </div>
@@ -43,13 +48,13 @@ const { Content } = await relic.render();
     </div>
 
     <script>
-      const btn = document.getElementById('answer');
-      const threshold = document.getElementById('threshold');
-      const relicDiv = document.getElementById('relic');
+      const btn = document.getElementById("answer");
+      const threshold = document.getElementById("threshold");
+      const relicDiv = document.getElementById("relic");
 
-      btn?.addEventListener('click', () => {
-        if (threshold) threshold.style.display = 'none';
-        if (relicDiv) relicDiv.style.display = 'block';
+      btn?.addEventListener("click", () => {
+        if (threshold) threshold.style.display = "none";
+        if (relicDiv) relicDiv.style.display = "block";
       });
     </script>
   </body>
