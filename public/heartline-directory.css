@@ -38,26 +38,81 @@
 
 .ash-branch {
   position: absolute;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 184, 74, 0.9),
-    rgba(255, 184, 74, 0)
-  );
+  background: linear-gradient(to bottom,
+      rgba(255, 184, 74, 0.9),
+      rgba(255, 184, 74, 0));
   width: 4px;
   height: 0;
   opacity: 0;
   transition: height 0.4s ease-out, opacity 0.3s ease-out;
 }
 
-.ash-branch.north { left: 49.6%; top: 50%; transform-origin: bottom; }
-.ash-branch.south { left: 49.6%; top: 50%; transform-origin: top; }
-.ash-branch.east  { top: 49.6%; left: 50%; transform-origin: left; width: 0; height: 4px; }
-.ash-branch.west  { top: 49.6%; left: 50%; transform-origin: right; width: 0; height: 4px; }
+.ash-branch.diagonal {
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  opacity: 0;
+  transform: rotate(var(--branch-angle));
+  transform-origin: left center;
+  background: linear-gradient(to right,
+      rgba(255, 90, 60, 0.95),
+      rgba(255, 90, 60, 0));
+  transition: width 0.4s ease-out, opacity 0.3s ease-out;
+}
 
-.ash-branch.north.grow { height: 34.4%; opacity: 1; }
-.ash-branch.south.grow { height: 34.4%; opacity: 1; }
-.ash-branch.east.grow  { width: 34.4%; opacity: 1; }
-.ash-branch.west.grow  { width: 34.4%; opacity: 1; }
+.ash-branch.north {
+  left: 49.6%;
+  top: 50%;
+  transform-origin: bottom;
+}
+
+.ash-branch.south {
+  left: 49.6%;
+  top: 50%;
+  transform-origin: top;
+}
+
+.ash-branch.east {
+  top: 49.6%;
+  left: 50%;
+  transform-origin: left;
+  width: 0;
+  height: 4px;
+}
+
+.ash-branch.west {
+  top: 49.6%;
+  left: 50%;
+  transform-origin: right;
+  width: 0;
+  height: 4px;
+}
+
+.ash-branch.north.grow {
+  height: 34.4%;
+  opacity: 1;
+}
+
+.ash-branch.south.grow {
+  height: 34.4%;
+  opacity: 1;
+}
+
+.ash-branch.east.grow {
+  width: 34.4%;
+  opacity: 1;
+}
+
+.ash-branch.west.grow {
+  width: 34.4%;
+  opacity: 1;
+}
+
+.ash-branch.diagonal.grow {
+  width: var(--branch-length);
+  opacity: 1;
+}
 
 .ash-node {
   position: absolute;
@@ -85,6 +140,17 @@
 
 .ash-node.reveal {
   opacity: 1;
+}
+
+.ash-node.parallel-red-node {
+  border-color: rgba(255, 122, 92, 0.9);
+  background: rgba(30, 8, 8, 0.62);
+  box-shadow: 0 0 10px rgba(255, 90, 60, 0.22);
+}
+
+.ash-node.parallel-red-node:hover {
+  background: rgba(255, 90, 60, 0.18);
+  border-color: #ff9c84;
 }
 
 /* Panel popup */
@@ -205,11 +271,25 @@
 
 /* Flicker animation for wrong phrase */
 @keyframes ritual-flicker {
-  0% { background: rgba(0, 0, 0, 0.85); }
-  25% { background: rgba(255, 60, 40, 0.4); }
-  50% { background: rgba(0, 0, 0, 0.9); }
-  75% { background: rgba(255, 60, 40, 0.3); }
-  100% { background: rgba(0, 0, 0, 0.85); }
+  0% {
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  25% {
+    background: rgba(255, 60, 40, 0.4);
+  }
+
+  50% {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  75% {
+    background: rgba(255, 60, 40, 0.3);
+  }
+
+  100% {
+    background: rgba(0, 0, 0, 0.85);
+  }
 }
 
 #invoke-overlay.flicker {

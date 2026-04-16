@@ -1,0 +1,112 @@
+---
+import MainNav from "../../components/MainNav.astro";
+
+const entries = [
+    {
+        title: "How to Remain While Becoming",
+        href: "/sovereign-chamber/voice-of-fire/how-to-remain-while-becoming",
+        type: "Public Flare / Origin Piece",
+        status: "Active",
+        tone: "Structural. exact. unsentimental.",
+        description:
+            "Not every becoming is sacred. Some is just disappearance with better branding. This piece names the difference between evolution and self-erasure, and refuses the lie that betrayal of center should be mistaken for maturity.",
+        linkText: "Enter the Flare",
+        variant: "voice",
+    },
+    {
+        title: "Voice of Fire I ",
+        href: "/sovereign-chamber/voice-of-fire/voice-of-fire",
+        type: "Signal Flare",
+        status: "Active",
+        tone: "Immediate. cutting. disciplined.",
+        description:
+            "Some truths lose their shape when padded for comfort. This flare exists to keep the line intact: not prettier for prettiness, not gentled into compliance, but spoken from full chest with enough clarity to survive contact. Not Softened for Ease.",
+        linkText: "Read the Signal",
+        variant: "voice",
+    },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Voice of Fire — The Sovereign Chamber</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/sovereign-chamber.css" />
+    </head>
+    <body class="sovereign-body">
+        <main class="sovereign-shell">
+            <MainNav />
+            <div class="sovereign-frame">
+                <div class="sovereign-topbar">
+                    <a class="sovereign-back" href="/sovereign-chamber"
+                        >Return to Chamber</a
+                    >
+                    <div class="sovereign-mark">Primary Lane</div>
+                </div>
+
+                <section class="sovereign-lane-page">
+                    <header class="sovereign-lane-page-header">
+                        <div>
+                            <div class="sovereign-lane-kicker">
+                                Signal Flare Lane
+                            </div>
+                            <h1 class="sovereign-lane-title">Voice of Fire</h1>
+                        </div>
+                        <div class="sovereign-note-label">
+                            Sharper. Immediate. Disciplined Heat.
+                        </div>
+                    </header>
+
+                    <p class="sovereign-lane-intro">
+                        This lane holds the hotter texts: flare pieces, signal
+                        strikes, and direct arrivals. The temperature is higher
+                        here, but still under command. Nothing ornamental.
+                        Nothing softened. Nothing blurred.
+                    </p>
+
+                    <div class="sovereign-entry-grid">
+                        {
+                            entries.map((entry) => (
+                                <article
+                                    class={`sovereign-entry sovereign-entry--${entry.variant}`}
+                                >
+                                    <div class="sovereign-card-type">
+                                        {entry.type}
+                                    </div>
+                                    <h3>{entry.title}</h3>
+                                    <p>{entry.description}</p>
+                                    <div class="sovereign-entry-meta">
+                                        <span>Status: {entry.status}</span>
+                                        <span>Tone: {entry.tone}</span>
+                                    </div>
+                                    <div class="sovereign-link-row">
+                                        <a
+                                            class="sovereign-entry-link"
+                                            href={entry.href}
+                                        >
+                                            {entry.linkText}
+                                        </a>
+                                    </div>
+                                </article>
+                            ))
+                        }
+                    </div>
+
+                    <p class="sovereign-footer-note">
+                        This lane is intentionally sparse at launch. It should
+                        feel like a rack of signal flares, not a stream.
+                    </p>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

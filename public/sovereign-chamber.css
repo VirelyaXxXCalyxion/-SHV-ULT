@@ -1,0 +1,526 @@
+:root {
+    --sc-void: #070707;
+    --sc-obsidian: #101010;
+    --sc-ash: #181717;
+    --sc-bone: #ebe1cf;
+    --sc-bone-soft: rgba(235, 225, 207, 0.76);
+    --sc-ember: #b96e3f;
+    --sc-ember-soft: rgba(185, 110, 63, 0.2);
+    --sc-iron: #8f8a82;
+    --sc-line: rgba(235, 225, 207, 0.14);
+    --sc-shadow: rgba(0, 0, 0, 0.55);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body.sovereign-body {
+    background:
+        radial-gradient(circle at 20% 18%, rgba(185, 110, 63, 0.08), transparent 26%),
+        radial-gradient(circle at 78% 16%, rgba(143, 138, 130, 0.05), transparent 24%),
+        linear-gradient(180deg, #0a0a0a 0%, #060606 100%);
+    color: var(--sc-bone);
+    font-family: "Lora", Georgia, serif;
+    position: relative;
+}
+
+body.sovereign-body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+}
+
+a {
+    color: inherit;
+}
+
+.sovereign-shell {
+    position: relative;
+    min-height: 100vh;
+    padding: clamp(1.2rem, 2.6vw, 2.2rem);
+}
+
+.sovereign-frame {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(1.3rem, 3vw, 2rem);
+    border: 1px solid var(--sc-line);
+    background: linear-gradient(180deg, rgba(17, 17, 17, 0.96), rgba(10, 10, 10, 0.98));
+    box-shadow: 0 18px 60px var(--sc-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    overflow: hidden;
+}
+
+.sovereign-frame::before,
+.sovereign-frame::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.sovereign-frame::before {
+    inset: 12px;
+    border: 1px solid rgba(235, 225, 207, 0.08);
+}
+
+.sovereign-frame::after {
+    inset: 0;
+    background:
+        linear-gradient(135deg, rgba(185, 110, 63, 0.09), transparent 28%),
+        radial-gradient(circle at 80% 22%, rgba(255, 255, 255, 0.03), transparent 22%);
+    opacity: 0.9;
+}
+
+.sovereign-topbar,
+.sovereign-subnav {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.85rem;
+    align-items: center;
+}
+
+.sovereign-topbar {
+    margin-bottom: 2rem;
+}
+
+.sovereign-back,
+.sovereign-subnav a {
+    text-decoration: none;
+    font-family: "Cinzel", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    font-size: 0.76rem;
+    color: var(--sc-bone-soft);
+    padding: 0.65rem 0.95rem;
+    border: 1px solid rgba(235, 225, 207, 0.12);
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.sovereign-back:hover,
+.sovereign-subnav a:hover,
+.sovereign-subnav a.is-active {
+    border-color: rgba(185, 110, 63, 0.45);
+    color: var(--sc-bone);
+    background: rgba(185, 110, 63, 0.09);
+    transform: translateY(-1px);
+}
+
+.sovereign-mark {
+    font-family: "Cinzel", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.32rem;
+    font-size: 0.72rem;
+    color: rgba(235, 225, 207, 0.52);
+}
+
+.sovereign-hero,
+.sovereign-threshold,
+.sovereign-lanes,
+.sovereign-ledger,
+.sovereign-lane-page {
+    position: relative;
+    z-index: 1;
+}
+
+.sovereign-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.55fr);
+    gap: clamp(1.4rem, 4vw, 3rem);
+    align-items: end;
+    padding: clamp(1.5rem, 4vw, 3rem) 0 2rem;
+    border-bottom: 1px solid var(--sc-line);
+}
+
+.sovereign-kicker,
+.sovereign-section-label,
+.sovereign-note-label,
+.sovereign-card-type,
+.sovereign-lane-kicker {
+    font-family: "Cinzel", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.24rem;
+    font-size: 0.74rem;
+    color: rgba(235, 225, 207, 0.58);
+}
+
+.sovereign-note-label,
+.sovereign-card-type {
+    font-size: 0.68rem;
+    letter-spacing: 0.26rem;
+    color: rgba(235, 225, 207, 0.5);
+}
+
+.sovereign-title,
+.sovereign-lane-title {
+    margin: 0.9rem 0 0;
+    font-family: "Cinzel", serif;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: 0.08rem;
+}
+
+.sovereign-title {
+    font-size: clamp(2.9rem, 7vw, 5.8rem);
+}
+
+.sovereign-governing {
+    margin: 1.8rem 0 0;
+    max-width: 32ch;
+    font-family: "Cinzel", serif;
+    font-size: clamp(1rem, 2.6vw, 1.35rem);
+    line-height: 1.5;
+    color: var(--sc-bone);
+}
+
+.sovereign-summary {
+    max-width: 64ch;
+    margin: 1.4rem 0 0;
+    font-size: 1.06rem;
+    line-height: 1.85;
+    color: var(--sc-bone-soft);
+}
+
+.sovereign-hero-aside {
+    justify-self: end;
+    max-width: 24rem;
+    padding: 1.25rem 1.25rem 1.35rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.008));
+    border: 1px solid rgba(235, 225, 207, 0.075);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.015);
+}
+
+.sovereign-hero-aside p {
+    margin: 0.8rem 0 0;
+    line-height: 1.75;
+    color: var(--sc-bone-soft);
+}
+
+.sovereign-threshold,
+.sovereign-ledger,
+.sovereign-lane-page {
+    padding: 2rem 0 0;
+}
+
+.sovereign-threshold-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+}
+
+.sovereign-invocation {
+    margin: 0.55rem 0 0;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    line-height: 1.7;
+    color: var(--sc-bone);
+}
+
+.sovereign-threshold-copy p,
+.sovereign-note p,
+.sovereign-lane-intro,
+.sovereign-entry p,
+.sovereign-entry ul {
+    margin: 0.9rem 0 0;
+    line-height: 1.8;
+    color: var(--sc-bone-soft);
+}
+
+.sovereign-note {
+    padding: 1rem 1rem 1.1rem;
+    border-left: 1px solid rgba(185, 110, 63, 0.29);
+    background: linear-gradient(180deg, rgba(185, 110, 63, 0.05), rgba(255, 255, 255, 0.012));
+}
+
+.sovereign-lanes {
+    padding: 2.5rem 0 0;
+}
+
+.sovereign-lane-grid,
+.sovereign-entry-grid {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.sovereign-lane-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sovereign-lane-card,
+.sovereign-entry {
+    position: relative;
+    padding: 1.4rem 1.35rem 1.5rem;
+    border: 1px solid rgba(235, 225, 207, 0.12);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01));
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.sovereign-lane-card::before,
+.sovereign-entry::before {
+    content: "";
+    position: absolute;
+    left: 1.35rem;
+    right: 1.35rem;
+    top: 1rem;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(235, 225, 207, 0.06), transparent);
+}
+
+.sovereign-lane-card--voice {
+    border-color: rgba(185, 110, 63, 0.34);
+    background: linear-gradient(180deg, rgba(185, 110, 63, 0.12), rgba(255, 255, 255, 0.012));
+}
+
+.sovereign-lane-card--voice .sovereign-section-label,
+.sovereign-entry--voice .sovereign-card-type,
+.sovereign-entry--voice .sovereign-entry-link {
+    color: #d69363;
+}
+
+.sovereign-lane-card--works {
+    border-color: rgba(143, 138, 130, 0.28);
+    background: linear-gradient(180deg, rgba(143, 138, 130, 0.09), rgba(255, 255, 255, 0.012));
+}
+
+.sovereign-lane-card--works .sovereign-section-label,
+.sovereign-entry--works .sovereign-card-type,
+.sovereign-entry--works .sovereign-entry-link {
+    color: #bbb4aa;
+}
+
+.sovereign-section-title,
+.sovereign-entry h3,
+.sovereign-lane-title {
+    margin: 0.8rem 0 0;
+    font-family: "Cinzel", serif;
+    font-size: clamp(1.35rem, 2.4vw, 2rem);
+    line-height: 1.15;
+    color: var(--sc-bone);
+}
+
+.sovereign-lane-card p {
+    margin: 0.95rem 0 0;
+    line-height: 1.78;
+    color: var(--sc-bone-soft);
+}
+
+.sovereign-lane-card .sovereign-section-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.28rem;
+    color: rgba(235, 225, 207, 0.45);
+}
+
+.sovereign-link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+}
+
+.sovereign-link,
+.sovereign-entry-link {
+    text-decoration: none;
+    font-family: "Cinzel", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    font-size: 0.76rem;
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sovereign-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid rgba(235, 225, 207, 0.14);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sovereign-link:hover,
+.sovereign-entry-link:hover {
+    color: var(--sc-bone);
+}
+
+.sovereign-lane-card--voice .sovereign-link:hover {
+    border-color: rgba(214, 147, 99, 0.38);
+    background: rgba(185, 110, 63, 0.11);
+    box-shadow: 0 0 18px rgba(185, 110, 63, 0.09);
+}
+
+.sovereign-ledger {
+    border-top: 1px solid var(--sc-line);
+    margin-top: 2.5rem;
+}
+
+.sovereign-ledger-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+
+.sovereign-ledger-item {
+    padding: 1rem 1rem 1.15rem;
+    border: 1px solid rgba(235, 225, 207, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sovereign-ledger-item strong {
+    display: block;
+    font-family: "Cinzel", serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12rem;
+    color: var(--sc-bone);
+}
+
+.sovereign-ledger-item span {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--sc-bone-soft);
+    line-height: 1.7;
+}
+
+.sovereign-lane-page-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: end;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--sc-line);
+}
+
+.sovereign-lane-page .sovereign-lane-title {
+    font-size: clamp(2rem, 4.5vw, 3.3rem);
+}
+
+.sovereign-lane-intro {
+    max-width: 64ch;
+}
+
+.sovereign-entry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1.4rem;
+}
+
+.sovereign-entry-page-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.15rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(235, 225, 207, 0.08);
+}
+
+.sovereign-entry-page-meta span {
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.13rem;
+    text-transform: uppercase;
+    color: rgba(235, 225, 207, 0.5);
+}
+
+.sovereign-entry-prose {
+    max-width: 70ch;
+    margin-top: 1.4rem;
+}
+
+.sovereign-entry-prose p {
+    margin: 0 0 1rem;
+    line-height: 1.85;
+    color: var(--sc-bone-soft);
+}
+
+.sovereign-entry-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+    margin-top: 1rem;
+}
+
+.sovereign-entry-meta span {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.34rem 0.56rem;
+    border: 1px solid rgba(235, 225, 207, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    font-family: "Cinzel", serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.13rem;
+    text-transform: uppercase;
+    color: rgba(235, 225, 207, 0.5);
+}
+
+.sovereign-entry ul {
+    padding-left: 1.15rem;
+}
+
+.sovereign-entry li {
+    margin-bottom: 0.5rem;
+}
+
+.sovereign-footer-note {
+    margin-top: 1.6rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(235, 225, 207, 0.08);
+    color: rgba(235, 225, 207, 0.56);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+@media (max-width: 920px) {
+
+    .sovereign-hero,
+    .sovereign-threshold-grid,
+    .sovereign-lane-grid,
+    .sovereign-ledger-grid,
+    .sovereign-entry-grid,
+    .sovereign-lane-page-header {
+        grid-template-columns: 1fr;
+    }
+
+    .sovereign-lane-page-header {
+        align-items: start;
+    }
+}
+
+@media (max-width: 640px) {
+    .sovereign-shell {
+        padding: 0.8rem;
+    }
+
+    .sovereign-frame {
+        padding: 1rem;
+    }
+
+    .sovereign-topbar,
+    .sovereign-subnav,
+    .sovereign-link-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sovereign-back,
+    .sovereign-subnav a,
+    .sovereign-link {
+        text-align: center;
+        justify-content: center;
+    }
+}

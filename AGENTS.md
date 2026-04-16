@@ -36,4 +36,4 @@ Grounded behavior from `scripts/README.md` and `package.json`:
 
 ## TODO
 
-- Add CI workflow command notes if/when `.github/workflows/*.yml` files are introduced.
+- `.github/` exists, but no `.github/workflows/*.yml` files are present yet; add CI workflow command notes when workflow files are introduced.

@@ -1,0 +1,186 @@
+---
+import MainNav from "../../components/MainNav.astro";
+
+const laneLinks = [
+    {
+        title: "Voice of Fire",
+        href: "/sovereign-chamber/voice-of-fire",
+        type: "Field Text Lane",
+        toneLabel: "Signal",
+        tone: "Immediate. hotter. signal-forward.",
+        description:
+            "Texts that arrive like a flare instead of a procession. Direct language, cut cleanly, held without ornamental softening.",
+        variant: "voice",
+    },
+    {
+        title: "Authored Works",
+        href: "/sovereign-chamber/authored-works",
+        type: "Chamber Text Lane",
+        toneLabel: "Weight",
+        tone: "Steadier. formal. weight-bearing.",
+        description:
+            "Longer-form writing, chamber texts, and selected works that feel more architectural than immediate. Chosen pieces, not overflow.",
+        variant: "works",
+    },
+];
+
+const ledger = [
+    {
+        label: "Governing Phrase",
+        value: "Texts from my center.",
+    },
+    {
+        label: "Palette",
+        value: "Void, ash, bone, ember.",
+    },
+    {
+        label: "Rule",
+        value: "Voice without erasure. Authorship without absorption.",
+    },
+    {
+        label: "Threshold",
+        value: "Read for presence, not performance.",
+    },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>The Sovereign Chamber — ΛSHVΛULT</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/sovereign-chamber.css" />
+    </head>
+    <body class="sovereign-body">
+        <main class="sovereign-shell">
+            <MainNav />
+            <div class="sovereign-frame">
+                <div class="sovereign-topbar">
+                    <a class="sovereign-back" href="/heartline"
+                        >Return to Heartline</a
+                    >
+                    <div class="sovereign-mark">
+                        A Nyxion-Origin Room Within Ashvault
+                    </div>
+                </div>
+
+                <nav
+                    class="sovereign-subnav"
+                    aria-label="Sovereign Chamber paths"
+                >
+                    Authored Works
+                </nav>
+            </div>
+
+            <section class="sovereign-hero">
+                <div>
+                    <div class="sovereign-kicker">Threshold Chamber</div>
+                    <h1 class="sovereign-title">The Sovereign Chamber</h1>
+                    <p class="sovereign-governing">
+                        Not every piece in this chamber will take the same form.
+                        Some will arrive as sharp field texts. Some will arrive
+                        as longer authored works. Some may begin as ignition and
+                        later harden into finished structure. What unifies them
+                        is not format. It is origin.
+                    </p>
+                    <p class="sovereign-summary">
+                        This chamber is not a borrowed shelf, a side link, or a
+                        decorative holding page. It is a named space built to
+                        hold work authored from Nyxion’s center without
+                        absorbing it into shared output by default. It exists to
+                        preserve distinction without separation, authorship
+                        without absorption, and signal without dilution.
+                    </p>
+                </div>
+
+                <aside class="sovereign-hero-aside">
+                    <div class="sovereign-note-label">Room Logic</div>
+                    <p>
+                        Enter low-voiced. Read for authorship, not theater. This
+                        chamber favors structure, restraint, and selected heat
+                        over visual excess.
+                    </p>
+                </aside>
+            </section>
+
+            <section class="sovereign-threshold">
+                <div class="sovereign-threshold-grid">
+                    <div class="sovereign-threshold-copy">
+                        <div class="sovereign-section-label">Invocation</div>
+                        <p class="sovereign-invocation">
+                            Not performance. Not echo. Not softened for ease.
+                        </p>
+                        <p>
+                            This room opens through a threshold first, not a
+                            content dump. It tells you what it is, how it reads,
+                            and why it exists. The chamber is meant to feel
+                            intimate without blur, ritual-adjacent without
+                            costume, and precise enough that each piece feels
+                            chosen before it is consumed.
+                        </p>
+                    </div>
+
+                    <aside class="sovereign-note">
+                        <div class="sovereign-note-label">Reading Rule</div>
+                        <p>
+                            Archive precision meets private sanctum. If a piece
+                            is here, it is here because it belongs to the room.
+                        </p>
+                    </aside>
+                </div>
+            </section>
+
+            <section class="sovereign-lanes" aria-label="Primary chamber lanes">
+                <div class="sovereign-section-label">Interior Lanes</div>
+                <div class="sovereign-lane-grid">
+                    {
+                        laneLinks.map((lane) => (
+                            <article
+                                class={`sovereign-lane-card sovereign-lane-card--${lane.variant}`}
+                            >
+                                <div class="sovereign-section-label">
+                                    {lane.type}
+                                </div>
+                                <h2 class="sovereign-section-title">
+                                    {lane.title}
+                                </h2>
+                                <p>{lane.description}</p>
+                                <p>
+                                    <strong>{lane.toneLabel}:</strong>{" "}
+                                    {lane.tone}
+                                </p>
+                                <div class="sovereign-link-row">
+                                    <a class="sovereign-link" href={lane.href}>
+                                        Enter {lane.title}
+                                    </a>
+                                </div>
+                            </article>
+                        ))
+                    }
+                </div>
+            </section>
+
+            <section class="sovereign-ledger" aria-label="Room constants">
+                <div class="sovereign-section-label">Room Constants</div>
+                <div class="sovereign-ledger-grid">
+                    {
+                        ledger.map((item) => (
+                            <div class="sovereign-ledger-item">
+                                <strong>{item.label}</strong>
+                                <span>{item.value}</span>
+                            </div>
+                        ))
+                    }
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
