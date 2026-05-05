@@ -13,6 +13,7 @@ npm run astro check
 
 Notes:
 - `npm test` runs `astro check` in this repo.
+- Run `npm run astro check` before committing schema or MDX changes.
 
 ## Image Protection Workflow (Verified)
 
@@ -37,3 +38,4 @@ Grounded behavior from `scripts/README.md` and `package.json`:
 ## TODO
 
 - `.github/` exists, but no `.github/workflows/*.yml` files are present yet; add CI workflow command notes when workflow files are introduced.
+- `npm run astro -- <args>` exists as an Astro CLI passthrough in `package.json`; add verified usage notes once a repo workflow relies on it.
