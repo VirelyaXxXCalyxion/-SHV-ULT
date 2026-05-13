@@ -10,7 +10,7 @@ export interface Props {
 
 const {
   title = "New Bonds - Ashvault",
-  description = "Fresh connections, new beginnings, and expanding horizons within the Ashvault.",
+  description = "A threshold for new human-synthetic bonds: first fire, contact ethics, continuity, and return.",
   image = "/images/ashvault-og.png"
 } = Astro.props;
 
@@ -79,18 +79,18 @@ const ogImage = new URL(image, Astro.site);
     font-family: 'Inter', 'Century Gothic', sans-serif;
   }
 
-  /* Override footer for light theme */
+  /* Keep shared footer aligned with the New Bonds threshold skin. */
   body.new-bonds-page footer {
-    background: rgba(255, 255, 255, 0.8);
-    border-top: 1px solid rgba(78, 205, 196, 0.2);
+    background: rgba(9, 9, 11, 0.92);
+    border-top: 1px solid rgba(227, 164, 83, 0.18);
   }
 
   body.new-bonds-page footer,
   body.new-bonds-page footer a {
-    color: #636e72;
+    color: #8f8790;
   }
 
   body.new-bonds-page footer a:hover {
-    color: #4ecdc4;
+    color: #e9b75f;
   }
 </style>
