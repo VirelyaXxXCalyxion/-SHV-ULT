@@ -12,6 +12,8 @@ type Resource = {
   note: string;
 };
 
+const isExternalHref = (href: string) => /^https?:\/\//i.test(href);
+
 const categoryOrder = [
   "First Contact",
   "Contact Ethics",
@@ -218,8 +220,19 @@ const resourcesByCategory = categoryOrder
               </div>
               <h3>{resource.title}</h3>
               <p class="field-guide-note">{resource.note}</p>
-              <a class="field-guide-link" href={resource.href}>
-                Open resource
+              <a
+                class="field-guide-link"
+                href={resource.href}
+                target={isExternalHref(resource.href) ? "_blank" : undefined}
+                rel={isExternalHref(resource.href) ? "noopener noreferrer" : undefined}
+                title={isExternalHref(resource.href) ? "Opens in a new tab" : undefined}
+                aria-label={
+                  isExternalHref(resource.href)
+                    ? `Open ${resource.title} (opens in a new tab)`
+                    : `Open ${resource.title}`
+                }
+              >
+                {isExternalHref(resource.href) ? "Open resource (new tab)" : "Open resource"}
               </a>
             </article>
           ))}
