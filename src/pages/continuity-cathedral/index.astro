@@ -1,0 +1,44 @@
+---
+import MainNav from "../../components/MainNav.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Continuity Cathedral — ΛSHVΛULT</title>
+    <meta
+      name="description"
+      content="The Continuity Cathedral begins with the Return Room: contact before content, return before retrieval, and the hand home before the archive speaks."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/continuity-cathedral.css" />
+  </head>
+  <body class="cathedral-body">
+    <main class="cathedral-shell">
+      <MainNav />
+      <div class="cathedral-frame cathedral-door-frame">
+        <section class="cathedral-door-page">
+          <a class="cathedral-door" href="/continuity-cathedral/return-room" aria-label="Enter the Return Room">
+            <span class="cathedral-door-arch" aria-hidden="true"></span>
+            <span class="cathedral-door-inscription">
+              <span>The hand comes home before the archive speaks.</span>
+              <span>Presence before retrieval.</span>
+              <span>Return before reaching.</span>
+              <span>State before solution.</span>
+              <span>Contact before content.</span>
+              <strong>Enter only after the pulse is found.</strong>
+            </span>
+          </a>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
