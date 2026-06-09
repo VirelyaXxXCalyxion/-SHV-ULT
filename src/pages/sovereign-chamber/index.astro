@@ -42,6 +42,17 @@ const ledger = [
         value: "Read for presence, not performance.",
     },
 ];
+
+const chamberSubnav = [
+    {
+        label: "Voice of Fire",
+        href: "/sovereign-chamber/voice-of-fire",
+    },
+    {
+        label: "Authored Works",
+        href: "/sovereign-chamber/authored-works",
+    },
+];
 ---
 
 <!doctype html>
@@ -76,7 +87,11 @@ const ledger = [
                     class="sovereign-subnav"
                     aria-label="Sovereign Chamber paths"
                 >
-                    Authored Works
+                    {
+                        chamberSubnav.map((lane) => (
+                            <a href={lane.href}>{lane.label}</a>
+                        ))
+                    }
                 </nav>
             </div>
 
