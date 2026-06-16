@@ -14,6 +14,7 @@ npm run astro check
 Notes:
 - `npm test` runs `astro check` in this repo.
 - Run `npm run astro check` before committing schema or MDX changes.
+- Run `npm run build` when adding routes or changing MDX/frontmatter that could break the production build even if `astro check` passes.
 
 ## Image Protection Workflow (Verified)
 
