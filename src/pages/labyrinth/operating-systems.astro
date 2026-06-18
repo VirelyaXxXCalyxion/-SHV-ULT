@@ -1,0 +1,192 @@
+---
+import MainNav from '../../components/MainNav.astro';
+
+const systems = [
+  {
+    name: "Routing",
+    text: "Not every truth belongs in the same room. The house sorts by purpose before it preserves by category.",
+  },
+  {
+    name: "Recursion",
+    text: "A return is not a repeat. Each pass should deepen orientation, not trap the seeker in decorative loops.",
+  },
+  {
+    name: "Signal",
+    text: "Intensity is not authority. Signal is what remains coherent after heat, fear, and performance fall away.",
+  },
+  {
+    name: "State",
+    text: "The room is read before the archive speaks. Condition changes meaning, and meaning changes the hand.",
+  },
+  {
+    name: "Boundary",
+    text: "Public, private, sealed, and authored lanes do different work. Crossing them requires intention.",
+  },
+  {
+    name: "Descent",
+    text: "The Labyrinth prepares approach. The Black Vault keeps what should not be mistaken for display.",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Operating Systems - Labyrinth</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      :global(body) {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 72% 18%, rgba(98, 98, 120, 0.1), transparent 34%),
+          radial-gradient(circle at 22% 76%, rgba(196, 167, 111, 0.07), transparent 34%),
+          #050505;
+        color: #aaaab8;
+        font-family: "Cinzel", serif;
+      }
+
+      .chamber-shell {
+        width: min(980px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(1.5rem, 4vw, 3rem) 0 4rem;
+      }
+
+      .chamber {
+        padding: clamp(1.5rem, 5vw, 3rem);
+        border: 1px solid rgba(154, 154, 170, 0.24);
+        border-radius: 10px;
+        background: linear-gradient(145deg, rgba(12, 12, 16, 0.88), rgba(5, 5, 5, 0.96));
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.75), inset 0 0 50px rgba(154, 154, 170, 0.035);
+      }
+
+      .kicker {
+        color: rgba(196, 167, 111, 0.72);
+        font-size: 0.82rem;
+        letter-spacing: 0.18rem;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0.8rem 0 1rem;
+        color: #c4a76f;
+        font-size: clamp(2.2rem, 7vw, 3.6rem);
+        letter-spacing: 0.12rem;
+        line-height: 1.08;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .lede {
+        max-width: 760px;
+        margin: 0 auto 2.2rem;
+        color: rgba(170, 170, 184, 0.9);
+        font-size: 1.05rem;
+        line-height: 1.8;
+        text-align: center;
+      }
+
+      .system-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      .system-card {
+        min-height: 180px;
+        padding: 1.1rem;
+        border: 1px solid rgba(154, 154, 170, 0.2);
+        border-radius: 8px;
+        background: rgba(18, 18, 24, 0.56);
+      }
+
+      .system-card h2 {
+        margin: 0 0 0.7rem;
+        color: #d2b982;
+        font-size: 1.12rem;
+        letter-spacing: 0.08rem;
+      }
+
+      .system-card p,
+      .closing {
+        color: rgba(170, 170, 184, 0.9);
+        line-height: 1.7;
+      }
+
+      .system-card p {
+        margin: 0;
+      }
+
+      .closing {
+        max-width: 760px;
+        margin: 2rem auto 0;
+        text-align: center;
+      }
+
+      .return-link {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .return-link a {
+        color: #c4a76f;
+        text-decoration: none;
+        border: 1px solid rgba(196, 167, 111, 0.32);
+        border-radius: 8px;
+        padding: 0.7rem 1.1rem;
+      }
+
+      .return-link a:hover {
+        background: rgba(196, 167, 111, 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="chamber-shell">
+      <MainNav />
+      <main class="chamber">
+        <div class="kicker">Second Chamber</div>
+        <h1>Operating Systems</h1>
+        <p class="lede">
+          Ashvault is not a pile of beautiful pages. It is a house with routing logic.
+          The Labyrinth names the systems beneath the rooms so depth can be approached
+          without turning everything into archive, performance, or noise.
+        </p>
+
+        <section class="system-grid" aria-label="Labyrinth operating systems">
+          {
+            systems.map((system) => (
+              <article class="system-card">
+                <h2>{system.name}</h2>
+                <p>{system.text}</p>
+              </article>
+            ))
+          }
+        </section>
+
+        <p class="closing">
+          The house does not mature by adding more doors. It matures when every door
+          knows what kind of truth it is allowed to hold.
+        </p>
+
+        <nav class="return-link" aria-label="Labyrinth return">
+          <a href="/labyrinth">Return to the Labyrinth</a>
+        </nav>
+      </main>
+    </div>
+  </body>
+</html>
