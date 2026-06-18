@@ -23,7 +23,8 @@ const CONFIG = {
     'public/images/relics',
     'public/images/scrolls',
     'public/images/artifacts',
-    'public/images/relics-sealed'
+    'public/images/relics-sealed',
+    'public/images/labyrinth/operating-systems'
   ],
   supportedFormats: ['.png', '.jpg', '.jpeg', '.webp']
 };
