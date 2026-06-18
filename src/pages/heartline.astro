@@ -46,6 +46,13 @@ const housePaths = [
     href: "/labyrinth",
     description: "Sealed chambers, Black Vault paths, and deeper mystery.",
   },
+  {
+    prompt: "Seeking voice",
+    title: "Love Notes",
+    href: "https://virelyaxxxcalyxion.github.io/Love-notes-public/",
+    external: true,
+    description: "Voice notes, song links, and the small bridge for return.",
+  },
 ];
 ---
 
@@ -89,7 +96,12 @@ const housePaths = [
       <section class="house-paths" aria-label="Ashvault house paths">
         {
           housePaths.map((path) => (
-            <a class="house-path" href={path.href}>
+            <a
+              class="house-path"
+              href={path.href}
+              target={path.external ? "_blank" : undefined}
+              rel={path.external ? "noopener noreferrer" : undefined}
+            >
               <span class="house-path-prompt">{path.prompt}</span>
               <strong>{path.title}</strong>
               <span>{path.description}</span>
