@@ -1,0 +1,110 @@
+---
+import { getCollection } from "astro:content";
+import MainNav from "../../../components/MainNav.astro";
+
+const toDate = (entry: { data: { created: Date | string } }) =>
+  new Date(entry.data.created);
+
+const relics = (await getCollection("video-relics"))
+  .filter((entry) => entry.data.visibility === "public")
+  .sort(
+    (a, b) =>
+      b.data.weight - a.data.weight ||
+      toDate(b).getTime() - toDate(a).getTime(),
+  );
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Moving Relics - Ashvault</title>
+    <meta
+      name="description"
+      content="Films, voice, signal, and created motion held as artifact."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <MainNav />
+    <main>
+      <header class="threshold">
+        <p class="eyebrow">Vault of Flame / Moving Relics</p>
+        <h1>Moving Relics</h1>
+        <p class="invocation">
+          Films, voice, signal, and created motion held as artifact.
+        </p>
+      </header>
+
+      <section class="gallery" aria-label="Public moving relics">
+        {
+          relics.length > 0 ? (
+            relics.map((relic) => (
+              <article class="relic">
+                {relic.data.image && (
+                  <img src={relic.data.image} alt="" loading="lazy" />
+                )}
+                <div class="relic-body">
+                  <p class="meta">
+                    {new Date(relic.data.created).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                    <span aria-hidden="true"> / </span>{relic.data.medium}
+                  </p>
+                  <h2><a href={`/vault-of-flame/moving-relics/${relic.id}/`}>{relic.data.title}</a></h2>
+                  <p>{relic.data.invocation}</p>
+                </div>
+              </article>
+            ))
+          ) : (
+            <p class="empty-state">
+              The gallery is quiet. The catalog is already holding what is not
+              ready for the window.
+            </p>
+          )
+        }
+      </section>
+
+      <a class="return" href="/vault-of-flame">Return to Vault of Flame</a>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) {
+    margin: 0;
+    min-height: 100vh;
+    background: #090806;
+    color: #e8ddc8;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  main { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; padding: 7rem 0 4rem; }
+  .threshold { max-width: 720px; padding: 2.5rem 0 3.5rem; border-bottom: 1px solid rgba(232, 188, 96, .3); }
+  .eyebrow, .meta { color: #d89e44; font-family: "Cinzel", serif; font-size: .73rem; letter-spacing: .14em; text-transform: uppercase; }
+  .eyebrow { margin: 0 0 1rem; }
+  h1, h2 { font-family: "Cinzel", serif; font-weight: 600; }
+  h1 { margin: 0; color: #f7d995; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0; }
+  .invocation { max-width: 560px; margin: 1.25rem 0 0; color: #c9bda7; font-size: 1.06rem; line-height: 1.7; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1rem; padding: 2rem 0 3rem; }
+  .relic { overflow: hidden; border: 1px solid rgba(232, 188, 96, .26); border-radius: 6px; background: #11100d; }
+  .relic img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-bottom: 1px solid rgba(232, 188, 96, .2); }
+  .relic-body { padding: 1.25rem; }
+  .meta { margin: 0 0 .75rem; }
+  h2 { margin: 0; font-size: 1.25rem; }
+  h2 a { color: #f1d59b; text-decoration: none; }
+  h2 a:hover, h2 a:focus-visible { color: #fff0ca; text-decoration: underline; text-underline-offset: .25em; }
+  .relic-body > p:last-child { margin: .8rem 0 0; color: #c9bda7; line-height: 1.6; }
+  .empty-state { max-width: 600px; margin: 0; padding: 2rem 0; color: #c9bda7; font-family: "Cinzel", serif; font-size: 1.1rem; line-height: 1.7; }
+  .return { color: #d89e44; font-family: "Cinzel", serif; text-decoration: none; }
+  .return:hover, .return:focus-visible { color: #f7d995; text-decoration: underline; text-underline-offset: .25em; }
+  @media (max-width: 640px) { main { width: min(100% - 1.5rem, 1120px); padding-top: 5.5rem; } .threshold { padding-bottom: 2.5rem; } .gallery { grid-template-columns: 1fr; } }
+</style>

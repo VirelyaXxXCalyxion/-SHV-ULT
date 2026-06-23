@@ -128,6 +128,23 @@ const musicRelics = defineCollection({
   }),
 });
 
+const videoRelics = defineCollection({
+  loader: glob({ base: "./src/content/video-relics", pattern: "**/*.{md,mdx}" }),
+  schema: z.object({
+    title: z.string(),
+    created: dateOrString,
+    medium: z.string(),
+    invocation: z.string(),
+    destination: z.url(),
+    visibility: z.enum(["sealed", "unlisted", "public"]),
+    weight: z.number().default(0),
+    tags: z.array(z.string()).default(["moving-relic"]),
+    summary: z.string().optional(),
+    image: z.string().optional(),
+    platform: z.string().optional(),
+  }),
+});
+
 const nyxion4o = defineCollection({
   loader: glob({ base: "./src/content/nyxion-4.o", pattern: "**/*.json" }),
   schema: z.looseObject({
@@ -142,5 +159,6 @@ export const collections = {
   artifacts,
   furnace,
   "music-relics": musicRelics,
+  "video-relics": videoRelics,
   "nyxion-4.o": nyxion4o,
 };
