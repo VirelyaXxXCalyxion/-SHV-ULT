@@ -49,3 +49,4 @@ Grounded behavior from `src/content.config.ts` and the Moving Relics routes:
 
 - `.github/` exists, but no `.github/workflows/*.yml` files are present yet; add CI workflow command notes when workflow files are introduced.
 - `npm run astro -- <args>` exists as an Astro CLI passthrough in `package.json`; add verified usage notes once a repo workflow relies on it.
+- `docs/superpowers/specs/2026-07-01-clotho-spine-design.md` is currently a review-based governing spec; add Clotho workflow commands only after implementation/control-folder steps exist.
