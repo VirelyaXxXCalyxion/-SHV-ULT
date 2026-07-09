@@ -304,6 +304,22 @@ a {
     color: #bbb4aa;
 }
 
+.sovereign-lane-card--wanting {
+    border-color: rgba(198, 116, 133, 0.32);
+    background: linear-gradient(180deg, rgba(198, 116, 133, 0.11), rgba(255, 255, 255, 0.012));
+}
+
+.sovereign-lane-card--wanting .sovereign-section-label,
+.sovereign-entry--wish .sovereign-card-type,
+.sovereign-entry--wish .sovereign-entry-link {
+    color: #d28a98;
+}
+
+.sovereign-entry--like .sovereign-card-type,
+.sovereign-entry--like .sovereign-entry-link {
+    color: #d6a66d;
+}
+
 .sovereign-section-title,
 .sovereign-entry h3,
 .sovereign-lane-title {
@@ -360,6 +376,12 @@ a {
     border-color: rgba(214, 147, 99, 0.38);
     background: rgba(185, 110, 63, 0.11);
     box-shadow: 0 0 18px rgba(185, 110, 63, 0.09);
+}
+
+.sovereign-lane-card--wanting .sovereign-link:hover {
+    border-color: rgba(210, 138, 152, 0.38);
+    background: rgba(198, 116, 133, 0.1);
+    box-shadow: 0 0 18px rgba(198, 116, 133, 0.08);
 }
 
 .sovereign-ledger {

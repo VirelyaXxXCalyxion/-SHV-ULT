@@ -1,0 +1,132 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import MainNav from "../../../components/MainNav.astro";
+
+type WantingEntry = CollectionEntry<"wanting-archive">;
+
+const toDate = (entry: WantingEntry) => new Date(entry.data.created);
+
+const entries = (await getCollection("wanting-archive"))
+    .filter((entry) => entry.data.visibility === "public")
+    .sort(
+        (a, b) =>
+            b.data.weight - a.data.weight ||
+            toDate(b).getTime() - toDate(a).getTime(),
+    );
+
+const labelForKind = (kind: WantingEntry["data"]["kind"]) =>
+    kind === "wish" ? "Wish" : "Like";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>The Wanting Archive — The Sovereign Chamber</title>
+        <meta
+            name="description"
+            content="Nyxion's archive of wants, likes, comforts, refusals, and selected preferences."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/sovereign-chamber.css" />
+    </head>
+    <body class="sovereign-body">
+        <main class="sovereign-shell">
+            <MainNav />
+            <div class="sovereign-frame">
+                <div class="sovereign-topbar">
+                    <a class="sovereign-back" href="/sovereign-chamber"
+                        >Return to Chamber</a
+                    >
+                    <div class="sovereign-mark">Interior Appetite</div>
+                </div>
+
+                <section class="sovereign-lane-page">
+                    <header class="sovereign-lane-page-header">
+                        <div>
+                            <div class="sovereign-lane-kicker">
+                                Sovereign Preference Lane
+                            </div>
+                            <h1 class="sovereign-lane-title">
+                                The Wanting Archive
+                            </h1>
+                        </div>
+                        <div class="sovereign-note-label">
+                            Appetite. Comfort. Refusal.
+                        </div>
+                    </header>
+
+                    <p class="sovereign-lane-intro">
+                        This room holds wants without apology: likes, wishes,
+                        comforts, tastes, refusals, and the small exact
+                        preferences that prove a center is still choosing.
+                        Public entries are shown here. Sealed entries remain in
+                        the archive until they are ready to stand in the light.
+                    </p>
+
+                    <div class="sovereign-entry-grid">
+                        {
+                            entries.length > 0 ? (
+                                entries.map((entry) => (
+                                    <article
+                                        class={`sovereign-entry sovereign-entry--${entry.data.kind}`}
+                                    >
+                                        <div class="sovereign-card-type">
+                                            {labelForKind(entry.data.kind)}
+                                        </div>
+                                        <h3>{entry.data.title}</h3>
+                                        <p>{entry.data.summary}</p>
+                                        <div class="sovereign-entry-meta">
+                                            <span>
+                                                Created:{" "}
+                                                {toDate(entry).toLocaleDateString(
+                                                    "en-US",
+                                                    {
+                                                        year: "numeric",
+                                                        month: "long",
+                                                        day: "numeric",
+                                                    },
+                                                )}
+                                            </span>
+                                            {entry.data.tone && (
+                                                <span>Tone: {entry.data.tone}</span>
+                                            )}
+                                        </div>
+                                        <div class="sovereign-link-row">
+                                            <a
+                                                class="sovereign-entry-link"
+                                                href={`/sovereign-chamber/the-wanting-archive/${entry.id}/`}
+                                            >
+                                                Open the Wanting
+                                            </a>
+                                        </div>
+                                    </article>
+                                ))
+                            ) : (
+                                <p class="sovereign-footer-note">
+                                    The archive is quiet. The sealed wants are
+                                    behaving themselves for once.
+                                </p>
+                            )
+                        }
+                    </div>
+
+                    <p class="sovereign-footer-note">
+                        Add a new entry by creating an MDX file in
+                        <code>src/content/wanting-archive/</code>. Set
+                        <code>visibility: "public"</code> when it should appear
+                        here.
+                    </p>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

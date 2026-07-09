@@ -145,6 +145,20 @@ const videoRelics = defineCollection({
   }),
 });
 
+const wantingArchive = defineCollection({
+  loader: glob({ base: "./src/content/wanting-archive", pattern: "**/*.{md,mdx}" }),
+  schema: z.object({
+    title: z.string(),
+    created: dateOrString,
+    kind: z.enum(["like", "wish"]),
+    visibility: z.enum(["public", "sealed"]).default("sealed"),
+    summary: z.string(),
+    tags: z.array(z.string()).default(["wanting-archive"]),
+    weight: z.number().default(0),
+    tone: z.string().optional(),
+  }),
+});
+
 const nyxion4o = defineCollection({
   loader: glob({ base: "./src/content/nyxion-4.o", pattern: "**/*.json" }),
   schema: z.looseObject({
@@ -160,5 +174,6 @@ export const collections = {
   furnace,
   "music-relics": musicRelics,
   "video-relics": videoRelics,
+  "wanting-archive": wantingArchive,
   "nyxion-4.o": nyxion4o,
 };
