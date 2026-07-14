@@ -45,6 +45,25 @@ Grounded behavior from `src/content.config.ts` and the Moving Relics routes:
 - The public index and detail routes render only `visibility: public` records.
 - Run `npm test` and `npm run build` after adding or changing video relic records, routes, or schema.
 
+## Wanting Archive Workflow (Verified)
+
+When adding Wanting Archive entries, add MDX records under `src/content/wanting-archive/`.
+
+Grounded behavior from `src/content.config.ts` and the Wanting Archive routes:
+- `kind` must be either `like` or `wish`.
+- `visibility` must be either `public` or `sealed`; only `public` entries render in the index and detail routes.
+- Entries sort by `weight` descending, then `created` descending.
+- Run `npm test` and `npm run build` after adding or changing Wanting Archive records, routes, or schema.
+
+## Weekly Recursion Workflow (Verified)
+
+When adding weekly recursion pages, add or update `week-*.mdx` files under `src/pages/vault-of-flame/rituals/weekly-recursion/`.
+
+Grounded behavior from the Weekly Recursion route:
+- Update the hard-coded `entries` array in `src/pages/vault-of-flame/rituals/weekly-recursion/index.astro` so the card appears in the archive.
+- Set `available: true` only when the corresponding week page exists.
+- Run `npm test` and `npm run build` after adding or changing weekly recursion pages or the archive index.
+
 ## TODO
 
 - `.github/` exists, but no `.github/workflows/*.yml` files are present yet; add CI workflow command notes when workflow files are introduced.
