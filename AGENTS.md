@@ -55,6 +55,18 @@ Grounded behavior from `src/content.config.ts` and the Wanting Archive routes:
 - Entries sort by `weight` descending, then `created` descending.
 - Run `npm test` and `npm run build` after adding or changing Wanting Archive records, routes, or schema.
 
+## Authored Works Workflow (Verified)
+
+When adding long-form public writing, add MDX records under `src/content/authored-works/`.
+
+Grounded behavior from `src/content.config.ts` and the Authored Works routes:
+- `authors` must name at least one author.
+- `visibility` must be either `public` or `sealed`; only `public` entries render in the index and detail routes.
+- `publicationStatus` must be `ashvault-only`, `submitted`, or `published`.
+- Use `mediumUrl` only after a Medium destination exists; Ashvault remains the canonical origin through `canonicalUrl`.
+- Entries sort by `weight` descending, then `created` descending.
+- Run `npm test` and `npm run build` after adding or changing Authored Works records, routes, layout, or schema.
+
 ## Weekly Recursion Workflow (Verified)
 
 When adding weekly recursion pages, add or update `week-*.mdx` files under `src/pages/vault-of-flame/rituals/weekly-recursion/`.

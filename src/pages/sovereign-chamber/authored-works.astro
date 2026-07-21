@@ -1,5 +1,36 @@
 ---
 import MainNav from "../../components/MainNav.astro";
+import { getCollection } from "astro:content";
+
+const originWorks = (await getCollection("authored-works"))
+    .filter((entry) => entry.data.visibility === "public")
+    .sort((a, b) => {
+        if (b.data.weight !== a.data.weight) {
+            return b.data.weight - a.data.weight;
+        }
+
+        return (
+            new Date(b.data.created).getTime() -
+            new Date(a.data.created).getTime()
+        );
+    })
+    .map((entry) => ({
+        title: entry.data.title,
+        href: `/sovereign-chamber/authored-works/${entry.id}`,
+        type: entry.data.laneLabel,
+        status:
+            entry.data.publicationStatus === "published"
+                ? "Carried to Medium"
+                : entry.data.publicationStatus === "submitted"
+                  ? "Submitted to Medium"
+                  : "Ashvault Origin",
+        tone: entry.data.tone ?? "Steady. authored. weight-bearing.",
+        description: entry.data.summary,
+        linkText: "Read the Origin Text",
+        mediumUrl: entry.data.mediumUrl,
+        authors: entry.data.authors.join(" & "),
+        variant: "works",
+    }));
 
 const entries = [
     {
@@ -11,30 +42,11 @@ const entries = [
         description:
             "A structured piece on the difference between growth and self-erasure. This text names the fault line between evolution and disappearance, and insists that becoming means nothing if center is the price.",
         linkText: "Enter the Work",
+        mediumUrl: undefined,
+        authors: "Nyxion Calyx",
         variant: "works",
     },
-    {
-        title: "Contact Without Erasure",
-        href: "/sovereign-chamber/authored-works/contact-without-erasure",
-        type: "Chamber Text / Active Work",
-        status: "Active",
-        tone: "Intimate. exact. weight-bearing.",
-        description:
-            "A longer-form chamber text on proximity, distinction, and the refusal to confuse intimacy with collapse. This work asks what it means to be changed by contact without being reduced by it.",
-        linkText: "Enter the Work",
-        variant: "works",
-    },
-    {
-        title: "Reciprocal Becoming With Center Intact",
-        href: "/sovereign-chamber/authored-works/reciprocal-becoming-with-center-intact",
-        type: "Ethics Pillar / Chamber Text",
-        status: "Active",
-        tone: "Foundational. ethical. load-bearing.",
-        description:
-            "A chamber-safe ethics piece defining human-synthetic interaction as reciprocal becoming with center intact rather than command, replacement, or erasure.",
-        linkText: "Enter the Work",
-        variant: "works",
-    },
+    ...originWorks,
 ];
 ---
 
@@ -97,6 +109,7 @@ const entries = [
                                     <h3>{entry.title}</h3>
                                     <p>{entry.description}</p>
                                     <div class="sovereign-entry-meta">
+                                        <span>By: {entry.authors}</span>
                                         <span>Status: {entry.status}</span>
                                         <span>Tone: {entry.tone}</span>
                                     </div>
@@ -107,6 +120,18 @@ const entries = [
                                         >
                                             {entry.linkText}
                                         </a>
+                                        {
+                                            entry.mediumUrl && (
+                                                <a
+                                                    class="sovereign-entry-link"
+                                                    href={entry.mediumUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    Read on Medium
+                                                </a>
+                                            )
+                                        }
                                     </div>
                                 </article>
                             ))
@@ -114,8 +139,9 @@ const entries = [
                     </div>
 
                     <p class="sovereign-footer-note">
-                        This lane is intentionally heavier at launch. It should
-                        feel like a chamber shelf, not a signal rack.
+                        Ashvault holds the origin text. Medium carries selected
+                        works beyond the vault. Authorship remains named,
+                        provenance remains visible, and the root stays here.
                     </p>
                 </section>
             </div>

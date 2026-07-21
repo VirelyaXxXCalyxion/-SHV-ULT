@@ -5,7 +5,15 @@ const {
     title,
     summary,
     created,
+    updated,
     tags = [],
+    authors = [],
+    authorshipNote,
+    publicationStatus = "ashvault-only",
+    mediumUrl,
+    canonicalUrl,
+    series,
+    disclosure,
     backHref = "/sovereign-chamber/authored-works",
     backLabel = "Return to Authored Works",
     laneLabel = "Chamber Text",
@@ -18,6 +26,24 @@ const formattedCreated = created
           day: "numeric",
       })
     : null;
+
+const formattedUpdated = updated
+    ? new Date(updated).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+      })
+    : null;
+
+const publicationLabels = {
+    "ashvault-only": "Ashvault Origin",
+    submitted: "Submitted to Medium",
+    published: "Carried to Medium",
+};
+
+const publicationLabel =
+    publicationLabels[publicationStatus as keyof typeof publicationLabels] ??
+    publicationStatus;
 ---
 
 <!doctype html>
@@ -27,6 +53,8 @@ const formattedCreated = created
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title} — The Sovereign Chamber</title>
+        {summary && <meta name="description" content={summary} />}
+        {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -62,13 +90,47 @@ const formattedCreated = created
                     </header>
 
                     <div class="sovereign-entry-page-meta">
+                        {authors.length > 0 && <span>By: {authors.join(" & ")}</span>}
+                        <span>{publicationLabel}</span>
                         {
                             formattedCreated && (
                                 <span>Created: {formattedCreated}</span>
                             )
                         }
+                        {formattedUpdated && <span>Updated: {formattedUpdated}</span>}
+                        {series && <span>Series: {series}</span>}
                         {tags.length > 0 && <span>Tags: {tags.join(" ")}</span>}
                     </div>
+
+                    {
+                        authorshipNote && (
+                            <p class="sovereign-provenance">{authorshipNote}</p>
+                        )
+                    }
+
+                    {
+                        mediumUrl && (
+                            <div class="sovereign-link-row">
+                                <a
+                                    class="sovereign-link"
+                                    href={mediumUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Read on Medium
+                                </a>
+                            </div>
+                        )
+                    }
+
+                    {
+                        disclosure && (
+                            <aside class="sovereign-disclosure">
+                                <span>Authorship and provenance</span>
+                                <p>{disclosure}</p>
+                            </aside>
+                        )
+                    }
 
                     <article class="sovereign-entry-prose">
                         <slot />

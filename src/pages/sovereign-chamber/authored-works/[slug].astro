@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import AuthoredWorksEntryLayout from "../../../layouts/AuthoredWorksEntryLayout.astro";
+
+export async function getStaticPaths() {
+    const entries = (await getCollection("authored-works")).filter(
+        (entry) => entry.data.visibility === "public",
+    );
+
+    return entries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"authored-works"> };
+const { Content } = await render(entry);
+---
+
+<AuthoredWorksEntryLayout
+    title={entry.data.title}
+    summary={entry.data.summary}
+    created={entry.data.created}
+    updated={entry.data.updated}
+    tags={entry.data.tags}
+    authors={entry.data.authors}
+    authorshipNote={entry.data.authorshipNote}
+    publicationStatus={entry.data.publicationStatus}
+    mediumUrl={entry.data.mediumUrl}
+    canonicalUrl={entry.data.canonicalUrl}
+    series={entry.data.series}
+    laneLabel={entry.data.laneLabel}
+    disclosure={entry.data.disclosure}
+>
+    <Content />
+</AuthoredWorksEntryLayout>

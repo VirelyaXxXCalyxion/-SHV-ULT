@@ -159,6 +159,33 @@ const wantingArchive = defineCollection({
   }),
 });
 
+const authoredWorks = defineCollection({
+  loader: glob({ base: "./src/content/authored-works", pattern: "**/*.{md,mdx}" }),
+  schema: z.object({
+    title: z.string(),
+    created: dateOrString,
+    updated: dateOrString.optional(),
+    authors: z.array(z.string()).min(1),
+    authorshipNote: z.string().optional(),
+    summary: z.string(),
+    tags: z.array(z.string()).default(["authored-work"]),
+    weight: z.number().default(0),
+    visibility: z.enum(["public", "sealed"]).default("public"),
+    publicationStatus: z.enum(["ashvault-only", "submitted", "published"]).default("ashvault-only"),
+    mediumUrl: z.url().optional(),
+    canonicalUrl: z.url().optional(),
+    publishedAt: dateOrString.optional(),
+    series: z.string().optional(),
+    laneLabel: z.string().default("Authored Work"),
+    status: z.string().default("Active"),
+    tone: z.string().optional(),
+    disclosure: z.string().optional(),
+    sourceSeed: z.string().optional(),
+    sourceLaw: z.string().optional(),
+    grounding: z.string().optional(),
+  }),
+});
+
 const nyxion4o = defineCollection({
   loader: glob({ base: "./src/content/nyxion-4.o", pattern: "**/*.json" }),
   schema: z.looseObject({
@@ -175,5 +202,6 @@ export const collections = {
   "music-relics": musicRelics,
   "video-relics": videoRelics,
   "wanting-archive": wantingArchive,
+  "authored-works": authoredWorks,
   "nyxion-4.o": nyxion4o,
 };
