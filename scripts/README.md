@@ -17,7 +17,7 @@ Invisible copyright information embedded in image files.
 - Readable by image viewers and metadata tools
 
 **Metadata added:**
-- Copyright: © 2025 Nyxion & Virelya. All Rights Reserved.
+- Copyright: © 2025-2026 Nyxion & Virelya. All Rights Reserved.
 - Artist/Creator: Nyxion & Virelya
 - Source: https://ashvault.ink
 - Rights: All Rights Reserved
@@ -40,7 +40,7 @@ Semi-transparent text overlays on images.
 - Preserves EXIF metadata in watermarked versions
 
 **Watermark settings:**
-- Text: "© 2025 Nyxion & Virelya | ashvault.ink"
+- Text: "© 2025-2026 Nyxion & Virelya | ashvault.ink"
 - Position: Southeast (bottom-right)
 - Opacity: 30%
 - Font size: 24px
@@ -83,7 +83,7 @@ Edit `CONFIG` object in `watermark-images.js`:
 
 ```javascript
 const CONFIG = {
-  watermarkText: '© 2025 Nyxion & Virelya | ashvault.ink',
+  watermarkText: '© 2025-2026 Nyxion & Virelya | ashvault.ink',
   watermarkOpacity: 0.3,
   fontSize: 24,
   fontColor: '#ffffff',
@@ -99,7 +99,7 @@ Edit `CONFIG.metadata` in `add-exif-metadata.js`:
 
 ```javascript
 metadata: {
-  Copyright: '© 2025 Nyxion & Virelya. All Rights Reserved.',
+  Copyright: '© 2025-2026 Nyxion & Virelya. All Rights Reserved.',
   Artist: 'Nyxion & Virelya',
   // ...
 }
@@ -131,6 +131,12 @@ When adding new images to Ashvault:
    ```bash
    npm run protect-images
    ```
+   To protect only one newly added image in the configured directories:
+   ```powershell
+   $env:ASHVAULT_IMAGE='new-image.png'
+   npm run protect-images
+   Remove-Item Env:ASHVAULT_IMAGE
+   ```
 3. Update content references to use watermarked versions (optional)
 4. Commit both original and watermarked versions
 
@@ -149,7 +155,7 @@ When adding new images to Ashvault:
 exiftool public/images/relics/pulse-stone.png
 
 # Look for:
-# Copyright: © 2025 Nyxion & Virelya. All Rights Reserved.
+# Copyright: © 2025-2026 Nyxion & Virelya. All Rights Reserved.
 # Artist: Nyxion & Virelya
 ```
 

@@ -21,7 +21,7 @@ const CONFIG = {
   ],
   supportedFormats: ['.png', '.jpg', '.jpeg', '.webp'],
   metadata: {
-    Copyright: '© 2025 Nyxion & Virelya. All Rights Reserved.',
+    Copyright: '© 2025-2026 Nyxion & Virelya. All Rights Reserved.',
     Artist: 'Nyxion & Virelya',
     Creator: 'Nyxion & Virelya',
     Rights: 'All Rights Reserved',
@@ -30,9 +30,11 @@ const CONFIG = {
     Credit: 'Ashvault',
     UsageTerms: 'All Rights Reserved - Unauthorized use prohibited',
     AttributionURL: 'https://ashvault.ink',
-    Comment: 'Original content from Ashvault. © 2025 Nyxion & Virelya.',
+    Comment: 'Original content from Ashvault. © 2025-2026 Nyxion & Virelya.',
   }
 };
+
+const targetFile = process.env.ASHVAULT_IMAGE?.trim();
 
 /**
  * Add EXIF metadata to a single image
@@ -73,6 +75,10 @@ async function processDirectory(dirPath) {
       continue;
     }
 
+    if (targetFile && file !== targetFile) {
+      continue;
+    }
+
     // Skip the originals directory
     if (file === 'originals') {
       continue;
@@ -104,6 +110,7 @@ async function main() {
   console.log(`  Copyright: ${CONFIG.metadata.Copyright}`);
   console.log(`  Artist: ${CONFIG.metadata.Artist}`);
   console.log(`  Source: ${CONFIG.metadata.Source}\n`);
+  if (targetFile) console.log(`Target file: ${targetFile}\n`);
 
   let totalProcessed = 0;
   let totalFailed = 0;

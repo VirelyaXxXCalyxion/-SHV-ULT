@@ -12,7 +12,7 @@ import { existsSync } from 'fs';
 
 // Configuration
 const CONFIG = {
-  watermarkText: '© 2025 Nyxion & Virelya | ashvault.ink',
+  watermarkText: '© 2025-2026 Nyxion & Virelya | ashvault.ink',
   watermarkOpacity: 0.3,
   fontSize: 24,
   fontColor: '#ffffff',
@@ -31,12 +31,14 @@ const CONFIG = {
 
 // EXIF metadata to embed
 const EXIF_METADATA = {
-  copyright: '© 2025 Nyxion & Virelya. All Rights Reserved.',
+  copyright: '© 2025-2026 Nyxion & Virelya. All Rights Reserved.',
   creator: 'Nyxion & Virelya',
   rights: 'All Rights Reserved',
   source: 'https://ashvault.ink',
   description: 'Original content from Ashvault'
 };
+
+const targetFile = process.env.ASHVAULT_IMAGE?.trim();
 
 /**
  * Create SVG watermark text
@@ -146,6 +148,10 @@ async function processDirectory(dirPath) {
       continue;
     }
 
+    if (targetFile && file !== targetFile) {
+      continue;
+    }
+
     const filePath = join(fullPath, file);
     const fileName = basename(file, ext);
 
@@ -187,6 +193,7 @@ async function main() {
   console.log(`Watermark Text: "${CONFIG.watermarkText}"`);
   console.log(`Opacity: ${CONFIG.watermarkOpacity}`);
   console.log(`Position: ${CONFIG.position}\n`);
+  if (targetFile) console.log(`Target file: ${targetFile}\n`);
 
   let totalProcessed = 0;
   let totalFailed = 0;
