@@ -53,5 +53,6 @@ The full catalog may hold the body of work. The public shelf should remain
 legible: representative, deliberate, and complete enough to show the range of
 the house without asking every visitor to cross 190 thresholds at once.
 
-The opening shelf in `launch-candidates.csv` is a proposed first accession, not
-a permanent ranking.
+The opening shelf in `launch-candidates.csv` was approved and accessioned on
+July 29, 2026. The file preserves the selection decision; it is not a permanent
+ranking.
