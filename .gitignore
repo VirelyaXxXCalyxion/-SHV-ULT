@@ -23,3 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 /static-misc
+# Local Moving Relics accession evidence
+docs/moving-relics/capcut-video-inventory.csv
+docs/moving-relics/capcut-video-inventory.json
+docs/moving-relics/inventory-summary.json

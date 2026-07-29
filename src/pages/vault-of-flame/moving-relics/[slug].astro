@@ -5,7 +5,7 @@ import MainNav from "../../../components/MainNav.astro";
 
 export async function getStaticPaths() {
   const relics = (await getCollection("video-relics")).filter(
-    (entry) => entry.data.visibility === "public",
+    (entry) => entry.data.visibility !== "sealed",
   );
 
   return relics.map((relic) => ({
@@ -16,6 +16,16 @@ export async function getStaticPaths() {
 
 const { relic } = Astro.props as { relic: CollectionEntry<"video-relics"> };
 const { Content } = await render(relic);
+
+const destination = new URL(relic.data.destination);
+const tiktokPostId =
+  relic.data.tiktokPostId ??
+  (destination.hostname.endsWith("tiktok.com")
+    ? destination.pathname.match(/\/video\/(\d+)/)?.[1]
+    : undefined);
+const tiktokPlayerUrl = tiktokPostId
+  ? `https://www.tiktok.com/player/v1/${tiktokPostId}?autoplay=0&loop=0&rel=0&native_context_menu=1&closed_caption=1`
+  : undefined;
 ---
 
 <!doctype html>
@@ -26,6 +36,11 @@ const { Content } = await render(relic);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{relic.data.title} - Moving Relics - Ashvault</title>
     <meta name="description" content={relic.data.summary ?? relic.data.invocation} />
+    {
+      relic.data.visibility === "unlisted" && (
+        <meta name="robots" content="noindex, nofollow" />
+      )
+    }
     <link
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -48,11 +63,46 @@ const { Content } = await render(relic);
         <p class="invocation">{relic.data.invocation}</p>
         {relic.data.image && <img src={relic.data.image} alt="" />}
         <div class="body"><Content /></div>
+        {
+          tiktokPlayerUrl && (
+            <div class="player-shell" data-tiktok-player data-src={tiktokPlayerUrl}>
+              <p>The moving relic remains quiet until you choose to wake it.</p>
+              <button type="button" data-load-player>Play within Ashvault</button>
+              <noscript>
+                <p>JavaScript is required for the embedded player.</p>
+              </noscript>
+            </div>
+          )
+        }
         <a class="watch" href={relic.data.destination} target="_blank" rel="noopener noreferrer">
-          Open the moving relic
+          Open at {relic.data.platform ?? destination.hostname}
         </a>
       </article>
     </main>
+
+    <script>
+      document.querySelectorAll("[data-tiktok-player]").forEach((shell) => {
+        const button = shell.querySelector("[data-load-player]");
+        if (!(button instanceof HTMLButtonElement)) return;
+
+        button.addEventListener(
+          "click",
+          () => {
+            const src = shell.getAttribute("data-src");
+            if (!src) return;
+
+            const iframe = document.createElement("iframe");
+            iframe.src = src;
+            iframe.title = "TikTok video player";
+            iframe.loading = "lazy";
+            iframe.allow = "autoplay; fullscreen";
+            iframe.allowFullscreen = true;
+            shell.replaceChildren(iframe);
+          },
+          { once: true },
+        );
+      });
+    </script>
   </body>
 </html>
 
@@ -69,6 +119,30 @@ const { Content } = await render(relic);
   img { display: block; width: 100%; border: 1px solid rgba(232, 188, 96, .26); border-radius: 6px; }
   .body { color: #ded2bd; line-height: 1.8; }
   .body :global(a) { color: #f1d59b; }
+  .player-shell {
+    display: grid;
+    place-items: center;
+    width: min(100%, 420px);
+    aspect-ratio: 9 / 16;
+    margin: 2rem auto 0;
+    padding: 2rem;
+    border: 1px solid rgba(232, 188, 96, .35);
+    border-radius: 6px;
+    background: #11100d;
+    text-align: center;
+  }
+  .player-shell p { max-width: 17rem; margin: 0 0 1.25rem; color: #c9bda7; line-height: 1.65; }
+  .player-shell button {
+    padding: .85rem 1rem;
+    border: 1px solid rgba(232, 188, 96, .65);
+    border-radius: 4px;
+    background: transparent;
+    color: #f1d59b;
+    font: 600 .85rem "Cinzel", serif;
+    cursor: pointer;
+  }
+  .player-shell button:hover, .player-shell button:focus-visible { border-color: #f7d995; color: #fff0ca; }
+  .player-shell :global(iframe) { width: 100%; height: 100%; border: 0; border-radius: 6px; }
   .watch { display: inline-block; margin-top: 2rem; padding: .85rem 1rem; border: 1px solid rgba(232, 188, 96, .5); border-radius: 4px; }
   @media (max-width: 640px) { main { width: min(100% - 1.5rem, 760px); padding-top: 5.5rem; } article { padding-top: 2.25rem; } }
 </style>

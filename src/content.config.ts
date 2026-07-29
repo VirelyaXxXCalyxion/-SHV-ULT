@@ -142,6 +142,7 @@ const videoRelics = defineCollection({
     summary: z.string().optional(),
     image: z.string().optional(),
     platform: z.string().optional(),
+    tiktokPostId: z.string().regex(/^\d+$/).optional(),
   }),
 });
 
