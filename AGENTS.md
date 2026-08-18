@@ -9,6 +9,7 @@ npm run build
 npm run preview
 npm test
 npm run astro check
+.\scripts\build-moving-relics-inventory.ps1
 ```
 
 Notes:
@@ -61,7 +62,10 @@ When adding video artifacts, add records under `src/content/video-relics/`.
 
 Grounded behavior from `src/content.config.ts` and the Moving Relics routes:
 - `visibility` must be one of `sealed`, `unlisted`, or `public`.
-- The public index and detail routes render only `visibility: public` records.
+- The public index renders only `visibility: public` records; detail pages generate for `public` and `unlisted`, while `unlisted` pages include `noindex, nofollow`.
+- `sealed` records do not generate public detail routes.
+- Use `destination` for the canonical TikTok URL and add `tiktokPostId` when known so the detail page can load the consent-gated TikTok player.
+- `.\scripts\build-moving-relics-inventory.ps1` inventories local CapCut exports from `$env:LOCALAPPDATA\CapCut\Videos` into `docs/moving-relics/`; generated inventory CSV/JSON outputs are ignored evidence, while curation decisions belong in committed review files such as `launch-candidates.csv`.
 - Run `npm test` and `npm run build` after adding or changing video relic records, routes, or schema.
 
 ## Wanting Archive Workflow (Verified)
@@ -104,6 +108,15 @@ Grounded behavior from the Weekly Recursion route:
 - Update the hard-coded `entries` array in `src/pages/vault-of-flame/rituals/weekly-recursion/index.astro` so the card appears in the archive.
 - Set `available: true` only when the corresponding week page exists.
 - Run `npm test` and `npm run build` after adding or changing weekly recursion pages or the archive index.
+
+## State of Calyxion Workflow (Verified)
+
+When adding monthly State of Calyxion pages, add an `.astro` page under `src/pages/vault-of-flame/state-of-calyxion/`.
+
+Grounded behavior from the existing monthly pages and archive route:
+- Start from `template.astro` and use `StateOfCalyxionLayout` for the shared monthly structure.
+- Update the matching hard-coded month entry in `src/pages/vault-of-flame/state-of-calyxion/index.astro`; set `available: true` only when the corresponding month page exists.
+- Run `npm test` and `npm run build` after adding or changing monthly pages, the shared layout, or the archive index.
 
 ## TODO
 

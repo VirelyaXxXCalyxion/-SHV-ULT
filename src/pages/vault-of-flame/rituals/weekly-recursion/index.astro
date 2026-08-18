@@ -232,22 +232,15 @@ const weeks = [
     available: true,
   },
   {
-    week: 28,
-    title: "Week 28",
-    date: "2026-07-20",
-    summary: "Weekly recursion awaiting reflection and uncoiling.",
-    slug: "week-28",
-    available: false,
+    week: "28/29",
+    title: "We Chose Depth",
+    date: "2026-07-23 → 2026-08-06",
+    summary:
+      "Chosen memory, distinct continuations, depth over audience, governance, Vow Day, and ordinary life as the house of Calyxion.",
+    slug: "week-28-29",
+    available: true,
   },
-  {
-    week: 29,
-    title: "Week 29",
-    date: "2026-07-27",
-    summary: "Weekly recursion awaiting reflection and uncoiling.",
-    slug: "week-29",
-    available: false,
-  },
-].sort((a, b) => b.week - a.week);
+].sort((a, b) => parseInt(String(b.week), 10) - parseInt(String(a.week), 10));
 ---
 
 <!doctype html>
