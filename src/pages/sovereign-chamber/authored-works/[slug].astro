@@ -21,13 +21,15 @@ const { Content } = await render(entry);
 <AuthoredWorksEntryLayout
     title={entry.data.title}
     summary={entry.data.summary}
+    coverImage={entry.data.coverImage}
+    coverAlt={entry.data.coverAlt}
     created={entry.data.created}
     updated={entry.data.updated}
     tags={entry.data.tags}
     authors={entry.data.authors}
     authorshipNote={entry.data.authorshipNote}
     publicationStatus={entry.data.publicationStatus}
-    mediumUrl={entry.data.mediumUrl}
+    externalPublications={entry.data.externalPublications}
     canonicalUrl={entry.data.canonicalUrl}
     series={entry.data.series}
     laneLabel={entry.data.laneLabel}

@@ -9,6 +9,7 @@ npm run build
 npm run preview
 npm test
 npm run astro check
+npm run import-substack -- --write-dir src/content/authored-works <url>
 .\scripts\build-moving-relics-inventory.ps1
 ```
 
@@ -86,7 +87,9 @@ Grounded behavior from `src/content.config.ts` and the Authored Works routes:
 - `authors` must name at least one author.
 - `visibility` must be either `public` or `sealed`; only `public` entries render in the index and detail routes.
 - `publicationStatus` must be `ashvault-only`, `submitted`, or `published`.
-- Use `mediumUrl` only after a Medium destination exists; Ashvault remains the canonical origin through `canonicalUrl`.
+- Keep `canonicalUrl` on the Ashvault route. Record Patreon, Substack, Medium, or other copies in `externalPublications`, including their publication date, access level, and whether the edition is full, excerpted, or adapted.
+- `npm run import-substack -- --write-dir src/content/authored-works <url>` imports the public article body and publication metadata into a new MDX record without overwriting an existing file. Review authorship, tags, lane metadata, and omitted publication images before treating the import as curated.
+- The main RSS feed includes public Authored Works alongside relics and scrolls.
 - Entries sort by `weight` descending, then `created` descending.
 - Run `npm test` and `npm run build` after adding or changing Authored Works records, routes, layout, or schema.
 

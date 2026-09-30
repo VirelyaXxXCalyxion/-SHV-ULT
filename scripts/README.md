@@ -64,6 +64,7 @@ Both scripts process images in:
 - `public/images/relics/`
 - `public/images/scrolls/`
 - `public/images/artifacts/`
+- `public/images/authored-works/`
 - `public/images/relics-sealed/`
 
 If you add a new image bucket, update `imageDirectories` in **both** scripts:

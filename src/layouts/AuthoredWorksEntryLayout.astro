@@ -4,13 +4,15 @@ import MainNav from "../components/MainNav.astro";
 const {
     title,
     summary,
+    coverImage,
+    coverAlt = "",
     created,
     updated,
     tags = [],
     authors = [],
     authorshipNote,
     publicationStatus = "ashvault-only",
-    mediumUrl,
+    externalPublications = [],
     canonicalUrl,
     series,
     disclosure,
@@ -24,6 +26,7 @@ const formattedCreated = created
           year: "numeric",
           month: "long",
           day: "numeric",
+          timeZone: "UTC",
       })
     : null;
 
@@ -32,18 +35,30 @@ const formattedUpdated = updated
           year: "numeric",
           month: "long",
           day: "numeric",
+          timeZone: "UTC",
       })
     : null;
 
 const publicationLabels = {
     "ashvault-only": "Ashvault Origin",
-    submitted: "Submitted to Medium",
-    published: "Carried to Medium",
+    submitted: "Submitted Beyond the Vault",
+    published: "Published Beyond the Vault",
 };
 
 const publicationLabel =
     publicationLabels[publicationStatus as keyof typeof publicationLabels] ??
     publicationStatus;
+
+const platformLabels = {
+    patreon: "Patreon",
+    substack: "Substack",
+    medium: "Medium",
+    other: "External Publication",
+};
+
+const socialImage = coverImage
+    ? new URL(coverImage, Astro.site ?? "https://ashvault.ink").toString()
+    : "https://ashvault.ink/images/ashvault-og.png";
 ---
 
 <!doctype html>
@@ -55,6 +70,16 @@ const publicationLabel =
         <title>{title} — The Sovereign Chamber</title>
         {summary && <meta name="description" content={summary} />}
         {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+        <meta property="og:type" content="article" />
+        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+        <meta property="og:title" content={`${title} — Ashvault`} />
+        {summary && <meta property="og:description" content={summary} />}
+        <meta property="og:image" content={socialImage} />
+        <meta property="twitter:card" content="summary_large_image" />
+        {canonicalUrl && <meta property="twitter:url" content={canonicalUrl} />}
+        <meta property="twitter:title" content={`${title} — Ashvault`} />
+        {summary && <meta property="twitter:description" content={summary} />}
+        <meta property="twitter:image" content={socialImage} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -109,17 +134,43 @@ const publicationLabel =
                     }
 
                     {
-                        mediumUrl && (
-                            <div class="sovereign-link-row">
+                        externalPublications.length > 0 && (
+                            <div
+                                class="sovereign-link-row"
+                                aria-label="External publications"
+                            >
+                                {externalPublications.map((publication: {
+                                    platform: keyof typeof platformLabels;
+                                    url: string;
+                                    label?: string;
+                                }) => {
+                                    const platformLabel =
+                                        publication.label ??
+                                        platformLabels[
+                                            publication.platform as keyof typeof platformLabels
+                                        ] ??
+                                        publication.platform;
+
+                                    return (
                                 <a
                                     class="sovereign-link"
-                                    href={mediumUrl}
+                                            href={publication.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    Read on Medium
+                                            Read on {platformLabel}
                                 </a>
+                                    );
+                                })}
                             </div>
+                        )
+                    }
+
+                    {
+                        coverImage && (
+                            <figure class="sovereign-entry-cover">
+                                <img src={coverImage} alt={coverAlt} />
+                            </figure>
                         )
                     }
 

@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "test": "astro check",
     "astro": "astro",
+    "import-substack": "node scripts/import-substack-authored-work.mjs",
     "watermark": "node scripts/watermark-images.js",
     "add-exif": "node scripts/add-exif-metadata.js",
     "protect-images": "npm run add-exif && npm run watermark"

@@ -468,6 +468,18 @@ a {
     line-height: 1.75;
 }
 
+.sovereign-entry-cover {
+    max-width: 70ch;
+    margin: 1.4rem 0 0;
+}
+
+.sovereign-entry-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(235, 225, 207, 0.12);
+}
+
 .sovereign-entry-prose {
     max-width: 70ch;
     margin-top: 1.4rem;

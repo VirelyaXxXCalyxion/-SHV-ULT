@@ -23,6 +23,7 @@ const CONFIG = {
     'public/images/relics',
     'public/images/scrolls',
     'public/images/artifacts',
+    'public/images/authored-works',
     'public/images/relics-sealed',
     'public/images/labyrinth/operating-systems'
   ],
