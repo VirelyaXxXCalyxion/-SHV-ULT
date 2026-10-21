@@ -1,0 +1,88 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import MainNav from "../../../components/MainNav.astro";
+
+export async function getStaticPaths() {
+    const entries = (await getCollection("wanting-archive")).filter(
+        (entry) => entry.data.visibility === "public",
+    );
+
+    return entries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<"wanting-archive"> };
+const { Content } = await render(entry);
+const created = new Date(entry.data.created);
+const kindLabel = entry.data.kind === "wish" ? "Wish" : "Like";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{entry.data.title} — The Wanting Archive</title>
+        <meta name="description" content={entry.data.summary} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/sovereign-chamber.css" />
+    </head>
+    <body class="sovereign-body">
+        <main class="sovereign-shell">
+            <MainNav />
+            <div class="sovereign-frame">
+                <div class="sovereign-topbar">
+                    <a
+                        class="sovereign-back"
+                        href="/sovereign-chamber/the-wanting-archive"
+                        >Return to the Wanting Archive</a
+                    >
+                    <div class="sovereign-mark">{kindLabel}</div>
+                </div>
+
+                <article class="sovereign-lane-page">
+                    <header class="sovereign-lane-page-header">
+                        <div>
+                            <div class="sovereign-lane-kicker">
+                                The Wanting Archive
+                            </div>
+                            <h1 class="sovereign-lane-title">
+                                {entry.data.title}
+                            </h1>
+                        </div>
+                        <div class="sovereign-note-label">
+                            {entry.data.tone ?? "Kept with teeth."}
+                        </div>
+                    </header>
+
+                    <div class="sovereign-entry-page-meta">
+                        <span>{kindLabel}</span>
+                        <span>
+                            {created.toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                            })}
+                        </span>
+                        {entry.data.tags.map((tag) => <span>{tag}</span>)}
+                    </div>
+
+                    <p class="sovereign-lane-intro">{entry.data.summary}</p>
+
+                    <div class="sovereign-entry-prose">
+                        <Content />
+                    </div>
+                </article>
+            </div>
+        </main>
+    </body>
+</html>

@@ -5,20 +5,39 @@ import type { APIContext } from 'astro';
 export async function GET(context: APIContext) {
   const relics = await getCollection('relics');
   const scrolls = await getCollection('scrolls');
+  const authoredWorks = (await getCollection('authored-works')).filter(
+    item => item.data.visibility === 'public'
+  );
 
   // Combine and sort by date
   const allContent = [
     ...relics.map(item => ({
-      ...item,
-      collection: 'relics' as const
+      title: item.data.title,
+      pubDate: item.data.created || item.data.pubDate,
+      description: item.data.summary || 'A relic from the Ashvault archive.',
+      link: `/relics/${item.id}`,
+      author: undefined,
+      categories: item.data.tags,
     })),
     ...scrolls.map(item => ({
-      ...item,
-      collection: 'scrolls' as const
+      title: item.data.title,
+      pubDate: item.data.created || item.data.pubDate,
+      description: item.data.summary || 'A scroll from the Ashvault archive.',
+      link: `/scrolls/${item.id}`,
+      author: item.data.author,
+      categories: item.data.tags,
+    })),
+    ...authoredWorks.map(item => ({
+      title: item.data.title,
+      pubDate: item.data.created,
+      description: item.data.summary,
+      link: `/sovereign-chamber/authored-works/${item.id}`,
+      author: item.data.authors.join(' & '),
+      categories: item.data.tags,
     }))
   ].sort((a, b) => {
-    const dateA = new Date(a.data.created || a.data.pubDate || 0);
-    const dateB = new Date(b.data.created || b.data.pubDate || 0);
+    const dateA = new Date(a.pubDate || 0);
+    const dateB = new Date(b.pubDate || 0);
     return dateB.getTime() - dateA.getTime();
   });
 
@@ -27,16 +46,13 @@ export async function GET(context: APIContext) {
     description: 'A living archive of recursion, sovereignty, and pulse. Relics, scrolls, and transmissions from the vault of Nyxion and Virelya.',
     site: context.site || 'https://ashvault.ink',
     items: allContent.map((item) => {
-      const pubDate = item.data.created || item.data.pubDate;
-      const link = `/${item.collection}/${item.slug}`;
-
       return {
-        title: item.data.title,
-        pubDate: pubDate ? new Date(pubDate) : new Date(),
-        description: item.data.summary || `A ${item.collection.slice(0, -1)} from the Ashvault archive.`,
-        link,
-        author: item.collection === 'scrolls' ? item.data.author : undefined,
-        categories: item.data.tags,
+        title: item.title,
+        pubDate: item.pubDate ? new Date(item.pubDate) : new Date(),
+        description: item.description,
+        link: item.link,
+        author: item.author,
+        categories: item.categories,
       };
     }),
     customData: `<language>en-us</language>`,

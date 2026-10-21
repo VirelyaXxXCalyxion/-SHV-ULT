@@ -1,0 +1,485 @@
+/* Continuity Cathedral - public-safe chamber architecture */
+
+:root {
+  --cathedral-bg: #070707;
+  --cathedral-stone: #111114;
+  --cathedral-stone-soft: rgba(24, 24, 28, 0.88);
+  --cathedral-line: rgba(221, 181, 105, 0.25);
+  --cathedral-line-cool: rgba(129, 168, 183, 0.22);
+  --cathedral-gold: #ddb569;
+  --cathedral-ember: #d2773d;
+  --cathedral-blue: #81a8b7;
+  --cathedral-red: #802f29;
+  --cathedral-text: #eee7dc;
+  --cathedral-muted: #bdb2aa;
+  --cathedral-dim: #877d78;
+  --cathedral-font-display: "Cinzel", serif;
+  --cathedral-font-body: "Lora", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body.cathedral-body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--cathedral-text);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(129, 168, 183, 0.13), transparent 30%),
+    radial-gradient(circle at 14% 18%, rgba(128, 47, 41, 0.16), transparent 24%),
+    linear-gradient(180deg, #0b0b0d 0%, var(--cathedral-bg) 58%, #050505 100%);
+  font-family: var(--cathedral-font-body);
+}
+
+.cathedral-shell {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1rem 0 4rem;
+}
+
+.cathedral-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--cathedral-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
+    var(--cathedral-stone-soft);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.45),
+    inset 0 0 80px rgba(221, 181, 105, 0.045);
+}
+
+.cathedral-frame::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(221, 181, 105, 0.11);
+  pointer-events: none;
+}
+
+.cathedral-door-frame {
+  display: grid;
+  min-height: calc(100vh - 110px);
+  background:
+    radial-gradient(circle at 50% 18%, rgba(221, 181, 105, 0.08), transparent 22%),
+    radial-gradient(circle at 50% 100%, rgba(129, 168, 183, 0.08), transparent 36%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0.004)),
+    var(--cathedral-stone-soft);
+}
+
+.cathedral-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  min-height: min(760px, calc(100vh - 140px));
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.cathedral-door-page {
+  position: relative;
+  display: grid;
+  min-height: calc(100vh - 110px);
+  padding: clamp(1rem, 4vw, 2.8rem);
+  place-items: center;
+}
+
+.cathedral-kicker,
+.cathedral-label {
+  margin: 0 0 0.85rem;
+  color: var(--cathedral-blue);
+  font-family: var(--cathedral-font-display);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cathedral-title {
+  margin: 0 0 1.15rem;
+  color: var(--cathedral-text);
+  font-family: var(--cathedral-font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.cathedral-subtitle {
+  max-width: 760px;
+  margin: 0;
+  color: var(--cathedral-muted);
+  font-size: clamp(1.04rem, 2vw, 1.2rem);
+  line-height: 1.75;
+}
+
+.cathedral-law {
+  margin: 1.6rem 0 0;
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--cathedral-gold);
+  background: rgba(221, 181, 105, 0.08);
+  color: var(--cathedral-text);
+  font-family: var(--cathedral-font-display);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.45;
+}
+
+.cathedral-door {
+  position: relative;
+  display: grid;
+  align-self: center;
+  width: min(520px, calc(100vw - 3rem));
+  min-height: min(760px, calc(100vh - 180px));
+  padding: clamp(1rem, 4vw, 2.2rem);
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(221, 181, 105, 0.34);
+  border-radius: 48% 48% 0 0 / 10% 10% 0 0;
+  color: var(--cathedral-text);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.72), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.72)),
+    radial-gradient(circle at 50% 36%, rgba(221, 181, 105, 0.13), transparent 18%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 18%),
+    linear-gradient(180deg, #171412 0%, #080808 58%, #030303 100%);
+  box-shadow:
+    inset 0 0 90px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 10px rgba(221, 181, 105, 0.025),
+    inset 0 -30px 80px rgba(0, 0, 0, 0.82),
+    0 30px 80px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+
+.cathedral-door::before,
+.cathedral-door::after {
+  content: "";
+  position: absolute;
+  inset: 1.1rem;
+  border: 1px solid rgba(221, 181, 105, 0.2);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cathedral-door::after {
+  inset: auto 50% 0;
+  width: 1px;
+  height: 84%;
+  border: 0;
+  background: linear-gradient(180deg, transparent, rgba(221, 181, 105, 0.22), transparent);
+}
+
+.cathedral-door-arch {
+  position: absolute;
+  inset: 2.15rem;
+  border: 1px solid rgba(129, 168, 183, 0.16);
+  border-radius: inherit;
+  box-shadow: inset 0 0 60px rgba(129, 168, 183, 0.08);
+}
+
+.cathedral-door-arch::before,
+.cathedral-door-arch::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  bottom: 4%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(221, 181, 105, 0.14), transparent);
+}
+
+.cathedral-door-arch::before {
+  left: 31%;
+}
+
+.cathedral-door-arch::after {
+  right: 31%;
+}
+
+.cathedral-door-inscription {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(0.55rem, 1.5vw, 0.8rem);
+  width: min(100%, 390px);
+  padding: clamp(1rem, 4vw, 1.7rem) clamp(0.8rem, 3vw, 1.5rem);
+  border-top: 1px solid rgba(221, 181, 105, 0.18);
+  border-bottom: 1px solid rgba(221, 181, 105, 0.18);
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(221, 181, 105, 0.74);
+  font-family: var(--cathedral-font-display);
+  font-size: clamp(0.78rem, 1.7vw, 1rem);
+  line-height: 1.35;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(221, 181, 105, 0.08);
+}
+
+.cathedral-door-inscription strong {
+  margin-top: 0.35rem;
+  color: rgba(238, 231, 220, 0.86);
+  font-weight: 600;
+}
+
+.cathedral-door-threshold {
+  position: absolute;
+  z-index: 1;
+  right: 1.4rem;
+  bottom: 1.2rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid rgba(221, 181, 105, 0.34);
+  background: rgba(0, 0, 0, 0.56);
+  color: var(--cathedral-gold);
+  font-family: var(--cathedral-font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cathedral-door:hover {
+  border-color: rgba(221, 181, 105, 0.58);
+  color: var(--cathedral-text);
+  transform: translateY(-2px);
+}
+
+.cathedral-well-preview {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.26)),
+    rgba(255, 255, 255, 0.02);
+}
+
+.cathedral-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+}
+
+.cathedral-button,
+.cathedral-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--cathedral-line);
+  color: var(--cathedral-text);
+  background: rgba(255, 255, 255, 0.035);
+  font-family: var(--cathedral-font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.cathedral-button--primary {
+  border-color: rgba(221, 181, 105, 0.48);
+  background: linear-gradient(135deg, rgba(210, 119, 61, 0.9), rgba(128, 47, 41, 0.9));
+}
+
+.cathedral-button:hover,
+.cathedral-link:hover {
+  border-color: var(--cathedral-gold);
+  color: var(--cathedral-gold);
+}
+
+.return-table {
+  position: relative;
+  min-height: 470px;
+  border: 1px solid var(--cathedral-line);
+  background:
+    radial-gradient(circle at 50% 38%, rgba(221, 181, 105, 0.18), transparent 20%),
+    radial-gradient(circle at 50% 100%, rgba(129, 168, 183, 0.11), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.42));
+}
+
+.return-table::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(72%, 360px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(221, 181, 105, 0.32);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    inset 0 0 36px rgba(221, 181, 105, 0.08),
+    0 0 38px rgba(221, 181, 105, 0.08);
+}
+
+.return-table-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(46%, 230px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(129, 168, 183, 0.35);
+  border-radius: 50%;
+  color: var(--cathedral-gold);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: var(--cathedral-font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.table-token {
+  position: absolute;
+  width: 9.5rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(221, 181, 105, 0.24);
+  background: rgba(7, 7, 7, 0.72);
+  color: var(--cathedral-muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.table-token strong {
+  display: block;
+  color: var(--cathedral-text);
+  font-family: var(--cathedral-font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.table-token--hand { left: 8%; top: 12%; }
+.table-token--key { right: 8%; top: 13%; }
+.table-token--coffee { left: 10%; bottom: 12%; }
+.table-token--drawer { right: 9%; bottom: 12%; }
+.table-token--page { left: 50%; bottom: 4%; transform: translateX(-50%); }
+
+.cathedral-section {
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-top: 1px solid var(--cathedral-line);
+}
+
+.cathedral-section h2 {
+  margin: 0 0 1rem;
+  font-family: var(--cathedral-font-display);
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.cathedral-section p {
+  max-width: 850px;
+  color: var(--cathedral-muted);
+  line-height: 1.75;
+}
+
+.cathedral-grid,
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.cathedral-card,
+.state-card {
+  min-height: 210px;
+  padding: 1rem;
+  border: 1px solid var(--cathedral-line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cathedral-card h3,
+.state-card h3 {
+  margin: 0 0 0.65rem;
+  color: var(--cathedral-text);
+  font-family: var(--cathedral-font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0;
+}
+
+.cathedral-card p,
+.state-card p {
+  margin: 0;
+  color: var(--cathedral-muted);
+  font-size: 0.96rem;
+  line-height: 1.62;
+}
+
+.doctrine-list {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 820px;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.doctrine-list li {
+  padding: 0.75rem 0.9rem;
+  border-left: 2px solid var(--cathedral-blue);
+  background: rgba(129, 168, 183, 0.07);
+  color: var(--cathedral-muted);
+}
+
+.private-boundary {
+  border-color: rgba(128, 47, 41, 0.38);
+  background:
+    linear-gradient(135deg, rgba(128, 47, 41, 0.14), transparent),
+    rgba(255, 255, 255, 0.025);
+}
+
+@media (max-width: 940px) {
+  .cathedral-hero,
+  .cathedral-grid,
+  .state-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cathedral-hero {
+    min-height: auto;
+  }
+
+  .cathedral-door {
+    min-height: 640px;
+  }
+}
+
+@media (max-width: 680px) {
+  .cathedral-shell {
+    width: min(100% - 1rem, 1180px);
+  }
+
+  .cathedral-hero,
+  .cathedral-section {
+    padding: 1.25rem;
+  }
+
+  .cathedral-door {
+    width: min(100%, 390px);
+    min-height: 560px;
+    padding: 1rem;
+  }
+
+  .cathedral-door::before {
+    inset: 0.8rem;
+  }
+
+  .cathedral-door-arch {
+    inset: 1.5rem;
+  }
+
+  .cathedral-door-threshold {
+    right: 1rem;
+    bottom: 0.9rem;
+  }
+
+  .return-table {
+    min-height: 560px;
+  }
+
+  .table-token {
+    width: calc(50% - 1.2rem);
+  }
+
+  .table-token--hand { left: 0.75rem; top: 0.75rem; }
+  .table-token--key { right: 0.75rem; top: 0.75rem; }
+  .table-token--coffee { left: 0.75rem; bottom: 5rem; }
+  .table-token--drawer { right: 0.75rem; bottom: 5rem; }
+  .table-token--page { bottom: 0.75rem; width: calc(100% - 1.5rem); }
+}

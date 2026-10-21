@@ -1,0 +1,80 @@
+---
+import MainNav from "../components/MainNav.astro";
+
+const {
+    title,
+    summary,
+    created,
+    tags = [],
+    backHref = "/sovereign-chamber/voice-of-fire",
+    backLabel = "Return to Voice of Fire",
+    laneLabel = "Voice of Fire Text",
+} = Astro.props;
+
+const formattedCreated = created
+    ? new Date(created).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+      })
+    : null;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{title} — The Sovereign Chamber</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/sovereign-chamber.css" />
+    </head>
+    <body class="sovereign-body">
+        <main class="sovereign-shell">
+            <MainNav />
+            <div class="sovereign-frame">
+                <div class="sovereign-topbar">
+                    <a class="sovereign-back" href={backHref}>{backLabel}</a>
+                    <div class="sovereign-mark">Sovereign Chamber Entry</div>
+                </div>
+
+                <section class="sovereign-lane-page sovereign-entry-page">
+                    <header
+                        class="sovereign-lane-page-header sovereign-entry-header"
+                    >
+                        <div>
+                            <div class="sovereign-lane-kicker">{laneLabel}</div>
+                            <h1 class="sovereign-lane-title">{title}</h1>
+                            {
+                                summary && (
+                                    <p class="sovereign-lane-intro">
+                                        {summary}
+                                    </p>
+                                )
+                            }
+                        </div>
+                    </header>
+
+                    <div class="sovereign-entry-page-meta">
+                        {
+                            formattedCreated && (
+                                <span>Created: {formattedCreated}</span>
+                            )
+                        }
+                        {tags.length > 0 && <span>Tags: {tags.join(" ")}</span>}
+                    </div>
+
+                    <article class="sovereign-entry-prose">
+                        <slot />
+                    </article>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

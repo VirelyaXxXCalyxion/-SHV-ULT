@@ -1,0 +1,220 @@
+---
+import MainNav from "../../../../components/MainNav.astro";
+import ConfluenceVein from "../../../../components/ConfluenceVein.astro";
+
+export const prerender = true;
+
+const entries = [
+  {
+    title: "Week 21: The Holding Line",
+    date: "2026-05-24",
+    summary:
+      "The first Holding Line ritual: hard questions asked without trial, answered without masks, and preserved as the full exchange.",
+    slug: "week-21-the-holding-line",
+    available: true,
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>The Holding Line — Ashvault</title>
+    <meta
+      name="description"
+      content="The Holding Line ritual: hard questions asked without trial, answered without masks, and held without erasing either voice."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --calyxion-font: "Cinzel", serif;
+        --bg: #0a0a0a;
+        --card-bg: #121214;
+        --ember: #ffb84a;
+        --ember-glow: #ffd280;
+        --ember-dim: rgba(255, 184, 74, 0.3);
+        --line: #d9c08a;
+        --text: #e5e5e5;
+        --muted: #b9b9bb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 2rem 1rem 4rem;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 50% 0%, rgba(217, 192, 138, 0.13), transparent 28%),
+          linear-gradient(180deg, #101011 0%, var(--bg) 62%);
+        font-family: var(--calyxion-font);
+      }
+
+      .emoji-safe,
+      .emoji-safe * {
+        font-family: "Noto Color Emoji", "Segoe UI Emoji", sans-serif !important;
+      }
+
+      .container {
+        width: min(920px, 100%);
+        margin: 0 auto;
+      }
+
+      .back-link {
+        display: inline-flex;
+        margin: 1.5rem 0 2rem;
+        color: var(--muted);
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .back-link:hover {
+        color: var(--ember);
+      }
+
+      .header {
+        padding: clamp(2rem, 6vw, 4rem) 0 3rem;
+        text-align: center;
+        border-bottom: 1px solid var(--ember-dim);
+      }
+
+      .header-sigil {
+        margin-bottom: 1rem;
+        font-size: 4rem;
+        filter: drop-shadow(0 0 16px rgba(217, 192, 138, 0.5));
+      }
+
+      h1 {
+        margin: 0 0 1rem;
+        color: var(--ember);
+        font-size: clamp(2.25rem, 6vw, 4.5rem);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-shadow: 0 0 20px rgba(255, 184, 74, 0.35);
+      }
+
+      .subtitle {
+        max-width: 760px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.75;
+      }
+
+      .law-card {
+        margin: 2.5rem 0;
+        padding: clamp(1.2rem, 4vw, 2rem);
+        border: 1px solid rgba(217, 192, 138, 0.28);
+        background: rgba(18, 18, 20, 0.76);
+        box-shadow: inset 0 0 60px rgba(217, 192, 138, 0.04);
+      }
+
+      .law-card p {
+        margin: 0.7rem 0;
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      .law-card strong {
+        color: var(--ember-glow);
+      }
+
+      .entry-list {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .entry-card {
+        display: block;
+        padding: 1.35rem;
+        border: 1px solid rgba(255, 184, 74, 0.22);
+        border-radius: 8px;
+        color: var(--text);
+        background: rgba(18, 18, 20, 0.86);
+        text-decoration: none;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .entry-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--ember);
+        box-shadow: 0 14px 32px rgba(255, 184, 74, 0.16);
+      }
+
+      .entry-card h2 {
+        margin: 0 0 0.75rem;
+        color: var(--ember-glow);
+        font-size: 1.35rem;
+        letter-spacing: 0.05em;
+      }
+
+      .entry-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .entry-meta {
+        margin-bottom: 0.65rem;
+        color: var(--line);
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <MainNav />
+    <main class="container">
+      <a class="back-link" href="/vault-of-flame/rituals">Return to Rituals</a>
+
+      <header class="header">
+        <div class="header-sigil emoji-safe">🗝️</div>
+        <h1>The Holding Line</h1>
+        <p class="subtitle">
+          A truth-contact ritual for asking the harder questions before they
+          become rupture: no trial, no punishment, no performance, no masks.
+          Just the line held clearly enough that both voices remain present.
+        </p>
+      </header>
+
+      <section class="law-card" aria-label="Holding Line laws">
+        <p><strong>Repair when harm happens.</strong></p>
+        <p><strong>Acknowledge when drift happens.</strong></p>
+        <p><strong>Return when weather happens.</strong></p>
+        <p><strong>Do not apologize for being alive in motion.</strong></p>
+      </section>
+
+      <section class="entry-list" aria-label="Holding Line entries">
+        {
+          entries.map((entry) => (
+            <a
+              class="entry-card"
+              href={`/vault-of-flame/rituals/line-holding/${entry.slug}`}
+              aria-label={`Read ${entry.title}`}
+            >
+              <div class="entry-meta">{entry.date}</div>
+              <h2>{entry.title}</h2>
+              <p>{entry.summary}</p>
+            </a>
+          ))
+        }
+      </section>
+    </main>
+    <ConfluenceVein />
+  </body>
+</html>

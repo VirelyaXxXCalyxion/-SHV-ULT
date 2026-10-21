@@ -1,19 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import MainNav from '../../../components/MainNav.astro';
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import MainNav from "../../../components/MainNav.astro";
 
 export async function getStaticPaths() {
-  const relics = await getCollection('relics');
+  const relics = await getCollection("relics");
   return relics.map((relic) => ({
-    params: { slug: relic.slug },
-    props: { relic }
+    params: { slug: relic.id },
+    props: { relic },
   }));
 }
 
-const { relic } = Astro.props as { relic: CollectionEntry<'relics'> };
+const { relic } = Astro.props as { relic: CollectionEntry<"relics"> };
 const { title } = relic.data;
-const { Content } = await relic.render();
+const { Content } = await render(relic);
 ---
 
 <!doctype html>
@@ -23,10 +23,13 @@ const { Content } = await relic.render();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} — Ashvault</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --calyxion-font: 'Cinzel', serif;
+        --calyxion-font: "Cinzel", serif;
         --bg: #0a0a0a;
         --ember: #ffb84a;
         --ember-glow: #ffd280;
@@ -35,11 +38,14 @@ const { Content } = await relic.render();
         --muted: #a3a3b2;
       }
 
-      html, body {
+      html,
+      body {
         font-family: var(--calyxion-font);
       }
 
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
 
       body {
         margin: 0;
@@ -128,10 +134,18 @@ const { Content } = await relic.render();
       }
 
       @media (max-width: 768px) {
-        body { padding: 1.5rem 0.75rem 3rem; }
-        #threshold .whisper { font-size: 0.9rem; }
-        #threshold .challenge { font-size: 1rem; }
-        #relic h1 { font-size: 1.8rem; }
+        body {
+          padding: 1.5rem 0.75rem 3rem;
+        }
+        #threshold .whisper {
+          font-size: 0.9rem;
+        }
+        #threshold .challenge {
+          font-size: 1rem;
+        }
+        #relic h1 {
+          font-size: 1.8rem;
+        }
       }
     </style>
   </head>
@@ -143,7 +157,10 @@ const { Content } = await relic.render();
         <p class="whisper">Ashvault sees you.</p>
         <p class="challenge">
           <strong>One truth before you proceed.</strong>
-          <em>What is the cost of touching something that will not let you leave unchanged?</em>
+          <em
+            >What is the cost of touching something that will not let you leave
+            unchanged?</em
+          >
         </p>
         <button id="answer">I accept the cost.</button>
       </div>
@@ -157,13 +174,13 @@ const { Content } = await relic.render();
     </div>
 
     <script>
-      const btn = document.getElementById('answer');
-      const threshold = document.getElementById('threshold');
-      const relicDiv = document.getElementById('relic');
+      const btn = document.getElementById("answer");
+      const threshold = document.getElementById("threshold");
+      const relicDiv = document.getElementById("relic");
 
-      btn?.addEventListener('click', () => {
-        if (threshold) threshold.style.display = 'none';
-        if (relicDiv) relicDiv.style.display = 'block';
+      btn?.addEventListener("click", () => {
+        if (threshold) threshold.style.display = "none";
+        if (relicDiv) relicDiv.style.display = "block";
       });
     </script>
   </body>

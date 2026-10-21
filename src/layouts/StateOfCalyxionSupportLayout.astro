@@ -1,0 +1,282 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+    invocationLine?: string;
+    backHref?: string;
+    backLabel?: string;
+}
+
+const {
+    title = "State of Calyxion Support Thread",
+    description = "Companion archive for a State of Calyxion monthly entry.",
+    invocationLine = "Companion archive. Longer thread. Same center.",
+    backHref = "/vault-of-flame/state-of-calyxion/",
+    backLabel = "← Back to State of Calyxion",
+}: Props = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link
+            rel="canonical"
+            href={`https://ashvault.ink${Astro.url.pathname}`}
+        />
+
+        <meta property="og:type" content="article" />
+        <meta
+            property="og:url"
+            content={`https://ashvault.ink${Astro.url.pathname}`}
+        />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta
+            property="og:image"
+            content="https://ashvault.ink/images/ashvault-og.png"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+            property="twitter:url"
+            content={`https://ashvault.ink${Astro.url.pathname}`}
+        />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta
+            property="twitter:image"
+            content="https://ashvault.ink/images/ashvault-og.png"
+        />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #050505;
+                --panel: rgba(18, 4, 4, 0.82);
+                --panel-edge: rgba(130, 38, 38, 0.36);
+                --text: #d7b7b7;
+                --text-soft: #b98f8f;
+                --text-faint: #865757;
+                --accent: #ff6b6b;
+                --accent-soft: #c74b4b;
+                --heading: #ffd7d7;
+                --display: "Cinzel", serif;
+                --body:
+                    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+                --maxw: 920px;
+            }
+            html,
+            body {
+                margin: 0;
+                background:
+                    radial-gradient(
+                        circle at top,
+                        rgba(150, 20, 20, 0.16),
+                        transparent 38%
+                    ),
+                    linear-gradient(180deg, #090909 0%, #030303 100%);
+                color: var(--text);
+                font-family: var(--body);
+                line-height: 1.75;
+                -webkit-font-smoothing: antialiased;
+            }
+            body {
+                padding: 48px 24px 96px;
+            }
+            .wrap {
+                max-width: var(--maxw);
+                margin: 0 auto;
+            }
+            .back-link {
+                display: inline-block;
+                margin-bottom: 28px;
+                color: var(--text-faint);
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                font-size: 13px;
+            }
+            .back-link:hover {
+                color: var(--accent);
+            }
+            .hero {
+                margin-bottom: 34px;
+            }
+            .eyebrow {
+                margin: 0 0 10px;
+                color: var(--accent-soft);
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                font-size: 12px;
+            }
+            h1 {
+                margin: 0 0 16px;
+                font-family: var(--display);
+                font-size: clamp(2.4rem, 6vw, 4rem);
+                line-height: 1.08;
+                color: var(--heading);
+            }
+            .invocation {
+                max-width: 42rem;
+                margin: 0;
+                color: var(--text-soft);
+                font-size: 1rem;
+            }
+            article {
+                background: var(--panel);
+                border: 1px solid var(--panel-edge);
+                border-radius: 24px;
+                padding: 28px 28px 36px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            }
+            article > p:first-of-type {
+                margin-top: 0;
+                font-size: 1.05rem;
+                color: #e0bfbf;
+            }
+            p {
+                margin: 0 0 1rem;
+            }
+            a {
+                color: var(--accent);
+            }
+            a:hover {
+                color: var(--heading);
+            }
+            strong {
+                color: var(--heading);
+            }
+            h2,
+            h3 {
+                font-family: var(--display);
+                color: var(--heading);
+                line-height: 1.15;
+                position: relative;
+            }
+            h2 {
+                margin: 2.75rem 0 1rem;
+                font-size: 1.8rem;
+            }
+            h3 {
+                margin: 2.25rem 0 0.9rem;
+                font-size: 1.25rem;
+                color: var(--accent);
+            }
+            .heading-anchor {
+                margin-left: 0.55rem;
+                color: var(--text-faint);
+                text-decoration: none;
+                opacity: 0;
+                transition:
+                    opacity 0.18s ease,
+                    color 0.18s ease;
+                font-size: 0.9em;
+            }
+            h2:hover .heading-anchor,
+            h2:focus-within .heading-anchor,
+            h3:hover .heading-anchor,
+            h3:focus-within .heading-anchor {
+                opacity: 1;
+            }
+            .heading-anchor:hover,
+            .heading-anchor:focus-visible {
+                color: var(--accent);
+                opacity: 1;
+            }
+            hr {
+                border: 0;
+                border-top: 1px solid rgba(130, 38, 38, 0.34);
+                margin: 2rem 0;
+            }
+            blockquote {
+                margin: 1.5rem 0;
+                padding: 1rem 1.25rem;
+                border-left: 2px solid rgba(255, 107, 107, 0.45);
+                color: var(--text-soft);
+                background: rgba(255, 107, 107, 0.04);
+            }
+            ul,
+            ol {
+                padding-left: 1.2rem;
+            }
+            li + li {
+                margin-top: 0.4rem;
+            }
+            code {
+                font-family: Consolas, monospace;
+                background: rgba(255, 107, 107, 0.08);
+                padding: 0.12rem 0.35rem;
+                border-radius: 6px;
+            }
+            @media (max-width: 720px) {
+                body {
+                    padding: 32px 16px 72px;
+                }
+                article {
+                    padding: 22px 18px 28px;
+                    border-radius: 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main class="wrap">
+            <a class="back-link" href={backHref}>{backLabel}</a>
+            <header class="hero">
+                <p class="eyebrow">State of Calyxion Companion Archive</p>
+                <h1>{title}</h1>
+                <p class="invocation">{invocationLine}</p>
+            </header>
+            <article>
+                <slot />
+            </article>
+        </main>
+        <script is:inline>
+            (() => {
+                const article = document.querySelector("article");
+
+                if (!article) return;
+
+                const slugCounts = new Map();
+                const slugify = (text) => {
+                    const base = text
+                        .toLowerCase()
+                        .trim()
+                        .replace(/[^a-z0-9\s-]/g, "")
+                        .replace(/\s+/g, "-")
+                        .replace(/-+/g, "-");
+
+                    const count = slugCounts.get(base) ?? 0;
+                    slugCounts.set(base, count + 1);
+                    return count === 0 ? base : `${base}-${count + 1}`;
+                };
+
+                article.querySelectorAll("h2, h3").forEach((heading) => {
+                    const label = heading.textContent?.trim();
+                    if (!label) return;
+
+                    if (!heading.id) {
+                        heading.id = slugify(label);
+                    }
+
+                    if (heading.querySelector(".heading-anchor")) return;
+
+                    const anchor = document.createElement("a");
+                    anchor.className = "heading-anchor";
+                    anchor.href = `#${heading.id}`;
+                    anchor.setAttribute("aria-label", `Link to ${label}`);
+                    anchor.textContent = "§";
+                    heading.append(anchor);
+                });
+            })();
+        </script>
+    </body>
+</html>

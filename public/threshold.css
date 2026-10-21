@@ -52,24 +52,36 @@ body.threshold-body {
 
 @media (max-width: 620px) {
   body.threshold-body {
-    padding: 1.5rem 1.25rem 2.25rem;
+    padding: 1.1rem 1rem 1.8rem;
     align-items: flex-start;
   }
 
   .center {
-    align-items: stretch;
-    text-align: left;
+    width: min(100%, 420px);
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    margin: 0 auto;
+  }
+
+  .sigil {
+    font-size: clamp(2.35rem, 12vw, 3rem);
+    margin-bottom: 0.35rem;
   }
 
   .text {
-    margin-top: 0.25rem;
+    max-width: 100%;
+    margin-top: 0;
   }
 
   .text p {
-    font-size: 0.95rem;
+    font-size: clamp(0.98rem, 4vw, 1.08rem);
+    line-height: 1.48;
   }
 
   .continue {
+    margin-top: 1.35rem;
     align-self: center;
+    padding: 0.5rem 0.95rem;
   }
 }

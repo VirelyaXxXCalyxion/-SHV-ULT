@@ -1,18 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const scrolls = await getCollection('scrolls');
+  const scrolls = await getCollection("scrolls");
   return scrolls.map((scroll) => ({
-    params: { slug: scroll.slug },
-    props: { scroll }
+    params: { slug: scroll.id },
+    props: { scroll },
   }));
 }
 
-const { scroll } = Astro.props as { scroll: CollectionEntry<'scrolls'> };
+const { scroll } = Astro.props as { scroll: CollectionEntry<"scrolls"> };
 const { title, author, image, summary } = scroll.data;
-const { Content } = await scroll.render();
+const { Content } = await render(scroll);
 ---
 
 <html lang="en">
@@ -28,10 +28,11 @@ const { Content } = await scroll.render();
         box-sizing: border-box;
       }
 
-      html, body {
+      html,
+      body {
         background: #0a0a0a;
         color: #ffdb9a;
-        font-family: 'Century Gothic', sans-serif;
+        font-family: "Century Gothic", sans-serif;
         line-height: 1.7;
       }
 
@@ -119,7 +120,8 @@ const { Content } = await scroll.render();
         opacity: 0.9;
       }
 
-      .scroll-content ul, .scroll-content ol {
+      .scroll-content ul,
+      .scroll-content ol {
         margin: 16px 0 16px 24px;
       }
 
@@ -155,13 +157,7 @@ const { Content } = await scroll.render();
         {author && <div class="scroll-author">Inscribed by {author}</div>}
         <h1 class="scroll-title">{title}</h1>
         {summary && <p class="scroll-summary">{summary}</p>}
-        {image && (
-          <img 
-            src={image} 
-            alt={title} 
-            class="scroll-image"
-          />
-        )}
+        {image && <img src={image} alt={title} class="scroll-image" />}
       </header>
 
       <main class="scroll-content">

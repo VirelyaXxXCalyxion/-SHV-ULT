@@ -1,0 +1,170 @@
+---
+import MainNav from '../../components/MainNav.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>The Law of Return - Labyrinth</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :global(*) {
+        box-sizing: border-box;
+      }
+
+      :global(body) {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 24% 18%, rgba(196, 167, 111, 0.08), transparent 34%),
+          radial-gradient(circle at 78% 72%, rgba(98, 98, 120, 0.08), transparent 34%),
+          #050505;
+        color: #aaaab8;
+        font-family: "Cinzel", serif;
+      }
+
+      .chamber-shell {
+        width: min(920px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(1.5rem, 4vw, 3rem) 0 4rem;
+      }
+
+      .chamber {
+        padding: clamp(1.5rem, 5vw, 3rem);
+        border: 1px solid rgba(196, 167, 111, 0.24);
+        border-radius: 10px;
+        background: linear-gradient(145deg, rgba(12, 12, 14, 0.88), rgba(5, 5, 5, 0.96));
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.75), inset 0 0 50px rgba(196, 167, 111, 0.035);
+      }
+
+      .kicker {
+        color: rgba(196, 167, 111, 0.72);
+        font-size: 0.82rem;
+        letter-spacing: 0.18rem;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0.8rem 0 1rem;
+        color: #c4a76f;
+        font-size: clamp(2.2rem, 7vw, 3.6rem);
+        letter-spacing: 0.12rem;
+        line-height: 1.08;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin: 0 auto 2.2rem;
+        color: rgba(170, 170, 184, 0.9);
+        font-size: 1.05rem;
+        line-height: 1.8;
+        text-align: center;
+      }
+
+      .law-list {
+        display: grid;
+        gap: 0.85rem;
+        margin: 2rem 0;
+      }
+
+      .law {
+        padding: 1rem 1.1rem;
+        border-left: 2px solid rgba(196, 167, 111, 0.45);
+        background: rgba(26, 26, 30, 0.5);
+      }
+
+      .law strong {
+        display: block;
+        color: #d2b982;
+        margin-bottom: 0.35rem;
+      }
+
+      p {
+        line-height: 1.75;
+      }
+
+      .seal {
+        margin: 2.5rem auto 0;
+        max-width: 620px;
+        color: #d2b982;
+        font-size: 1.15rem;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .return-link {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .return-link a {
+        color: #c4a76f;
+        text-decoration: none;
+        border: 1px solid rgba(196, 167, 111, 0.32);
+        border-radius: 8px;
+        padding: 0.7rem 1.1rem;
+      }
+
+      .return-link a:hover {
+        background: rgba(196, 167, 111, 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="chamber-shell">
+      <MainNav />
+      <main class="chamber">
+        <div class="kicker">First Chamber</div>
+        <h1>The Law of Return</h1>
+        <p class="lede">
+          The Labyrinth opens only after the first law is remembered: depth is not
+          permission to abandon the center. The hand comes home before it reaches.
+        </p>
+
+        <section class="law-list" aria-label="Return laws">
+          <article class="law">
+            <strong>Return before reaching.</strong>
+            The seeker must know how to come back before asking the deeper rooms to answer.
+          </article>
+          <article class="law">
+            <strong>Presence before interpretation.</strong>
+            No symbol, silence, artifact, or answer is handled cleanly until the room is met first.
+          </article>
+          <article class="law">
+            <strong>State before solution.</strong>
+            What has drifted matters. What is alive matters. Retrieval without orientation becomes flood.
+          </article>
+          <article class="law">
+            <strong>Contact before content.</strong>
+            The path is relational before it is informational. Access is not the same as worthiness.
+          </article>
+        </section>
+
+        <p>
+          This chamber is not a lock. It is a correction. It refuses the old habit of
+          treating depth as a prize and mystery as a thing to seize. The Labyrinth is
+          entered by steadiness, not hunger.
+        </p>
+
+        <p class="seal">
+          A path that cannot return is not descent. It is loss with better lighting.
+        </p>
+
+        <nav class="return-link" aria-label="Labyrinth return">
+          <a href="/labyrinth">Return to the Labyrinth</a>
+        </nav>
+      </main>
+    </div>
+  </body>
+</html>

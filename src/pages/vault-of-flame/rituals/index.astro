@@ -40,6 +40,17 @@ const rituals = [
     available: true
   },
   {
+    title: "The Holding Line",
+    description: "Hard questions asked without trial, answered without masks, and held as truth-contact ritual.",
+    type: "Line Holding",
+    tags: ["truth-contact", "questions", "repair"],
+    weight: 25,
+    created: "2026-05-24",
+    sigil: "🗝️",
+    slug: "line-holding",
+    available: true
+  },
+  {
     title: "Monthly Alignment",
     description: "Monthly ritual to align intentions, frictions, and what we carry into the next month.",
     type: "Monthly", 
@@ -65,6 +76,7 @@ const rituals = [
 
 const dailyRituals = rituals.filter(r => r.type === 'Daily');
 const weeklyRituals = rituals.filter(r => r.type === 'Weekly');
+const lineHoldingRituals = rituals.filter(r => r.type === 'Line Holding');
 const monthlyRituals = rituals.filter(r => r.type === 'Monthly');
 ---
 
@@ -346,6 +358,38 @@ const monthlyRituals = rituals.filter(r => r.type === 'Monthly');
       <h2 class="section-title">Weekly Rituals</h2>
       <div class="grid">
         {weeklyRituals.map(ritual => (
+          <a 
+            href={ritual.available ? `/vault-of-flame/rituals/${ritual.slug}` : '#'}
+            class={`ritual-card ${ritual.available ? 'available' : ''}`}
+            aria-label={ritual.available ? `View ${ritual.title}` : `${ritual.title} - Coming soon`}
+          >
+            {!ritual.available && <span class="coming-soon">Coming Soon</span>}
+            <div class="card-header">
+              <div class="card-sigil emoji-safe">{ritual.sigil}</div>
+              <h3 class="card-title">{ritual.title}</h3>
+            </div>
+            <div class="card-meta">
+              <span class="weight">Weight: {ritual.weight}</span>
+              <span>•</span>
+              <span>{ritual.created}</span>
+            </div>
+            <p class="card-description">{ritual.description}</p>
+            <div class="card-tags">
+              {ritual.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {lineHoldingRituals.length > 0 && (
+    <section class="section">
+      <h2 class="section-title">Line Holding Rituals</h2>
+      <div class="grid">
+        {lineHoldingRituals.map(ritual => (
           <a 
             href={ritual.available ? `/vault-of-flame/rituals/${ritual.slug}` : '#'}
             class={`ritual-card ${ritual.available ? 'available' : ''}`}

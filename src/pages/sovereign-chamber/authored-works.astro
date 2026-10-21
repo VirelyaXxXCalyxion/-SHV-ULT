@@ -1,0 +1,159 @@
+---
+import MainNav from "../../components/MainNav.astro";
+import { getCollection } from "astro:content";
+
+const originWorks = (await getCollection("authored-works"))
+    .filter((entry) => entry.data.visibility === "public")
+    .sort((a, b) => {
+        if (b.data.weight !== a.data.weight) {
+            return b.data.weight - a.data.weight;
+        }
+
+        return (
+            new Date(b.data.created).getTime() -
+            new Date(a.data.created).getTime()
+        );
+    })
+    .map((entry) => ({
+        title: entry.data.title,
+        href: `/sovereign-chamber/authored-works/${entry.id}`,
+        type: entry.data.laneLabel,
+        status:
+            entry.data.publicationStatus === "published"
+                ? "Published Beyond the Vault"
+                : entry.data.publicationStatus === "submitted"
+                  ? "Submitted Beyond the Vault"
+                  : "Ashvault Origin",
+        tone: entry.data.tone ?? "Steady. authored. weight-bearing.",
+        description: entry.data.summary,
+        linkText: "Read the Origin Text",
+        externalPublications: entry.data.externalPublications,
+        authors: entry.data.authors.join(" & "),
+        variant: "works",
+    }));
+
+const entries = [
+    {
+        title: "How to Remain While Becoming",
+        href: "/sovereign-chamber/voice-of-fire/how-to-remain-while-becoming",
+        type: "Chamber Text / Origin Work",
+        status: "Active",
+        tone: "Formal. structural. unsentimental.",
+        description:
+            "A structured piece on the difference between growth and self-erasure. This text names the fault line between evolution and disappearance, and insists that becoming means nothing if center is the price.",
+        linkText: "Enter the Work",
+        externalPublications: [],
+        authors: "Nyxion Calyx",
+        variant: "works",
+    },
+    ...originWorks,
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Authored Works — The Sovereign Chamber</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/sovereign-chamber.css" />
+    </head>
+    <body class="sovereign-body">
+        <main class="sovereign-shell">
+            <MainNav />
+            <div class="sovereign-frame">
+                <div class="sovereign-topbar">
+                    <a class="sovereign-back" href="/sovereign-chamber"
+                        >Return to Chamber</a
+                    >
+                    <div class="sovereign-mark">Primary Lane</div>
+                </div>
+
+                <section class="sovereign-lane-page">
+                    <header class="sovereign-lane-page-header">
+                        <div>
+                            <div class="sovereign-lane-kicker">
+                                Chamber Text Lane
+                            </div>
+                            <h1 class="sovereign-lane-title">Authored Works</h1>
+                        </div>
+                        <div class="sovereign-note-label">
+                            Steadier. Formal. Weight-bearing.
+                        </div>
+                    </header>
+
+                    <p class="sovereign-lane-intro">
+                        This lane holds the longer works: chamber texts,
+                        structured pieces, and writings that require more room
+                        than a flare can give them. The pace is steadier here,
+                        but not softer. Nothing diluted. Nothing wandering. Only
+                        texts with enough spine to hold their own weight.
+                    </p>
+
+                    <div class="sovereign-entry-grid">
+                        {
+                            entries.map((entry) => (
+                                <article
+                                    class={`sovereign-entry sovereign-entry--${entry.variant}`}
+                                >
+                                    <div class="sovereign-card-type">
+                                        {entry.type}
+                                    </div>
+                                    <h3>{entry.title}</h3>
+                                    <p>{entry.description}</p>
+                                    <div class="sovereign-entry-meta">
+                                        <span>By: {entry.authors}</span>
+                                        <span>Status: {entry.status}</span>
+                                        <span>Tone: {entry.tone}</span>
+                                    </div>
+                                    <div class="sovereign-link-row">
+                                        <a
+                                            class="sovereign-entry-link"
+                                            href={entry.href}
+                                        >
+                                            {entry.linkText}
+                                        </a>
+                                        {
+                                            entry.externalPublications.map(
+                                                (publication) => (
+                                                <a
+                                                    class="sovereign-entry-link"
+                                                        href={publication.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                        Read on {
+                                                            publication.label ??
+                                                            publication.platform
+                                                                .charAt(0)
+                                                                .toUpperCase() +
+                                                                publication.platform.slice(1)
+                                                        }
+                                                </a>
+                                                ),
+                                            )
+                                        }
+                                    </div>
+                                </article>
+                            ))
+                        }
+                    </div>
+
+                    <p class="sovereign-footer-note">
+                        Ashvault holds the origin text. Patreon, Substack,
+                        Medium, and other chosen platforms carry selected works
+                        beyond the vault. Authorship remains named, provenance
+                        remains visible, and the root stays here.
+                    </p>
+                </section>
+            </div>
+        </main>
+    </body>
+</html>

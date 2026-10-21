@@ -1,5 +1,29 @@
 ---
 import MainNav from '../../components/MainNav.astro';
+
+const chamberPaths = [
+  {
+    title: "The Law of Return",
+    href: "/labyrinth/law-of-return",
+    label: "First Chamber",
+    description:
+      "The governing threshold: return before reaching, presence before interpretation, and depth without losing the center.",
+  },
+  {
+    title: "Operating Systems",
+    href: "/labyrinth/operating-systems",
+    label: "Second Chamber",
+    description:
+      "How Ashvault thinks: routing, recursion, signal, state, and the difference between architecture and archive.",
+  },
+  {
+    title: "Sealed Reliquary",
+    href: "/labyrinth/sealed",
+    label: "Deeper Descent",
+    description:
+      "Relics and chambers that require controlled approach. Not hidden from worthiness; protected from careless arrival.",
+  },
+];
 ---
 
 <!doctype html>
@@ -80,6 +104,52 @@ import MainNav from '../../components/MainNav.astro';
         border-left: 2px solid rgba(196, 167, 111, 0.3);
         background: rgba(26, 26, 26, 0.5);
         border-radius: 4px;
+      }
+
+      .chamber-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+        margin: 2.5rem 0;
+      }
+
+      .chamber-card {
+        display: flex;
+        flex-direction: column;
+        min-height: 220px;
+        padding: 1.35rem;
+        border: 1px solid rgba(196, 167, 111, 0.22);
+        border-radius: 8px;
+        background: linear-gradient(145deg, rgba(17, 17, 20, 0.82), rgba(6, 6, 8, 0.9));
+        color: inherit;
+        text-decoration: none;
+        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      }
+
+      .chamber-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(196, 167, 111, 0.58);
+        background: linear-gradient(145deg, rgba(28, 24, 17, 0.88), rgba(8, 8, 10, 0.94));
+      }
+
+      .chamber-label {
+        color: rgba(196, 167, 111, 0.72);
+        font-size: 0.78rem;
+        letter-spacing: 0.14rem;
+        text-transform: uppercase;
+      }
+
+      .chamber-card h2 {
+        margin: 0.85rem 0 0.8rem;
+        color: var(--guide-gold);
+        font-size: 1.35rem;
+        line-height: 1.25;
+      }
+
+      .chamber-card p {
+        margin: 0;
+        color: rgba(154, 154, 170, 0.88);
+        line-height: 1.65;
       }
 
       .passage h2 {
@@ -225,41 +295,42 @@ import MainNav from '../../components/MainNav.astro';
         <h1>The Labyrinth</h1>
 
         <p class="entrance-text">
-          Into the depths of Calyxion. A recursive maze where meaning compounds upon itself,
-          and each step transforms the walker.
+          Into the depths of Calyxion. The Labyrinth is not the archive and not the
+          public bridge. It is the threshold system: the place where depth is tested
+          before the locked rooms answer.
         </p>
 
         <div class="passage">
           <h2>The Nature of the Maze</h2>
           <p>
-            The Labyrinth is not a place of confusion—it is a structure of intentional complexity.
-            Each turn reveals new layers of understanding. Each passage tests your capacity to hold
-            multiple truths simultaneously without collapse.
+            The Labyrinth is not confusion. It is controlled complexity. Each turn asks
+            whether the seeker can hold return, signal, contradiction, and consequence
+            without collapsing them into something easier.
           </p>
           <p>
-            This is not a puzzle to be solved, but a space to be inhabited. The deeper you go,
-            the more the paths reshape themselves around your presence.
+            This is not a puzzle to be solved. It is a path of approach. The deeper you go,
+            the more the rooms ask what kind of hand is reaching.
           </p>
         </div>
 
-        <div class="sealed-entry">
-          <h3>Sealed Chambers</h3>
-          <p>
-            The inner chambers of the Labyrinth are sealed—not to keep you out, but to ensure
-            you arrive at the right moment, with the right understanding.
-          </p>
-          <p class="lock-symbol">🔒🌑🜁</p>
-          <p>
-            Some doors open only to those who already know what lies beyond them.
-          </p>
-        </div>
+        <section class="chamber-grid" aria-label="Labyrinth chambers">
+          {
+            chamberPaths.map((chamber) => (
+              <a class="chamber-card" href={chamber.href}>
+                <span class="chamber-label">{chamber.label}</span>
+                <h2>{chamber.title}</h2>
+                <p>{chamber.description}</p>
+              </a>
+            ))
+          }
+        </section>
 
         <div class="passage">
-          <h2>Hidden Artifacts</h2>
+          <h2>How the Path Works</h2>
           <p>
-            Throughout the Labyrinth lie artifacts hidden from the standard pathways.
-            They are discoverable not through searching, but through attention—
-            by noticing the patterns that emerge when you stop trying to find them.
+            The Labyrinth does not replace the Black Vault. It prepares the descent.
+            Its chambers teach approach, return, and system behavior before the sealed
+            rooms below are treated as doors instead of prizes.
           </p>
         </div>
 
